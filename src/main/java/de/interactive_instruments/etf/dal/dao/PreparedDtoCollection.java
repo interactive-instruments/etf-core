@@ -18,7 +18,6 @@ package de.interactive_instruments.etf.dal.dao;
 
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.dal.dto.Reference;
 import de.interactive_instruments.etf.model.item.EID;
 
 import java.io.OutputStream;
@@ -30,7 +29,7 @@ import java.util.Map;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface PreparedDtoCollectionResult<T extends Dto> extends Streamable, Iterable<T>, Map<EID, T>, Releasable {
+public interface PreparedDtoCollection<T extends Dto> extends Streamable, Iterable<T>, Map<EID, T>, Releasable, Comparable<PreparedDtoCollection> {
 
 	default Collection<T> asCollection() {
 		return values();

@@ -27,14 +27,4 @@ public interface EID extends Comparable {
      * @return UUID representation
      */
     UUID toUuid();
-
-	/**
-	 * Returns the internal representation of the ID
-	 * which is used by the framework.
-	 *
-	 * Note: getInternalId() != getId()
-	 *
-	 * @return
-	 */
-	String getInternalId();
 }

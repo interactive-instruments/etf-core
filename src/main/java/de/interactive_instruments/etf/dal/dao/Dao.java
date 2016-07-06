@@ -20,7 +20,6 @@ import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Initializable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.dal.dto.DtoCollection;
 import de.interactive_instruments.etf.model.item.EID;
 import de.interactive_instruments.exceptions.StoreException;
 
@@ -39,27 +38,28 @@ public interface Dao<T extends Dto> extends PreparedItemResolver<T>, Configurabl
     String getId();
 
     /**
-     * The serving dto type
+     * The dto type this dao serves
      *
      * @return class of the dto type
      */
     Class<T> getDtoType();
 
-  /**
-   * Return all Dto which this Dao serves.
-   *
-   * @return collection of Daos
-   *
-   * @throws StoreException
-   */
-    PreparedDtoCollectionResult<T> getAll(int offset, int limit) throws StoreException;
+    /**
+     * Returns a collection of Dtos as PrepatedDtoCollection
+     *
+     * @param filter criteria
+     *
+     * @return a PrepatedDtoCollection
+     *
+     * @throws StoreException
+	 */
+    PreparedDtoCollection<T> getAll(final Filter filter) throws StoreException;
 
-  /**
-   * Check if Dto with ID exists
-   *
-   * @param id Dto ID
-   * @return
-   * @throws StoreException
-   */
-    boolean exists(EID id) throws StoreException;
+	/**
+     * Check if Dto with ID exists
+     *
+     * @param id Dto ID
+     * @return true if Dto with ID exists
+     */
+    boolean exists(EID id);
 }

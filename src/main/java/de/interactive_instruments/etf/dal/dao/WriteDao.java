@@ -18,11 +18,13 @@ package de.interactive_instruments.etf.dal.dao;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.item.EID;
+import de.interactive_instruments.etf.model.item.EidMap;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 import de.interactive_instruments.exceptions.StoreException;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data Access Object for creating, updating and deleting Data Transfer Objects
@@ -50,20 +52,30 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	/**
 	 * Update one Dto in data storage
 	 *
-	 * @param dto
+	 * Please note, if the Dto is of type RepositoryItemDto a reference to the updated
+	 * Dto will be set in database and the updated Dto with a NEW EID will be returned.
+	 *
+	 * @param dto old dto
+	 * @return the new dto, if the Dto is of type RepositoryItemDto its id will change!
+	 *
 	 * @throws StoreException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	void update(T dto) throws StoreException, ObjectWithIdNotFoundException;
+	T update(T dto) throws StoreException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Update multiple Dtos in data storage
 	 *
+	 * Please note, if the Dtos are of type RepositoryItemDto a reference to the updated
+	 * Dtos will be set in database and the updated Dto with a NEW EID will be returned.
+	 *
 	 * @param dtoCollection
+	 * @return collection of new dtos, if the Dto is of type RepositoryItemDto its id will change!
+	 *
 	 * @throws StoreException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	void updateAll(Collection<T> dtoCollection) throws StoreException, ObjectWithIdNotFoundException;
+	Collection<T> updateAll(Collection<T> dtoCollection) throws StoreException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Delete Dto by its ID

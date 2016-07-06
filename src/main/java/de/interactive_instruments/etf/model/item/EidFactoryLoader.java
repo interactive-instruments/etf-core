@@ -19,6 +19,7 @@ package de.interactive_instruments.etf.model.item;
 import de.interactive_instruments.SUtils;
 import de.interactive_instruments.exceptions.ExcUtils;
 
+import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.UUID;
 
@@ -56,6 +57,7 @@ public class EidFactoryLoader {
 			}
 
 			@Override public EID createUUID(final String uuid) {
+				Objects.requireNonNull(uuid, "Cannot generate EID from null String!");
 				try {
 					if(uuid.length()==36) {
 						return new DefaultEid(UUID.fromString(uuid).toString());

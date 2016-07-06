@@ -16,15 +16,24 @@
 
 package de.interactive_instruments.etf.dal.dao;
 
-import de.interactive_instruments.etf.dal.dto.Dto;
-
-import java.io.OutputStream;
-
 /**
- * Prepared statement for querying a Data Transfer Object or for directly streaming it in the desired output format
+ * Filter criteria for a DAO request
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface PreparedDtoResult<T extends Dto> extends Streamable {
-	T getDto();
+public interface Filter {
+
+	/**
+	 * Returns the number of Dtos which where skipped
+	 *
+	 * @return the number of Dtos which where skipped
+	 */
+	int getOffset();
+
+	/**
+	 * Returns the maximum number of Dtos that should be returned
+	 *
+	 * @return the maximum number of Dtos that should be returned
+	 */
+	int getLimit();
 }

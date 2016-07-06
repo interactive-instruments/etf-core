@@ -64,4 +64,9 @@ public interface DataStorage extends Configurable, Releasable {
 	 * @return class, dao mapping
 	 */
 	Map<Class, Dao> getDaoMappings();
+
+	/**
+	 * Clean unused items and optimize data storage
+	 */
+	void cleanAndOptimize();
 }
