@@ -15,39 +15,24 @@
  */
 package de.interactive_instruments.etf.dal.dto;
 
+import java.util.List;
+
+import de.interactive_instruments.etf.dal.dto.test.TestModelItemDto;
+import de.interactive_instruments.etf.model.EidMap;
+
 /**
- * Model item Data transfer object
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public abstract class ModelItemDto extends Dto {
-	protected ModelItemDto parent;
+public interface ModelItemTreeNode<T> {
 
-	public ModelItemDto() {
-	}
+	ModelItemDto getParent();
 
-	public ModelItemDto(final ModelItemDto other) {
-		this.parent = other.parent;
-	}
+	List<? extends T> getChildren();
 
-	public ModelItemDto getParent() {
-		return parent;
-	}
+	EidMap<? extends T> getChildrenAsMap();
 
-	public void setParent(final ModelItemDto value) {
-		this.parent = value;
-	}
+	void addChild(final T child);
 
-	String getParentTypeName() {
-		return parent != null ? parent.getTypeName() : null;
-	}
-
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("ModelItemDto{");
-		sb.append("id=").append(getId());
-		sb.append(", parent=").append(parent != null ? parent.getId() : null);
-		sb.append('}');
-		return sb.toString();
-	}
+	void setChildren(final List<? extends T> children);
 }

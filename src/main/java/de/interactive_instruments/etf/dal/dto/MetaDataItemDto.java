@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,19 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.dal.dto;
 
+import de.interactive_instruments.SUtils;
+import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
+import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateDto;
+import de.interactive_instruments.properties.Properties;
+
 /**
+ * Data transfer object which possesses meta data
+ *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
 public abstract class MetaDataItemDto extends ModelItemDto {
 
 	protected String label;
+	protected LangTranslationTemplateCollectionDto labelTranslationTemplate;
+
 	protected String description;
+	protected LangTranslationTemplateCollectionDto descriptionTranslationTemplate;
+
+	protected Properties properties;
+
 	protected String reference;
 
-	public MetaDataItemDto() {
+	public MetaDataItemDto() {}
+
+	public MetaDataItemDto(final MetaDataItemDto other) {
+		super(other);
+		this.label = other.label;
+		this.labelTranslationTemplate = other.labelTranslationTemplate;
+		this.description = other.description;
+		this.descriptionTranslationTemplate = other.descriptionTranslationTemplate;
+		this.properties = other.properties;
+		this.reference = other.reference;
 	}
 
 	/**
@@ -100,14 +121,40 @@ public abstract class MetaDataItemDto extends ModelItemDto {
 		this.reference = value;
 	}
 
-	@Override public String toString() {
+	public Properties properties() {
+		if (properties != null) {
+			properties = new Properties();
+		}
+		return properties;
+	}
+
+	@Override
+	public String toString() {
 		final StringBuffer sb = new StringBuffer("MetaDataItem{");
 		sb.append("id=").append(getId());
-		sb.append(", parent=").append(parent!=null ? parent.getId() : null);
+		sb.append(", parent=").append(parent != null ? parent.getId() : null);
 		sb.append(", label=").append(label);
 		sb.append(", description=").append(description);
 		sb.append(", reference=").append(reference);
 		sb.append('}');
 		return sb.toString();
+	}
+
+	@Override
+	public String getDescriptiveLabel() {
+		if (!SUtils.isNullOrEmpty(label)) {
+			final StringBuilder labelBuilder = new StringBuilder(128);
+			labelBuilder.append("'").append(label).append(" (EID: ").append(id).append(" )'");
+			return labelBuilder.toString();
+		} else {
+			return super.getDescriptiveLabel();
+		}
+	}
+
+	public void ensureValid() {
+		super.ensureValid();
+		if (SUtils.isNullOrEmpty(label) && labelTranslationTemplate == null) {
+			throw new IllegalStateException("Either property 'label' or 'labelTranslationTemplate' must be set!");
+		}
 	}
 }
