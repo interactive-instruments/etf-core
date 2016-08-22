@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,27 +13,63 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.dal.dao;
 
+import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.properties.Properties;
+
+import java.util.Collection;
+
 /**
- * Filter criteria for a DAO request
+ * Filter criteria for a Dao request
+ *
+ * Todo: filter by tags for Executable Test Suite Controller + filter by Date for removeExpiredItemsHolder()
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
 public interface Filter {
 
 	/**
-	 * Returns the number of Dtos which where skipped
+	 * The number of Dtos to skip
 	 *
 	 * @return the number of Dtos which where skipped
 	 */
-	int getOffset();
+	int offset();
 
 	/**
-	 * Returns the maximum number of Dtos that should be returned
+	 * The maximum number of Dtos that should be returned
+	 *
+	 * Default: 100
 	 *
 	 * @return the maximum number of Dtos that should be returned
 	 */
-	int getLimit();
+	default int limit() {
+		return 100;
+	}
+
+	enum LevelOfDetail {
+		/**
+		 * Don't include references in result
+		 */
+		SIMPLE, /**
+				 * Include historical references to older items
+				 */
+		HISTORY,
+
+		/**
+		 * Include references -without historical references to older items
+		 */
+		DETAILED_WITHOUT_HISTORY
+	}
+
+	/**
+	 * Controls which references are included in a data storage result
+	 *
+	 * @return Level of Detail
+	 */
+	default LevelOfDetail levelOfDetail() {
+		return LevelOfDetail.SIMPLE;
+	}
+
+
 }

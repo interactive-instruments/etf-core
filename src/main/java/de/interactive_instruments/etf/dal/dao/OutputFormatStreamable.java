@@ -15,20 +15,24 @@
  */
 package de.interactive_instruments.etf.dal.dao;
 
-import java.util.Collection;
+import java.io.IOException;
+import java.io.OutputStream;
 
-import de.interactive_instruments.Releasable;
-import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.OutputFormat;
+import de.interactive_instruments.properties.PropertyHolder;
 
 /**
- * Prepared statement for querying a collection of Data Transfer Object or for directly streaming it in the desired output format
+ * Interface for streaming data in a specific {@link OutputFormat}
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface PreparedDtoCollection<T extends Dto> extends OutputFormatStreamable, Iterable<T>, EidMap<T>, Releasable, Comparable<PreparedDtoCollection> {
+public interface OutputFormatStreamable {
 
-	default Collection<T> asCollection() {
-		return values();
-	}
+	/**
+	 * Write data to a stream in a specific {@link OutputFormat}
+	 *
+	 * @param outputFormat
+	 * @param outputStream
+	 */
+	void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream) throws IOException;
 }

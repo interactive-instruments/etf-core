@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,42 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.dal.dao;
 
+import java.util.Collection;
+import java.util.Set;
+
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.model.item.EID;
+import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 import de.interactive_instruments.exceptions.StoreException;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 /**
- * PreparedItemResolver
+ * DtoResolver
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface PreparedItemResolver<T extends Dto> {
-
+public interface DtoResolver<T extends Dto> {
 	/**
-	 * Return a PreparedDtoResult to query a DTO
+	 * Return a Dto
 	 *
 	 * @param id Dto ID
 	 * @return
 	 * @throws StoreException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	PreparedDtoResult<T> getById(EID id) throws StoreException, ObjectWithIdNotFoundException;
+	T getById(final EID id) throws StoreException, ObjectWithIdNotFoundException;
 
 	/**
-	 * Return a PreparedDtoCollectionResult to query a collection of DTOs
+	 * Return a collection of DTOs
 	 *
 	 * @param id Dto ID
 	 * @return
 	 * @throws StoreException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	PreparedDtoCollectionResult<T> getByIds(Set<EID> id) throws StoreException, ObjectWithIdNotFoundException;
+	Collection<T> getByIds(final Set<EID> id) throws StoreException, ObjectWithIdNotFoundException;
 }
