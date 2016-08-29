@@ -22,7 +22,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidMap;
 import de.interactive_instruments.etf.model.OutputFormat;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * Data Access Object which returns Data Transfer Objects
@@ -52,9 +52,9 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	 *
 	 * @return a PrepatedDtoCollection
 	 *
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	PreparedDtoCollection<T> getAll(final Filter filter) throws StoreException;
+	PreparedDtoCollection<T> getAll(final Filter filter) throws StorageException;
 
 	/**
 	 * Check if Dto with ID exists

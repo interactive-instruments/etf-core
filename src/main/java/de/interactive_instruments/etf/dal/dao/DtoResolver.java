@@ -21,7 +21,7 @@ import java.util.Set;
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * DtoResolver
@@ -34,18 +34,18 @@ public interface DtoResolver<T extends Dto> {
 	 *
 	 * @param id Dto ID
 	 * @return
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	T getById(final EID id) throws StoreException, ObjectWithIdNotFoundException;
+	T getById(final EID id) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Return a collection of DTOs
 	 *
 	 * @param id Dto ID
 	 * @return
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	Collection<T> getByIds(final Set<EID> id) throws StoreException, ObjectWithIdNotFoundException;
+	Collection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException;
 }

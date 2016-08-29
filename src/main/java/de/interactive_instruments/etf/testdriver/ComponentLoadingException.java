@@ -22,11 +22,15 @@ import java.nio.file.Path;
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
 public class ComponentLoadingException extends Exception {
-    ComponentLoadingException(Path jar, String msg) {
+    ComponentLoadingException(final Path jar, final String msg) {
         super("Loading of component JAR \""+jar.getFileName()+"\" failed: "+msg);
     }
 
-    public ComponentLoadingException(String msg) {
+    public ComponentLoadingException(final String msg) {
         super(msg);
+    }
+
+    ComponentLoadingException(final Path jar, final Throwable e) {
+        super("Loading of component JAR \""+jar.getFileName()+"\" failed: ",e);
     }
 }

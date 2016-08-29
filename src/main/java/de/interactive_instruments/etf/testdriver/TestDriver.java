@@ -21,7 +21,6 @@ import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-import de.interactive_instruments.exceptions.config.ConfigurationException;
 
 import java.util.Collection;
 
@@ -66,5 +65,5 @@ public interface TestDriver extends Configurable, Releasable {
 	 * @param testTaskDto Test Task Dto
 	 * @return
 	 */
-	TestTask createTestTask(final TestTaskDto testTaskDto) throws ConfigurationException;
+	TestTask createTestTask(final TestTaskDto testTaskDto) throws TestTaskInitializationException;
 }

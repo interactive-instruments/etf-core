@@ -25,6 +25,7 @@ import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 import de.interactive_instruments.etf.model.EidFactory;
 
+import java.net.URI;
 import java.util.Date;
 
 /**
@@ -61,6 +62,8 @@ class CoreTestUtils {
 		if (dto instanceof RepositoryItemDto) {
 			final RepositoryItemDto rDto = ((RepositoryItemDto) dto);
 			rDto.setAuthor(name + ".author");
+			rDto.setRemoteResource(URI.create("http://notset"));
+			rDto.setLocalPath("/");
 			rDto.setCreationDate(new Date(0));
 			rDto.setVersionFromStr("1.0.0");
 			rDto.setItemHash(name.getBytes());

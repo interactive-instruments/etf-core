@@ -19,15 +19,10 @@ package de.interactive_instruments.etf.testdriver;
 import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.component.ComponentInfo;
-import de.interactive_instruments.etf.component.ComponentNotLoadedException;
-import de.interactive_instruments.etf.dal.dao.DataStorage;
 import de.interactive_instruments.etf.dal.dto.run.TestRunDto;
 import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.exceptions.InitializationException;
-import de.interactive_instruments.exceptions.InvalidStateTransitionException;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 import de.interactive_instruments.exceptions.config.ConfigurationException;
-import de.interactive_instruments.properties.ConfigPropertyHolder;
 
 import java.util.List;
 
@@ -36,7 +31,7 @@ import java.util.List;
  */
 public interface TestDriverManager extends Configurable, Releasable {
 
-	TestRun createTestRun(final TestRunDto dto) throws ComponentLoadingException, InitializationException, ComponentNotLoadedException, ConfigurationException, ObjectWithIdNotFoundException;
+	TestRun createTestRun(final TestRunDto dto) throws TestRunInitializationException;
 
 	List<ComponentInfo> getTestDriverInfo();
 
@@ -44,5 +39,7 @@ public interface TestDriverManager extends Configurable, Releasable {
 
 	void reload(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
 
-	void initSyncWithDataStorage(final DataStorage dataStorage);
+	static TestDriverManager getDefault() {
+		return TestDriverManagerLoader.instance();
+	}
 }

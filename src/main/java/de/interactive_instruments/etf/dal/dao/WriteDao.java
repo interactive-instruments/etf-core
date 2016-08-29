@@ -21,8 +21,9 @@ import javax.xml.bind.Marshaller;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.exceptions.ExcUtils;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * Data Access Object for creating, updating and deleting Data Transfer Objects
@@ -35,17 +36,17 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * Add Dto to data storage
 	 *
 	 * @param dto
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	void add(T dto) throws StoreException;
+	void add(final T dto) throws StorageException;
 
 	/**
 	 * Add Dtos to data storage
 	 *
 	 * @param dtoCollection
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	void addAll(Collection<T> dtoCollection) throws StoreException;
+	void addAll(final Collection<T> dtoCollection) throws StorageException;
 
 	/**
 	 * Update one Dto in data storage
@@ -56,10 +57,16 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * @param dto old dto
 	 * @return the new dto, if the Dto is of type RepositoryItemDto its id will change!
 	 *
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	T update(T dto) throws StoreException, ObjectWithIdNotFoundException;
+	T update(final T dto) throws StorageException, ObjectWithIdNotFoundException;
+
+	default T replace(final T dto) throws StorageException, ObjectWithIdNotFoundException {
+		delete(dto.getId());
+		add(dto);
+		return dto;
+	}
 
 	/**
 	 * Update multiple Dtos in data storage
@@ -70,40 +77,57 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * @param dtoCollection
 	 * @return collection of new dtos, if the Dto is of type RepositoryItemDto its id will change!
 	 *
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	Collection<T> updateAll(Collection<T> dtoCollection) throws StoreException, ObjectWithIdNotFoundException;
+	Collection<T> updateAll(final Collection<T> dtoCollection) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Delete Dto by its ID
 	 *
 	 * @param id Dto ID
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	void delete(EID id) throws StoreException, ObjectWithIdNotFoundException;
+	void delete(final EID id) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Delete Dtos by their IDs
 	 *
 	 * @param ids ID collection
-	 * @throws StoreException
+	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	void deleteAll(Collection<EID> ids) throws StoreException, ObjectWithIdNotFoundException;
+	void deleteAll(final Collection<EID> ids) throws StorageException, ObjectWithIdNotFoundException;
+
+	/**
+	 * Delete existing Dtos by their IDs
+	 *
+	 * @param ids ID collection
+	 * @throws StorageException
+	 * @throws ObjectWithIdNotFoundException
+	 */
+	default void deleteAllExisting(final Collection<EID> ids) throws StorageException {
+		for (final EID id : ids) {
+			try {
+				delete(id);
+			} catch (ObjectWithIdNotFoundException e) {
+				ExcUtils.suppress(e);
+			}
+		}
+	}
 
 	/**
 	 * Registers a {@link WriteDaoListener} to externally listen for write events of this WriteDao
 	 *
 	 * @param listener {@link WriteDaoListener}
 	 */
-	void registerListener(WriteDaoListener listener);
+	void registerListener(final WriteDaoListener listener);
 
 	/**
 	 * Deregister a {@link WriteDaoListener} from this WriteDao
 	 *
 	 * @param listener {@link WriteDaoListener}
 	 */
-	void deregisterListener(WriteDaoListener listener);
+	void deregisterListener(final WriteDaoListener listener);
 }

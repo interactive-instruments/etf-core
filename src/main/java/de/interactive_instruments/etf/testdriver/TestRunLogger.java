@@ -23,7 +23,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
- *
+ * Logger used by TestDrivers
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
@@ -40,10 +40,16 @@ public interface TestRunLogger extends Logger {
 	/**
 	 * Return messages
 	 *
-	 * @param firstMessagePos
+	 * @param knownPosition
 	 * @return
 	 */
-	List<String> getLogMessages(final int firstMessagePos);
+	List<String> getLogMessages(final long knownPosition);
 
-	void streamLogMessagesTo(final int firstMessagePos, final OutputStream outputStream);
+	/**
+	 * Stream messages to an OutputStream
+	 *
+	 * @param knownPosition
+	 * @param outputStream
+	 */
+	void streamLogMessagesTo(final long knownPosition, final OutputStream outputStream);
 }

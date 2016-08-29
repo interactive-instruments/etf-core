@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.model.item;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.etf.model.EidFactory;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
@@ -40,7 +42,6 @@ public class EidFactoryTest {
 		assertTrue(id1.equals(id1));
 		assertTrue(id1.equals(id1.getId()));
 
-
 		assertFalse(id1AsUuidStr.equals(id1));
 		assertFalse(id1AsUuidStr.equals(id1.getId()));
 		assertTrue(id1AsUuidStr.equals(id1.toUuid().toString()));
@@ -54,7 +55,6 @@ public class EidFactoryTest {
 		final EID id2 = EidFactory.getDefault().createAndPreserveStr(uuidAsStr2);
 		assertEquals(uuidAsStr2, id2.getId());
 		assertEquals(uuidAsStr2, id2.toUuid().toString());
-
 
 	}
 }

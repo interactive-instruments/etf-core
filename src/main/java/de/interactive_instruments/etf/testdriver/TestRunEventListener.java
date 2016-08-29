@@ -17,6 +17,8 @@
 package de.interactive_instruments.etf.testdriver;
 
 /**
+ * Test Run event listener
+ *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
 public interface TestRunEventListener {

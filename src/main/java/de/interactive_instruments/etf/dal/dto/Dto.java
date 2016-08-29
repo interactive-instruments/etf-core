@@ -16,7 +16,6 @@
 package de.interactive_instruments.etf.dal.dto;
 
 import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.exceptions.config.MissingPropertyException;
 
 /**
  * Abstract Data Transfer Object for the ETF model which is used as a simple container
@@ -57,9 +56,9 @@ public abstract class Dto implements Comparable {
 		}
 	}
 
-	public void ensureValid() throws IllegalStateException {
+	public void ensureBasicValidity() throws IncompleteDtoException {
 		if (id == null) {
-			throw new IllegalStateException("Required property 'id' not set!");
+			throw new IncompleteDtoException("Required property 'id' not set!");
 		}
 	}
 

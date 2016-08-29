@@ -17,7 +17,6 @@ package de.interactive_instruments.etf.dal.dto;
 
 import de.interactive_instruments.SUtils;
 import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
-import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateDto;
 import de.interactive_instruments.properties.Properties;
 
 /**
@@ -33,7 +32,7 @@ public abstract class MetaDataItemDto extends ModelItemDto {
 	protected String description;
 	protected LangTranslationTemplateCollectionDto descriptionTranslationTemplate;
 
-	protected Properties properties;
+	// protected Properties properties;
 
 	protected String reference;
 
@@ -45,7 +44,7 @@ public abstract class MetaDataItemDto extends ModelItemDto {
 		this.labelTranslationTemplate = other.labelTranslationTemplate;
 		this.description = other.description;
 		this.descriptionTranslationTemplate = other.descriptionTranslationTemplate;
-		this.properties = other.properties;
+		// this.properties = other.properties;
 		this.reference = other.reference;
 	}
 
@@ -121,12 +120,14 @@ public abstract class MetaDataItemDto extends ModelItemDto {
 		this.reference = value;
 	}
 
+	/*
 	public Properties properties() {
-		if (properties != null) {
+		if (properties == null) {
 			properties = new Properties();
 		}
 		return properties;
 	}
+	*/
 
 	@Override
 	public String toString() {
@@ -151,10 +152,10 @@ public abstract class MetaDataItemDto extends ModelItemDto {
 		}
 	}
 
-	public void ensureValid() {
-		super.ensureValid();
+	public void ensureBasicValidity() throws IncompleteDtoException {
+		super.ensureBasicValidity();
 		if (SUtils.isNullOrEmpty(label) && labelTranslationTemplate == null) {
-			throw new IllegalStateException("Either property 'label' or 'labelTranslationTemplate' must be set!");
+			throw new IncompleteDtoException("Either property 'label' or 'labelTranslationTemplate' must be set!");
 		}
 	}
 }

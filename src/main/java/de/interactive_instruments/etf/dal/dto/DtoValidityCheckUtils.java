@@ -15,10 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dto;
 
-import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
-
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,45 +27,45 @@ public class DtoValidityCheckUtils {
 
 	}
 
-	public static void ensureNotNullOrEmpty(final String name, final Collection c) {
+	public static void ensureNotNullOrEmpty(final String name, final Collection c) throws IncompleteDtoException {
 		if (c == null) {
-			throw new IllegalStateException("Required property '" + name + "' (" + c.getClass().getName() + ") must be set!");
+			throw new IncompleteDtoException("Required property '" + name + "' must be set!");
 		}
 		if (c.isEmpty()) {
-			throw new IllegalStateException("Required property '" + name + "' (" + c.getClass().getName() + ") is empty!");
+			throw new IncompleteDtoException("Required property '" + name + "' is empty!");
 		}
 	}
 
-	public static void ensureNotNullOrEmpty(final String name, final Map m) {
+	public static void ensureNotNullOrEmpty(final String name, final Map m) throws IncompleteDtoException {
 		if (m == null) {
-			throw new IllegalStateException("Required property '" + name + "' (" + m.getClass().getName() + ") must be set!");
+			throw new IncompleteDtoException("Required property '" + name + "' must be set!");
 		}
 		if (m.isEmpty()) {
-			throw new IllegalStateException("Required property '" + name + "' (" + m.getClass().getName() + ") is empty!");
+			throw new IncompleteDtoException("Required property '" + name + "' is empty!");
 		}
 	}
 
-	public static void ensureNotNullOrEmpty(final String name, final String str) {
+	public static void ensureNotNullOrEmpty(final String name, final String str) throws IncompleteDtoException {
 		if (str == null) {
-			throw new IllegalStateException("Required property '" + str + "' must be set!");
+			throw new IncompleteDtoException("Required property '" + str + "' must be set!");
 		}
 		if (str.trim().isEmpty()) {
-			throw new IllegalStateException("Required property '" + str + "' is empty!");
+			throw new IncompleteDtoException("Required property '" + str + "' is empty!");
 		}
 	}
 
-	public static void ensureNotNullAndHasId(final String name, Dto dto) {
+	public static void ensureNotNullAndHasId(final String name, Dto dto) throws IncompleteDtoException {
 		if (dto == null) {
-			throw new IllegalStateException("Required property '" + name + "' (" + dto.getClass().getName() + ") must be set!");
+			throw new IncompleteDtoException("Required property '" + name + "' must be set!");
 		}
 		if (dto.getId() == null) {
-			throw new IllegalStateException("Required property '" + name + "' (" + dto.getClass().getName() + ") is set but does not possess an ID!");
+			throw new IncompleteDtoException("Required property '" + name + "' is set but does not possess an ID!");
 		}
 	}
 
-	public static void ensureNotNull(final String name, Object obj) {
+	public static void ensureNotNull(final String name, Object obj) throws IncompleteDtoException {
 		if (obj == null) {
-			throw new IllegalStateException("Required property '" + name + "' must be set!");
+			throw new IncompleteDtoException("Required property '" + name + "' must be set!");
 		}
 	}
 }

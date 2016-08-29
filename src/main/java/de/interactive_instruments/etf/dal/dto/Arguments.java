@@ -27,7 +27,7 @@ import de.interactive_instruments.properties.PropertyHolder;
 public class Arguments {
 
 	private String applicableParamTypeName;
-	private Map<String, Argument> values;
+	private Map<String, Argument> values = new HashMap<>();
 
 	public Arguments(final PropertyHolder holder) {
 		holder.forEach( p -> values.put(p.getKey(), new Argument(p.getKey(), p.getValue())));
@@ -76,9 +76,10 @@ public class Arguments {
 
 		public String value(final String name) {
 			if (applicable) {
-				final String argumentValue = values.get(name).getValue();
-				if (argumentValue == null) {
-					return parameterizable.getParameter(name).getDefaultValue();
+				final Argument argumentValue = values.get(name);
+				if ((argumentValue == null || argumentValue.getValue() == null) &&
+						parameterizable.getParameter(name) != null) {
+					parameterizable.getParameter(name).getDefaultValue();
 				}
 			}
 			return values.get(name).getValue();
@@ -110,13 +111,18 @@ public class Arguments {
 		}
 	}
 
+	public void setValue(final String name, final String value) {
+		this.values.put(name, new Argument(name, value));
+	}
+
 	public ArgumentParameterSet argumentParameterSet(Parameterizable parameterizable) {
 		return new ArgumentParameterSet(parameterizable);
 	}
 
 	// TODO tmp
 	public String value(final String name) {
-		return values.get(name).getValue();
+		final Argument val = values.get(name);
+		return val!=null ? val.getValue() : null;
 	}
 
 	// TODO tmp

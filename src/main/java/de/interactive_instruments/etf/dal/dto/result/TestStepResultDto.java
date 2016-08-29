@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,23 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.dal.dto.result;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public final class TestStepResultDto extends ResultModelItemDtoDto implements AttachmentHolder {
+public final class TestStepResultDto extends ResultModelItemDto implements AttachmentDtoHolder {
 
-	private List<TestAssertionResultDto> testAssertionResultDto;
+	private List<AttachmentDto> attachments;
 
-	public List<TestAssertionResultDto> getTestAssertionResultDto() {
-		return testAssertionResultDto;
+	public List<TestAssertionResultDto> getTestAssertionResults() {
+		return (List<TestAssertionResultDto>) getChildren();
 	}
 
-	public void setTestAssertionResultDto(final List<TestAssertionResultDto> testAssertionResultDto) {
-		this.testAssertionResultDto = testAssertionResultDto;
+	public void setTestAssertionResults(final List<TestAssertionResultDto> testAssertionResults) {
+		setChildren(testAssertionResults);
+	}
+
+	public void addTestAssertionResult(final TestAssertionResultDto testAssertionResult) {
+		addChild(testAssertionResult);
+	}
+
+	public List<AttachmentDto> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(final List<AttachmentDto> attachments) {
+		this.attachments = attachments;
+	}
+
+	public void addAttachment(final AttachmentDto attachment) {
+		if (this.attachments == null) {
+			attachments = new ArrayList<>();
+		}
+		attachments.add(attachment);
 	}
 }

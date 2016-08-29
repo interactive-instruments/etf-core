@@ -20,7 +20,7 @@ import java.util.Set;
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * PreparedDtoResolver
@@ -35,10 +35,10 @@ public interface PreparedDtoResolver<T extends Dto> {
 	 * @param id Dto ID
 	 *
 	 * @return prepared Dto
-	 * @throws StoreException internal Store exception
+	 * @throws StorageException internal Store exception
 	 * @throws ObjectWithIdNotFoundException Invalid ID provided
 	 */
-	default PreparedDto<T> getById(final EID id) throws StoreException, ObjectWithIdNotFoundException {
+	default PreparedDto<T> getById(final EID id) throws StorageException, ObjectWithIdNotFoundException {
 		return getById(id, null);
 	}
 
@@ -49,10 +49,10 @@ public interface PreparedDtoResolver<T extends Dto> {
 	 * @param filter Filter
 	 *
 	 * @return prepared Dto
-	 * @throws StoreException internal Store exception
+	 * @throws StorageException internal Store exception
 	 * @throws ObjectWithIdNotFoundException Invalid ID provided
 	 */
-	PreparedDto<T> getById(final EID id, final Filter filter) throws StoreException, ObjectWithIdNotFoundException;
+	PreparedDto<T> getById(final EID id, final Filter filter) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Return a PreparedDtoCollection to query a collection of DTOs
@@ -60,10 +60,10 @@ public interface PreparedDtoResolver<T extends Dto> {
 	 * @param id Dto ID
 	 *
 	 * @return prepared Dto collection
-	 * @throws StoreException internal Store exception
+	 * @throws StorageException internal Store exception
 	 * @throws ObjectWithIdNotFoundException Invalid ID provided
 	 */
-	default PreparedDtoCollection<T> getByIds(final Set<EID> id) throws StoreException, ObjectWithIdNotFoundException {
+	default PreparedDtoCollection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException {
 		return getByIds(id, null);
 	}
 
@@ -74,8 +74,8 @@ public interface PreparedDtoResolver<T extends Dto> {
 	 * @param filter Filter
 	 *
 	 * @return prepared Dto collection
-	 * @throws StoreException internal Store exception
+	 * @throws StorageException internal Store exception
 	 * @throws ObjectWithIdNotFoundException Invalid ID provided
 	 */
-	PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter) throws StoreException, ObjectWithIdNotFoundException;
+	PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter) throws StorageException, ObjectWithIdNotFoundException;
 }

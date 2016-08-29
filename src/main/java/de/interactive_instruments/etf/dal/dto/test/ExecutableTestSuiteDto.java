@@ -1,12 +1,11 @@
-
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,28 +13,145 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.dal.dto.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
+import de.interactive_instruments.etf.dal.dto.IncompleteDtoException;
+import de.interactive_instruments.etf.dal.dto.ModelItemTreeNode;
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.ComponentDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
-import de.interactive_instruments.etf.model.item.*;
+import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
+import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
+import de.interactive_instruments.etf.model.DefaultEidMap;
+import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.DependencyHolder;
+import de.interactive_instruments.etf.model.ParameterSet;
 
-import java.util.List;
-
-public class ExecutableTestSuiteDto extends RepositoryItemDto implements ParameterObjHolder {
+public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelItemTreeNode<TestModelItemDto>, DependencyHolder<ExecutableTestSuiteDto> {
 
 	private ComponentDto testDriver;
-	private TranslationTemplateDto translationTemplate;
+	private TranslationTemplateBundleDto translationTemplateBundle;
 	private List<TestObjectTypeDto> supportedTestObjectTypes;
-	private List<DependencyDto> dependencies;
+	// private List<ExecutableTestSuiteDependencyDto> dependencies;
+	private List<ExecutableTestSuiteDto> dependencies;
 	private List<TestObjectTypeDto> consumableResultTestObjectTypes;
 	private List<TestCaseDto> parameterizedTestCases;
-	private List<TestModuleDto> testModules;
-	private Parameters parameters;
+	private DefaultEidMap<TestModelItemDto> testModules;
+	private ParameterSet parameters;
 
-	@Override public ParameterHolder getParameters() {
+	public ComponentDto getTestDriver() {
+		return testDriver;
+	}
+
+	public void setTestDriver(final ComponentDto testDriver) {
+		this.testDriver = testDriver;
+	}
+
+	public TranslationTemplateBundleDto getTranslationTemplateBundle() {
+		return translationTemplateBundle;
+	}
+
+	public void setTranslationTemplateBundle(final TranslationTemplateBundleDto translationTemplateBundle) {
+		this.translationTemplateBundle = translationTemplateBundle;
+	}
+
+	public List<TestObjectTypeDto> getSupportedTestObjectTypes() {
+		return supportedTestObjectTypes;
+	}
+
+	public void setSupportedTestObjectTypes(final List<TestObjectTypeDto> supportedTestObjectTypes) {
+		this.supportedTestObjectTypes = supportedTestObjectTypes;
+	}
+
+	public void setDependencies(final List<ExecutableTestSuiteDto> dependencies) {
+		this.dependencies = dependencies;
+	}
+
+	public void addDependency(final ExecutableTestSuiteDto dependency) {
+		if(this.dependencies==null) {
+			this.dependencies = new ArrayList<>();
+		}
+		dependencies.add(dependency);
+	}
+
+	public Collection<ExecutableTestSuiteDto> getDependencies() {
+		return dependencies;
+	}
+
+	public List<TestObjectTypeDto> getConsumableResultTestObjectTypes() {
+		return consumableResultTestObjectTypes;
+	}
+
+	public void setConsumableResultTestObjectTypes(final List<TestObjectTypeDto> consumableResultTestObjectTypes) {
+		this.consumableResultTestObjectTypes = consumableResultTestObjectTypes;
+	}
+
+	public List<TestCaseDto> getParameterizedTestCases() {
+		return parameterizedTestCases;
+	}
+
+	public void setParameterizedTestCases(final List<TestCaseDto> parameterizedTestCases) {
+		this.parameterizedTestCases = parameterizedTestCases;
+	}
+
+	public ParameterSet getParameters() {
 		return parameters;
+	}
+
+	public void setParameters(final ParameterSet parameterSet) {
+		this.parameters = parameterSet;
+	}
+
+	public List<TestModuleDto> getTestModules() {
+		return (List<TestModuleDto>) getChildren();
+	}
+
+	public void setTestModules(final List<TestModuleDto> testModules) {
+		setChildren(testModules);
+	}
+
+	public void addTestModule(final TestModuleDto testModule) {
+		addChild(testModule);
+	}
+
+	@Override
+	public List<? extends TestModelItemDto> getChildren() {
+		return testModules.values().stream().collect(Collectors.toList());
+	}
+
+	@Override
+	public EidMap<? extends TestModelItemDto> getChildrenAsMap() {
+		return testModules;
+	}
+
+	@Override
+	public void addChild(final TestModelItemDto child) {
+		if (this.testModules == null) {
+			this.testModules = new DefaultEidMap<>();
+		}
+		Objects.requireNonNull(child);
+		Objects.requireNonNull(child.getId(), "Cannot add item whose ID is null");
+		this.testModules.put(child.getId(), child);
+	}
+
+	@Override
+	public void setChildren(final List<? extends TestModelItemDto> children) {
+		if (this.testModules == null) {
+			this.testModules = new DefaultEidMap<>();
+		}
+		children.forEach(c -> addChild(c));
+	}
+
+	public void ensureBasicValidity() throws IncompleteDtoException {
+		super.ensureBasicValidity();
+		DtoValidityCheckUtils.ensureNotNullOrEmpty("supportedTestObjectTypes", supportedTestObjectTypes);
+		DtoValidityCheckUtils.ensureNotNullAndHasId("testDriver", testDriver);
 	}
 }

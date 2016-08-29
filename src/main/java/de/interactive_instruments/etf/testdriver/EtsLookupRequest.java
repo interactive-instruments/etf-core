@@ -22,8 +22,10 @@ import de.interactive_instruments.etf.model.EID;
 import java.util.Set;
 
 /**
- * Realizes the chain of responsibility pattern. Responsible TestDrivers
- * add known Executable Test Suites and their dependencies.
+ * Responsible TestDrivers add known Executable Test Suites
+ * and their dependencies.
+ *
+ * Realizes the chain of responsibility pattern.
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */

@@ -23,7 +23,7 @@ import de.interactive_instruments.Configurable;
 import de.interactive_instruments.IFile;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * DataStorage managed by the DataStorageManager
@@ -35,17 +35,17 @@ public interface DataStorage extends Configurable, Releasable {
 	/**
 	 * Reset the data storage
 	 *
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	void reset() throws StoreException;
+	void reset() throws StorageException;
 
 	/**
 	 * Create a data storage backup and returns the backup name
 	 *
 	 * @return the backup name
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	String createBackup() throws StoreException;
+	String createBackup() throws StorageException;
 
 	/**
 	 * List all available backup names
@@ -58,9 +58,9 @@ public interface DataStorage extends Configurable, Releasable {
 	 * Restore a data storage backup by its backup name
 	 *
 	 * @param backupName name of the backup
-	 * @throws StoreException
+	 * @throws StorageException
 	 */
-	void restoreBackup(String backupName) throws StoreException;
+	void restoreBackup(String backupName) throws StorageException;
 
 	/**
 	 * Returns the Data Access Object mappings for each Dto
@@ -82,11 +82,11 @@ public interface DataStorage extends Configurable, Releasable {
 	/**
 	 * Clean unused items and optimize data storage
 	 */
-	void cleanAndOptimize();
+	void cleanAndOptimize() throws StorageException;
 
 	/**
 	 * will be removed in version 2.1.0
 	 */
 	@Deprecated
-	void addFile(final IFile file);
+	void addFile(final IFile file) throws StorageException;
 }

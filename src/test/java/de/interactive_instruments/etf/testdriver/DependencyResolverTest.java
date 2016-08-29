@@ -17,9 +17,8 @@
 package de.interactive_instruments.etf.testdriver;
 
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-import de.interactive_instruments.etf.model.EidFactory;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-import de.interactive_instruments.exceptions.StoreException;
+import de.interactive_instruments.exceptions.StorageException;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -37,7 +36,7 @@ import static org.junit.Assert.*;
 public class DependencyResolverTest {
 
 	@Test
-	public void testDependencyResolving() throws StoreException, ObjectWithIdNotFoundException {
+	public void testDependencyResolving() throws StorageException, ObjectWithIdNotFoundException {
 
 		final DependencyGraph<ExecutableTestSuiteDto> dependencyResolver = new DependencyGraph();
 
@@ -93,7 +92,7 @@ public class DependencyResolverTest {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testCycleDetection() throws StoreException, ObjectWithIdNotFoundException {
+	public void testCycleDetection() throws StorageException, ObjectWithIdNotFoundException {
 		final DependencyGraph<ExecutableTestSuiteDto> dependencyResolver = new DependencyGraph();
 
 		final ExecutableTestSuiteDto ets1 = createEts(1);
