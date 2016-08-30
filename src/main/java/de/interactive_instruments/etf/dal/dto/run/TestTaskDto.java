@@ -38,9 +38,8 @@ public class TestTaskDto extends ModelItemDto {
 	public TestTaskDto() {
 	}
 
-	public TestTaskDto(final TestTaskDto other) {
+	private TestTaskDto(final TestTaskDto other) {
 		super(other);
-		this.id = other.id;
 		this.executableTestSuite = other.executableTestSuite;
 		this.testObject = other.testObject;
 		this.resultStyle = other.resultStyle;
@@ -112,5 +111,9 @@ public class TestTaskDto extends ModelItemDto {
 		DtoValidityCheckUtils.ensureNotNullAndHasId("executableTestSuite", executableTestSuite);
 		DtoValidityCheckUtils.ensureNotNullAndHasId("executableTestSuite.testDriver", executableTestSuite.getTestDriver());
 		DtoValidityCheckUtils.ensureNotNullAndHasId("testObject", testObject);
+	}
+
+	@Override public TestTaskDto createCopy() {
+		return new TestTaskDto(this);
 	}
 }

@@ -27,6 +27,7 @@ import de.interactive_instruments.etf.dal.dto.ModelItemTreeNode;
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.ComponentDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
+import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
 import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 import de.interactive_instruments.etf.model.DefaultEidMap;
@@ -45,6 +46,20 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 	private List<TestCaseDto> parameterizedTestCases;
 	private DefaultEidMap<TestModelItemDto> testModules;
 	private ParameterSet parameters;
+
+	public ExecutableTestSuiteDto() {}
+
+	private ExecutableTestSuiteDto(final ExecutableTestSuiteDto other) {
+		super(other);
+		this.testDriver = other.testDriver;
+		this.translationTemplateBundle = other.translationTemplateBundle;
+		this.supportedTestObjectTypes = other.supportedTestObjectTypes;
+		this.dependencies = other.dependencies;
+		this.consumableResultTestObjectTypes = other.consumableResultTestObjectTypes;
+		this.parameterizedTestCases = other.parameterizedTestCases;
+		this.testModules = other.testModules;
+		this.parameters = other.parameters;
+	}
 
 	public ComponentDto getTestDriver() {
 		return testDriver;
@@ -153,5 +168,9 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 		super.ensureBasicValidity();
 		DtoValidityCheckUtils.ensureNotNullOrEmpty("supportedTestObjectTypes", supportedTestObjectTypes);
 		DtoValidityCheckUtils.ensureNotNullAndHasId("testDriver", testDriver);
+	}
+
+	@Override public ExecutableTestSuiteDto createCopy() {
+		return new ExecutableTestSuiteDto(this);
 	}
 }

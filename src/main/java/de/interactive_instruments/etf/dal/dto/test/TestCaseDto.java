@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 import de.interactive_instruments.etf.model.DefaultEidMap;
 import de.interactive_instruments.etf.model.DependencyHolder;
 import de.interactive_instruments.etf.model.EidMap;
@@ -27,6 +28,13 @@ import de.interactive_instruments.etf.model.EidMap;
 public class TestCaseDto extends TestModelItemDto implements DependencyHolder<TestCaseDto> {
 
 	private List<TestCaseDto> dependencies;
+
+	public TestCaseDto() {}
+
+	private TestCaseDto(final TestCaseDto other) {
+		super(other);
+		this.dependencies = other.dependencies;
+	}
 
 	public List<TestStepDto> getTestSteps() {
 		return (List<TestStepDto>) getChildren();
@@ -53,5 +61,9 @@ public class TestCaseDto extends TestModelItemDto implements DependencyHolder<Te
 
 	public Collection<TestCaseDto> getDependencies() {
 		return dependencies;
+	}
+
+	@Override public TestCaseDto createCopy() {
+		return new TestCaseDto(this);
 	}
 }

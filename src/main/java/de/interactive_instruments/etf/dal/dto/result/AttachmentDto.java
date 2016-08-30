@@ -18,6 +18,7 @@ package de.interactive_instruments.etf.dal.dto.result;
 import java.net.URI;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
+import de.interactive_instruments.etf.dal.dto.report.StatisticalReportTableTypeDto;
 
 public class AttachmentDto extends Dto {
 	private String encoding;
@@ -26,6 +27,17 @@ public class AttachmentDto extends Dto {
 	private String type;
 	private URI referencedData;
 	private String embeddedData;
+
+	public AttachmentDto() {}
+
+	private AttachmentDto(final AttachmentDto other) {
+		this.encoding = other.encoding;
+		this.label = other.label;
+		this.mimeType = other.mimeType;
+		this.type = other.type;
+		this.referencedData = other.referencedData;
+		this.embeddedData = other.embeddedData;
+	}
 
 	public String getLabel() {
 		return label;
@@ -73,5 +85,9 @@ public class AttachmentDto extends Dto {
 
 	public void setEmbeddedData(final String embeddedData) {
 		this.embeddedData = embeddedData;
+	}
+
+	@Override public AttachmentDto createCopy() {
+		return new AttachmentDto(this);
 	}
 }

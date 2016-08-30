@@ -18,11 +18,19 @@ package de.interactive_instruments.etf.dal.dto.result;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.Arguments;
+import de.interactive_instruments.etf.dal.dto.translation.TranslationArgumentCollectionDto;
 
 public class TestCaseResultDto extends ResultModelItemDto {
 
 	// Optional arguments for parameterizable test cases
 	private Arguments arguments;
+
+	public TestCaseResultDto() {}
+
+	private TestCaseResultDto(final TestCaseResultDto other) {
+		super(other);
+		this.arguments = other.arguments;
+	}
 
 	public List<TestStepResultDto> getTestStepResults() {
 		return (List<TestStepResultDto>) getChildren();
@@ -42,5 +50,9 @@ public class TestCaseResultDto extends ResultModelItemDto {
 
 	public void setArguments(final Arguments argumentsDto) {
 		this.arguments = argumentsDto;
+	}
+
+	@Override public TestCaseResultDto createCopy() {
+		return new TestCaseResultDto(this);
 	}
 }

@@ -23,6 +23,13 @@ import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 public class TestObjectTypeDto extends MetaDataItemDto {
 	protected List<TestObjectTypeDto> subTypes;
 
+	public TestObjectTypeDto() {}
+
+	private TestObjectTypeDto(final TestObjectTypeDto other) {
+		super(other);
+		this.subTypes = other.subTypes;
+	}
+
 	public List<TestObjectTypeDto> getSubTypes() {
 		return subTypes;
 	}
@@ -36,5 +43,9 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 			subTypes = new ArrayList<>();
 		}
 		subTypes.add(subType);
+	}
+
+	@Override public TestObjectTypeDto createCopy() {
+		return new TestObjectTypeDto(this);
 	}
 }

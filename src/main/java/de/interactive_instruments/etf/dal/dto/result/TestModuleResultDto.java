@@ -19,6 +19,12 @@ import java.util.List;
 
 public class TestModuleResultDto extends ResultModelItemDto {
 
+	public TestModuleResultDto() {}
+
+	private TestModuleResultDto(final TestModuleResultDto other) {
+		super(other);
+	}
+
 	public List<TestCaseResultDto> getTestCaseResults() {
 		return (List<TestCaseResultDto>) getChildren();
 	}
@@ -29,5 +35,9 @@ public class TestModuleResultDto extends ResultModelItemDto {
 
 	public void addTestCaseResult(final TestCaseResultDto testCaseResult) {
 		addChild(testCaseResult);
+	}
+
+	@Override public TestModuleResultDto createCopy() {
+		return new TestModuleResultDto(this);
 	}
 }

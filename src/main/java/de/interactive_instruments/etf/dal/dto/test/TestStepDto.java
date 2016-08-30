@@ -26,6 +26,12 @@ public class TestStepDto extends TestModelItemDto {
 
 	}
 
+	public TestStepDto(final TestStepDto other) {
+		super(other);
+		this.statementForExecution = other.statementForExecution;
+		this.testStepType = other.testStepType;
+	}
+
 	public String getStatementForExecution() {
 		return statementForExecution;
 	}
@@ -52,5 +58,9 @@ public class TestStepDto extends TestModelItemDto {
 
 	public void addTestAssertion(final TestAssertionDto testAssertion) {
 		addChild(testAssertion);
+	}
+
+	@Override public TestStepDto createCopy() {
+		return new TestStepDto(this);
 	}
 }

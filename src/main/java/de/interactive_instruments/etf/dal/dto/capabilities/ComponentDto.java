@@ -34,6 +34,12 @@ public class ComponentDto extends MetaDataItemDto {
 		this.version = componentInfo.getVersion();
 	}
 
+	private ComponentDto(final ComponentDto other) {
+		super(other);
+		this.vendor = other.vendor;
+		this.version = other.version;
+	}
+
 	public String getVendor() {
 		return vendor;
 	}
@@ -50,4 +56,7 @@ public class ComponentDto extends MetaDataItemDto {
 		this.version = value;
 	}
 
+	@Override public ComponentDto createCopy() {
+		return new ComponentDto(this);
+	}
 }

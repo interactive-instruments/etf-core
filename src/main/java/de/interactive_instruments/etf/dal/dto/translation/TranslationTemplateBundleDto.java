@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.*;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
+import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 
 /**
  * TranslationTemplateBundleDto represents a bundle of
@@ -39,6 +40,12 @@ public class TranslationTemplateBundleDto extends Dto {
 
 	public TranslationTemplateBundleDto() {
 
+	}
+
+	private TranslationTemplateBundleDto(final TranslationTemplateBundleDto other) {
+		this.id = other.id;
+		this.langTranslationTemplates = other.langTranslationTemplates;
+		this.source = other.source;
 	}
 
 	/**
@@ -104,6 +111,10 @@ public class TranslationTemplateBundleDto extends Dto {
 	 */
 	public void setSource(final URI source) {
 		this.source = source.toString();
+	}
+
+	@Override public TranslationTemplateBundleDto createCopy() {
+		return new TranslationTemplateBundleDto(this);
 	}
 
 }

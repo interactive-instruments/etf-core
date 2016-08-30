@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
+import de.interactive_instruments.etf.dal.dto.result.AttachmentDto;
 
 /**
  * Collection of token/value pairs that are used to replace tokens
@@ -31,6 +32,13 @@ public class TranslationArgumentCollectionDto extends Dto {
 	private String translationTemplateName;
 
 	private Map<String, Argument> arguments;
+
+	public TranslationArgumentCollectionDto() {}
+
+	private TranslationArgumentCollectionDto(final TranslationArgumentCollectionDto other) {
+		this.translationTemplateName = other.translationTemplateName;
+		this.arguments = other.arguments;
+	}
 
 	public static class Argument {
 		String token;
@@ -85,5 +93,9 @@ public class TranslationArgumentCollectionDto extends Dto {
 		sb.append(", arguments=").append(arguments);
 		sb.append('}');
 		return sb.toString();
+	}
+
+	@Override public TranslationArgumentCollectionDto createCopy() {
+		return new TranslationArgumentCollectionDto(this);
 	}
 }

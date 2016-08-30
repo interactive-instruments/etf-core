@@ -30,6 +30,16 @@ public class TestTaskResultDto extends ResultModelItemDto {
 
 	private TestObjectDto testObject;
 
+	public TestTaskResultDto() {
+
+	}
+
+	private TestTaskResultDto(final TestTaskResultDto other) {
+		super(other);
+		this.attachments = other.attachments;
+		this.testObject = other.testObject;
+	}
+
 	public List<TestModuleResultDto> getTestModuleResults() {
 		return (List<TestModuleResultDto>) getChildren();
 	}
@@ -79,5 +89,9 @@ public class TestTaskResultDto extends ResultModelItemDto {
 		sb.append(", testObject=").append(testObject);
 		sb.append('}');
 		return sb.toString();
+	}
+
+	@Override public TestTaskResultDto createCopy() {
+		return new TestTaskResultDto(this);
 	}
 }

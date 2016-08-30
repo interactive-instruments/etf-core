@@ -44,6 +44,13 @@ public class TestObjectDto extends RepositoryItemDto {
 
 	public TestObjectDto() {}
 
+	private TestObjectDto(final TestObjectDto other) {
+		super(other);
+		this.resources = other.resources;
+		this.testObjectTypes = other.testObjectTypes;
+		this.properties = other.properties;
+	}
+
 	public List<TestObjectTypeDto> getTestObjectTypes() {
 		return testObjectTypes;
 	}
@@ -106,5 +113,9 @@ public class TestObjectDto extends RepositoryItemDto {
 		if (testObjectTypes == null) {
 			throw new IllegalStateException("Required property 'testObjectTypes' must be set!");
 		}
+	}
+
+	@Override public TestObjectDto createCopy() {
+		return new TestObjectDto(this);
 	}
 }

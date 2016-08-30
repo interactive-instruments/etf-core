@@ -26,6 +26,13 @@ public final class TestStepResultDto extends ResultModelItemDto implements Attac
 
 	private List<AttachmentDto> attachments;
 
+	public TestStepResultDto() {}
+
+	private TestStepResultDto(final TestStepResultDto other) {
+		super(other);
+		this.attachments = other.attachments;
+	}
+
 	public List<TestAssertionResultDto> getTestAssertionResults() {
 		return (List<TestAssertionResultDto>) getChildren();
 	}
@@ -51,5 +58,9 @@ public final class TestStepResultDto extends ResultModelItemDto implements Attac
 			attachments = new ArrayList<>();
 		}
 		attachments.add(attachment);
+	}
+
+	@Override public TestStepResultDto createCopy() {
+		return new TestStepResultDto(this);
 	}
 }

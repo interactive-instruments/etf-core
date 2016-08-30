@@ -28,6 +28,14 @@ public class TestAssertionResultDto extends ResultModelItemDto {
 
 	private List<TranslationArgumentCollectionDto> messages;
 
+	public TestAssertionResultDto() {}
+
+	TestAssertionResultDto(final TestAssertionResultDto other) {
+		super(other);
+		this.arguments = other.arguments;
+		this.messages = other.messages;
+	}
+
 	public Arguments getArguments() {
 		return arguments;
 	}
@@ -58,5 +66,9 @@ public class TestAssertionResultDto extends ResultModelItemDto {
 		sb.append(", messages=").append(messages);
 		sb.append('}');
 		return sb.toString();
+	}
+
+	@Override public TestAssertionResultDto createCopy() {
+		return new TestAssertionResultDto(this);
 	}
 }

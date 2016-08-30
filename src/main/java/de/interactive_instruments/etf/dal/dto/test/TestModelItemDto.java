@@ -34,6 +34,14 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	protected EidMap<TestModelItemDto> children;
 
+	protected TestModelItemDto() {
+	}
+
+	protected TestModelItemDto(final TestModelItemDto other) {
+		super(other);
+		this.children = other.children;
+	}
+
 	@Override
 	public List<? extends TestModelItemDto> getChildren() {
 		return children!=null ? children.values().stream().collect(Collectors.toList()) : null;

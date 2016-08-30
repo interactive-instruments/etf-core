@@ -18,6 +18,9 @@ package de.interactive_instruments.etf.dal.dao;
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
 
+import java.util.Collection;
+import java.util.Set;
+
 /**
  * Event Listener for write operations
  *
@@ -36,7 +39,9 @@ public interface WriteDaoListener {
 	 * @param event {@link EventType}
 	 * @param ids {@link EID}
 	 */
-	void writeOperationPerformed(final EventType event, final EID... ids);
+	void writeOperationPerformed(final EventType event, final Set<EID> ids);
+
+	void writeOperationPerformed(final EventType event, final EID id);
 
 	/**
 	 * Informs the listener about a write operation that has been performed with
@@ -45,5 +50,7 @@ public interface WriteDaoListener {
 	 * @param event {@link EventType}
 	 * @param dtos {@link Dto}
 	 */
-	void writeOperationPerformed(final EventType event, final Dto... dtos);
+	void writeOperationPerformed(final EventType event, final Collection<? extends Dto> dtos);
+
+	void writeOperationPerformed(final EventType event, final Dto dtos);
 }

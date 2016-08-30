@@ -18,11 +18,20 @@ package de.interactive_instruments.etf.dal.dto.report;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
+import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 
 public class StatisticalReportTableTypeDto extends RepositoryItemDto {
 
 	private List<String> columnHeaderLabels;
 	private List<String> columnExpressions;
+
+	public StatisticalReportTableTypeDto() {}
+
+	private StatisticalReportTableTypeDto(final StatisticalReportTableTypeDto other) {
+		super(other);
+		this.columnHeaderLabels = other.columnHeaderLabels;
+		this.columnExpressions = other.columnExpressions;
+	}
 
 	public List<String> getColumnHeaderLabels() {
 		return columnHeaderLabels;
@@ -38,5 +47,9 @@ public class StatisticalReportTableTypeDto extends RepositoryItemDto {
 
 	public void setColumnExpressions(final List<String> columnExpressions) {
 		this.columnExpressions = columnExpressions;
+	}
+
+	@Override public StatisticalReportTableTypeDto createCopy() {
+		return new StatisticalReportTableTypeDto(this);
 	}
 }

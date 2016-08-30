@@ -68,4 +68,6 @@ public abstract class Dto implements Comparable {
 		}
 		throw new IllegalArgumentException("Invalid object type comparison");
 	}
+
+	public abstract <T> T createCopy();
 }

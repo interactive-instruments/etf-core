@@ -19,8 +19,15 @@ import java.util.Collection;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
+import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 
 public class TestModuleDto extends TestModelItemDto {
+
+	public TestModuleDto() {}
+
+	private TestModuleDto(final TestModuleDto other) {
+		super(other);
+	}
 
 	public List<TestCaseDto> getTestCases() {
 		return (List<TestCaseDto>) getChildren();
@@ -32,5 +39,9 @@ public class TestModuleDto extends TestModelItemDto {
 
 	public void addTestCase(final TestCaseDto testCase) {
 		addChild(testCase);
+	}
+
+	@Override public TestModuleDto createCopy() {
+		return new TestModuleDto(this);
 	}
 }

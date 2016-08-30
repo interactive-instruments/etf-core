@@ -38,6 +38,21 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 
 	public RepositoryItemDto() {}
 
+	protected RepositoryItemDto(final RepositoryItemDto other) {
+		super(other);
+		this.replacedBy = other.replacedBy;
+		this.replacementReason = other.replacementReason;
+		this.itemHash = other.itemHash;
+		this.version = other.version;
+		this.author = other.author;
+		this.creationDate = other.creationDate;
+		this.lastEditor = other.lastEditor;
+		this.lastUpdateDate = other.lastUpdateDate;
+		this.tagDtos = other.tagDtos;
+		this.remoteResource = other.remoteResource;
+		this.localPath = other.localPath;
+	}
+
 	/**
 	 * Gets the value of the itemHash property.
 	 *

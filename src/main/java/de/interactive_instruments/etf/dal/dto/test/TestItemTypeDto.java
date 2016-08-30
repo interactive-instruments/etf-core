@@ -20,4 +20,15 @@ import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public class TestItemTypeDto extends MetaDataItemDto {}
+public class TestItemTypeDto extends MetaDataItemDto {
+
+	public TestItemTypeDto() {}
+
+	private TestItemTypeDto(final TestItemTypeDto other) {
+		super(other);
+	}
+
+	@Override public TestItemTypeDto createCopy() {
+		return new TestItemTypeDto(this);
+	}
+}

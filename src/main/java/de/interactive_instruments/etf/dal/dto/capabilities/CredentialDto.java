@@ -27,6 +27,15 @@ public class CredentialDto extends RepositoryItemDto {
 	private String applicableUri;
 	private byte[] cipher;
 
+	public CredentialDto() {}
+
+	private CredentialDto(final CredentialDto other) {
+		super(other);
+		this.applicableTo = other.applicableTo;
+		this.applicableUri = other.applicableUri;
+		this.cipher = other.cipher;
+	}
+
 	public ModelItemDto getApplicableTo() {
 		return applicableTo;
 	}
@@ -49,5 +58,9 @@ public class CredentialDto extends RepositoryItemDto {
 
 	public void setCipher(final byte[] cipher) {
 		this.cipher = cipher;
+	}
+
+	@Override public CredentialDto createCopy() {
+		return new CredentialDto(this);
 	}
 }

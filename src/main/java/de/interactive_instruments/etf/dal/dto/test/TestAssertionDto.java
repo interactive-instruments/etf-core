@@ -34,6 +34,16 @@ public class TestAssertionDto extends TestModelItemDto {
 	private TestItemTypeDto testAssertionType;
 	private List<LangTranslationTemplateCollectionDto> translationTemplates;
 
+	public TestAssertionDto() {}
+
+	private TestAssertionDto(final TestAssertionDto other) {
+		super(other);
+		this.expectedResult = other.expectedResult;
+		this.expression = other.expression;
+		this.testAssertionType = other.testAssertionType;
+		this.translationTemplates = other.translationTemplates;
+	}
+
 	public String getExpectedResult() {
 		return expectedResult;
 	}
@@ -106,5 +116,9 @@ public class TestAssertionDto extends TestModelItemDto {
 		sb.append(", translationTemplates=").append(translationTemplates);
 		sb.append('}');
 		return sb.toString();
+	}
+
+	@Override public TestAssertionDto createCopy() {
+		return new TestAssertionDto(this);
 	}
 }

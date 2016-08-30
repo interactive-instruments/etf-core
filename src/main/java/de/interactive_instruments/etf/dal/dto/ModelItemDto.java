@@ -27,6 +27,7 @@ public abstract class ModelItemDto extends Dto {
 	}
 
 	public ModelItemDto(final ModelItemDto other) {
+		this.id = other.id;
 		this.parent = other.parent;
 	}
 

@@ -22,12 +22,23 @@ import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 public class ResultStyleDto extends RepositoryItemDto {
 	protected URI resource;
 
+	public ResultStyleDto() {}
+
+	private ResultStyleDto(final ResultStyleDto other) {
+		super(other);
+		this.resource = other.resource;
+	}
+
 	public URI getResource() {
 		return resource;
 	}
 
 	public void setResource(URI resource) {
 		this.resource = resource;
+	}
+
+	@Override public ResultStyleDto createCopy() {
+		return new ResultStyleDto(this);
 	}
 
 }

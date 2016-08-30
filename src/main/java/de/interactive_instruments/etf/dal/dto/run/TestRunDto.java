@@ -45,7 +45,7 @@ public class TestRunDto extends ModelItemDto {
 
 	}
 
-	public TestRunDto(final TestRunDto other) {
+	private TestRunDto(final TestRunDto other) {
 		super(other);
 		this.id = other.id;
 		this.label = other.label;
@@ -55,7 +55,7 @@ public class TestRunDto extends ModelItemDto {
 		if(other.testTasks!=null) {
 			this.testTasks = new ArrayList<>();
 			this.testTasks.addAll(other.testTasks.stream().map(
-					TestTaskDto::new).collect(Collectors.toList()));
+					TestTaskDto::createCopy).collect(Collectors.toList()));
 		}
 		this.logPath = other.logPath;
 		this.testResultStatus = other.testResultStatus;
@@ -178,6 +178,10 @@ public class TestRunDto extends ModelItemDto {
 		DtoValidityCheckUtils.ensureNotNull("startTimestamp", startTimestamp);
 		DtoValidityCheckUtils.ensureNotNullOrEmpty("defaultLang", defaultLang);
 		DtoValidityCheckUtils.ensureNotNullOrEmpty("testTasks", testTasks);
+	}
+
+	@Override public TestRunDto createCopy() {
+		return new TestRunDto(this);
 	}
 
 }

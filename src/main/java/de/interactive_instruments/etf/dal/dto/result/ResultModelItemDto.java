@@ -39,6 +39,17 @@ public abstract class ResultModelItemDto extends ModelItemDto implements ModelIt
 	protected MetaDataItemDto resultedFrom;
 	protected EidMap<ResultModelItemDto> children;
 
+	protected ResultModelItemDto() {}
+
+	protected ResultModelItemDto(final ResultModelItemDto other) {
+		super(other);
+		this.resultStatus = other.resultStatus;
+		this.startTimestamp = other.startTimestamp;
+		this.duration = other.duration;
+		this.resultedFrom = other.resultedFrom;
+		this.children = other.children;
+	}
+
 	public TestResultStatus getResultStatus() {
 		return TestResultStatus.valueOf(resultStatus);
 	}

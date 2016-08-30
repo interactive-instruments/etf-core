@@ -18,6 +18,7 @@ package de.interactive_instruments.etf.dal.dto.report;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
+import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 
 public class StatisticalReportTableDto extends MetaDataItemDto {
 	protected StatisticalReportTableTypeDto type;
@@ -29,6 +30,15 @@ public class StatisticalReportTableDto extends MetaDataItemDto {
 		public Entry(final Object[] values) {
 			this.entry = values;
 		}
+	}
+
+	public StatisticalReportTableDto() {
+	}
+
+	private StatisticalReportTableDto(final StatisticalReportTableDto other) {
+		super(other);
+		this.type = other.type;
+		this.entries = other.entries;
 	}
 
 	public StatisticalReportTableTypeDto getType() {
@@ -45,5 +55,9 @@ public class StatisticalReportTableDto extends MetaDataItemDto {
 
 	public void setEntries(final List<Entry> entries) {
 		this.entries = entries;
+	}
+
+	@Override public StatisticalReportTableDto createCopy() {
+		return new StatisticalReportTableDto(this);
 	}
 }
