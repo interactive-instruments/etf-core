@@ -18,30 +18,30 @@ package de.interactive_instruments.etf.testdriver;
 
 import de.interactive_instruments.IFile;
 import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
-import org.slf4j.Logger;
 
 import java.io.File;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.Map;
-import java.util.Objects;
 
 /**
- * The TestResultListener is used to report failures and messages
+ * The TestResultCollector is used to report failures and messages
  * during a test run as well as adding attachments and logging messages
  * (info, debug, error) that are written to a log and linked to the
  * test task result.
  *
- * The TestResultListener is exposed by a test driver, is somehow injected into a
+ * The TestResultCollector is exposed by a test driver, is somehow injected into a
  * test engine and consumed during a test run by a test driver adapter.
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface TestResultListener {
+public interface TestResultCollector {
 
 	/**
-	 * temporary, use {@link AttachmentOutputStream} instead
+	 * temporary, use {@link TestResultCollector#markAttachment} instead
 	 *
-	 * will be removed in version 2.1.0
+	 * will be removed in version 2.0.0 release version
 	 *
 	 * @return
 	 */
@@ -51,17 +51,28 @@ public interface TestResultListener {
 	/**
 	 * temporary
 	 *
-	 * will be removed in version 2.1.0
+	 * will be removed in version 2.0.0 release version
 	 *
 	 * @return
 	 */
 	@Deprecated
-	IFile getDsDir();
+	IFile getResultFile();
+
+	/**
+	 * temporary, use {@link TestResultCollector#end} instead
+	 *
+	 * will be removed in version 2.0.0 release version
+	 *
+	 * @return
+	 */
+	@Deprecated
+	void finish();
 
 	/**
 	 * Called when a test item is run
 	 *
 	 * @param testModelItemId Test Model Item EID
+	 *
 	 * @return eid of the recorded test result item
 	 *
 	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
@@ -70,22 +81,53 @@ public interface TestResultListener {
 	String start(final String testModelItemId) throws IllegalArgumentException, IllegalStateException;
 
 	/**
+	 * Called when a test item is run
+	 *
+	 * @param testModelItemId Test Model Item EID
+	 * @param startTimestamp start timestamp
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
+	 * @throws IllegalStateException if test already has been started or ended
+	 */
+	String start(final String testModelItemId, long startTimestamp) throws IllegalArgumentException, IllegalStateException;
+
+	/**
 	 * Called just after a test item has been run
 	 *
 	 * @param testModelItemId Test Model Item EID
+	 * @param status {@link TestResultStatus} as integer
+	 *
 	 * @return eid of the recorded test result item
 	 *
 	 * @throws IllegalArgumentException if test already has been ended
 	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
 	 */
-	String end(final String testModelItemId, final String status) throws IllegalArgumentException, IllegalStateException;
+	String end(final String testModelItemId, final int status) throws IllegalArgumentException, IllegalStateException;
+
+	/**
+	 * Called just after a test item has been run
+	 *
+	 * @param testModelItemId Test Model Item EID
+	 * @param status {@link TestResultStatus} as integer
+	 * @param stopTimestamp stop timestamp
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if test already has been ended
+	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
+	 */
+	String end(final String testModelItemId, final int status, long stopTimestamp) throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Returns the {@link TestResultStatus} of a non-parametrized Test Model Item.
 	 * "Undefined" is returned if the Test Model Item has not yet been executed.
 	 *
 	 * @param testModelItemId Test Model Item EID
+	 *
 	 * @return {@link TestResultStatus}
+	 *
 	 * @throws IllegalArgumentException if the Test Model Item does not exist or the ID refers to a parametrized Test Model Item
 	 */
 	TestResultStatus status(final String testModelItemId) throws IllegalArgumentException;
@@ -96,6 +138,7 @@ public interface TestResultListener {
 	 * @param testResultStatus {@link TestResultStatus} to compare
 	 * @param testModelItemId Test Model Item EID
 	 * @return {@code true} if one of the passed {@link TestResultStatus} are equal to each other and {@code false} otherwise
+	 *
 	 * @throws IllegalArgumentException if the Test Model Item does not exist or the ID refers to a parametrized Test Model Item
 	 */
 	boolean statusEqualsAny(final String testModelItemId, final String... testResultStatus) throws IllegalArgumentException;
@@ -120,44 +163,88 @@ public interface TestResultListener {
 	 *
 	 * @param translationTemplateId Translation Template ID
 	 * @param tokensAndValues Translation Template message as alternating tokens and values
+	 *
 	 * @throws IllegalArgumentException if number of tokensAndValues arguments is odd
 	 */
 	void addMessage(final String translationTemplateId, final String... tokensAndValues);
 
 	/**
-	 * An output stream accepts output bytes and sends them to some sink.
+	 * Mark a file in the temporary directory as an attachment which will
+	 * be persisted and added to the result document
+	 *
+	 * @param fileName filename in temporary directory (relative path)
+	 * @param label Label for the attachment
+	 * @param encoding encoding of the data
+	 * @param mimeType mime type or null if the type should be auto detected
+	 * @param type attachment type
+	 *
+	 * @return eid of the recorded attachment
+	 *
+	 * @throws IOException if attachment could not be read
 	 */
-	abstract class AttachmentOutputStream extends OutputStream {
-		/**
-		 * Returns the ID of the attachment
-		 *
-		 * @return eid of the created Attachment
-		 */
-		public abstract String getId();
-
-		/**
-		 * Returns the label of the Attachment
-		 *
-		 * @return label of the Attachment
-		 */
-		public abstract String getLabel();
-	}
+	String markAttachment(
+			final String fileName,
+			final String label,
+			final String encoding,
+			final String mimeType,
+			final String type) throws IOException;
 
 	/**
-	 * Create an attachment
+	 * Mark a file in the temporary directory as an attachment which will
+	 * be persisted and added to the result document
 	 *
+	 * @param fileName filename in temporary directory (relative path)
 	 * @param label Label for the attachment
-	 * @param outputStream outputStream
 	 * @param encoding encoding of the data
 	 * @param mimeType mime type or null if the type should be auto detected
 	 *
-	 * @return {@link AttachmentOutputStream}
+	 * @return eid of the recorded attachment
+	 *
+	 * @throws IOException if attachment could not be read
 	 */
-	AttachmentOutputStream createAttachment(
+	default String markAttachment(
+			final String fileName,
 			final String label,
-			final OutputStream outputStream,
 			final String encoding,
-			final String mimeType);
+			final String mimeType) throws IOException {
+		return markAttachment(fileName,label,encoding,mimeType,null);
+	}
+
+	/**
+	 * Save an attachment from a Reader
+	 *
+	 * @param reader reader
+	 * @param label Label for the attachment
+	 * @param mimeType mime type or null if the type should be auto detected
+	 * @param type attachment type
+	 *
+	 * @return eid of the recorded attachment
+	 *
+	 * @throws IOException if attachment could not be written
+	 */
+	String saveAttachment(
+			final Reader reader,
+			final String label,
+			final String mimeType,
+			final String type) throws IOException;
+
+	/**
+	 * Save an attachment from an input stream
+	 *
+	 * @param inputStream input stream
+	 * @param label Label for the attachment
+	 * @param mimeType mime type or null if the type should be auto detected
+	 * @param type attachment type
+	 *
+	 * @return eid of the recorded attachment
+	 *
+	 * @throws IOException if attachment could not be written
+	 */
+	String saveAttachment(
+			final InputStream inputStream,
+			final String label,
+			final String mimeType,
+			final String type) throws IOException;
 
 	/**
 	 * Returns a directory which can be used to store data temporary
