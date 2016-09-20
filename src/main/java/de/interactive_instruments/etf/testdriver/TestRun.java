@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface TestRun extends TaskWithProgress<TestRunDto> {
+public interface TestRun extends Task<TestRunDto> {
 
 	String getLabel();
 
@@ -39,5 +39,5 @@ public interface TestRun extends TaskWithProgress<TestRunDto> {
 
 	void addTestRunEventListener(final TestRunEventListener testRunEventListener);
 
-	TestRunDto waitForResult() throws InterruptedException, ExecutionException;
+	TaskProgress getProgress();
 }

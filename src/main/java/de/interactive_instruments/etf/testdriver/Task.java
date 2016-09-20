@@ -21,15 +21,51 @@ import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.model.EID;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
- * OK
+ * Task interface which is implemented by {@link Runnable} objects
+ *
+ * Task objects are managed by the {@link TaskPoolRegistry}
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ *
  */
 public interface Task<T> extends Callable<T>, TaskState, Releasable, Cancelable, Initializable {
 
+	/**
+	 * ETF {@EID}
+	 *
+	 * @return
+	 */
 	EID getId();
 
+	/**
+	 * Get the result even if the task did not finish!
+	 * Use {@waitForResult()} to block the calling thread until the Task finished.
+	 *
+	 * @return
+	 */
 	T getResult();
+
+	/**
+	 * Used by the TaskPoolRegistry to set the Future after
+	 * submitting the task.
+	 *
+	 * @param future Future callback
+	 *
+	 * @throws IllegalStateException if the future is already set
+	 */
+	void setFuture(final Future<T> future) throws IllegalStateException;
+
+	/**
+	 * Wait for result
+	 *
+	 * @return T
+	 *
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	T waitForResult() throws InterruptedException, ExecutionException;
 }

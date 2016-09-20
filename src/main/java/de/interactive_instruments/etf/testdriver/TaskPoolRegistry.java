@@ -22,7 +22,6 @@ import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
@@ -36,25 +35,24 @@ import java.util.concurrent.*;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  *
- * @param <T> the the future result type
+ * @param <R> the the future result type
  *
- * @see TaskWithProgress
+ * @see Task
  */
-public class TaskPoolRegistry<T> {
+public class TaskPoolRegistry<R, T extends Task<R>> {
 
 	private final static long keepAliveTime = 30;
 	private final ThreadPoolExecutor threadPool;
 
-	private final ConcurrentMap<EID, TaskWithProgress<T>> tasks = new ConcurrentHashMap<>();
+	private final ConcurrentMap<EID, T> tasks = new ConcurrentHashMap<>();
 
-	private final ConcurrentMap<EID, Future<T>> cancelMap = new ConcurrentHashMap<>();
+	private final ConcurrentMap<EID, Future<R>> cancelMap = new ConcurrentHashMap<>();
 
 	public TaskPoolRegistry(final int poolSize, final int maxPoolSize) {
 
-		final ArrayBlockingQueue<Runnable> taksQueue = new ArrayBlockingQueue<>(maxPoolSize);
-		// Tasks are not allowed to jump from the edge of the pool!
+		final ArrayBlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(maxPoolSize);
 		this.threadPool = new ThreadPoolExecutor(poolSize, maxPoolSize,
-				keepAliveTime, TimeUnit.SECONDS, taksQueue);
+				keepAliveTime, TimeUnit.SECONDS, taskQueue);
 	}
 
 	/**
@@ -63,9 +61,9 @@ public class TaskPoolRegistry<T> {
 	 * @param id task UUID
 	 * @return TaskWithProgressIndication
 	 */
-	public TaskWithProgress<T> getTaskById(final EID id)
+	public T getTaskById(final EID id)
 			throws ObjectWithIdNotFoundException {
-		final TaskWithProgress<T> c = tasks.get(id);
+		final T c = tasks.get(id);
 		if (c == null) {
 			throw new ObjectWithIdNotFoundException(
 					getClass().getName(),
@@ -76,10 +74,10 @@ public class TaskPoolRegistry<T> {
 
 	public void removeDone() {
 		final List<EID> removeTaskIds = new ArrayList<>();
-		for (final TaskWithProgress<T> c : tasks.values()) {
+		for (final T c : tasks.values()) {
 			final EID id = c.getId();
 			if (id != null) {
-				final Future<T> f = cancelMap.get(id);
+				final Future f = cancelMap.get(id);
 				if (f != null && f.isDone()) {
 					removeTaskIds.add(id);
 				}
@@ -92,7 +90,7 @@ public class TaskPoolRegistry<T> {
 	 * Returns all tasks
 	 * @return TaskWithProgressIndication collection
 	 */
-	public synchronized Collection<TaskWithProgress<T>> getTasks() {
+	public synchronized Collection<T> getTasks() {
 		return tasks.values();
 	}
 
@@ -104,8 +102,8 @@ public class TaskPoolRegistry<T> {
 	 * @throws NullPointerException if taskProgress is not set
 	 * @throws IllegalStateException if the future in the task is already set
 	 */
-	public synchronized Future<T> submitTask(final TaskWithProgress<T> task) throws NullPointerException, IllegalStateException {
-		final Future<T> future = threadPool.submit(task);
+	public synchronized Future<R> submitTask(final T task) throws NullPointerException, IllegalStateException {
+		final Future<R> future = threadPool.submit(task);
 		task.setFuture(future);
 		tasks.put(task.getId(), task);
 		cancelMap.put(task.getId(), future);
@@ -119,8 +117,8 @@ public class TaskPoolRegistry<T> {
 	 * @param id task UUID
 	 */
 	public synchronized void release(final EID id) {
-		final TaskWithProgress<T> task = tasks.get(id);
-		if (!task.getTaskProgress().getState().isFinalizing()) {
+		final T task = tasks.get(id);
+		if (!task.getState().isFinalizing()) {
 			tasks.get(id).release();
 		}
 		cancelMap.remove(id);
@@ -133,7 +131,7 @@ public class TaskPoolRegistry<T> {
 	 */
 	public synchronized void cancelTask(final EID id) {
 		try {
-			final Future<T> future = cancelMap.get(id);
+			final Future future = cancelMap.get(id);
 			if (!future.isDone()) {
 				try {
 					// Try to cancel gently

@@ -43,7 +43,7 @@ class TestDriverManagerLoader {
 					}
 				}
 			}
-			throw new RuntimeException("Can not load TestDriverManager"+managerClassname);
+			throw new RuntimeException("Can not load Test Driver Manager "+managerClassname);
 		}
 		static final TestDriverManager INSTANCE = findTestDriverManager();
 	}

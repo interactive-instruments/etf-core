@@ -16,25 +16,18 @@
 
 package de.interactive_instruments.etf.testdriver;
 
-import de.interactive_instruments.Cancelable;
-import de.interactive_instruments.Initializable;
-import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
-import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.exceptions.InitializationException;
-import de.interactive_instruments.exceptions.InvalidStateTransitionException;
-import de.interactive_instruments.exceptions.config.ConfigurationException;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface TestTask extends Progress, Releasable, Cancelable, Initializable {
-
-	EID getId();
+public interface TestTask extends Task<TestTaskResultDto> {
 
 	void run() throws Exception;
 
-	TestTaskResultDto getResult();
+	void setResultListener(final TestResultCollector listener);
 
-	void setResultListener(final TestResultListener listener);
+	TaskProgress getProgress();
+
+	TestRunLogger getLogger();
 }

@@ -26,9 +26,7 @@ import java.util.List;
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface Progress extends TaskState {
-
-	TestRunLogger getLogger();
+public interface TaskProgress extends TaskState {
 
 	/**
 	 * Number of known steps that have to be processed
@@ -59,4 +57,11 @@ public interface Progress extends TaskState {
 	 * @return
 	 */
 	Date getStartTimestamp();
+
+	/**
+	 * Read access to the current log file
+	 *
+	 * @return
+	 */
+	TestRunLogReader getLogReader();
 }

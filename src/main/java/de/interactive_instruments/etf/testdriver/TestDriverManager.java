@@ -31,7 +31,25 @@ import java.util.List;
  */
 public interface TestDriverManager extends Configurable, Releasable {
 
-	TestRun createTestRun(final TestRunDto dto) throws TestRunInitializationException;
+	/**
+	 * Create a new Test Run
+	 *
+	 * @param testRunDto
+	 * @return
+	 * @throws TestRunInitializationException
+	 */
+	TestRun createTestRun(final TestRunDto testRunDto, final TestResultCollectorFactory collectorFactory) throws TestRunInitializationException;
+
+	/**
+	 * Create a new Test Run, use default TestResultCollectorFactory
+	 *
+	 * @param testRunDto
+	 * @return
+	 * @throws TestRunInitializationException
+	 */
+	default TestRun createTestRun(final TestRunDto testRunDto) throws TestRunInitializationException {
+		return createTestRun(testRunDto, TestResultCollectorFactory.getDefault());
+	}
 
 	List<ComponentInfo> getTestDriverInfo();
 
