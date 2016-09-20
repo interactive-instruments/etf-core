@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.dal.dao;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.xml.bind.Marshaller;
 
@@ -98,7 +99,7 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	void deleteAll(final Collection<EID> ids) throws StorageException, ObjectWithIdNotFoundException;
+	void deleteAll(final Set<EID> ids) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Delete existing Dtos by their IDs
@@ -107,7 +108,7 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * @throws StorageException
 	 * @throws ObjectWithIdNotFoundException
 	 */
-	default void deleteAllExisting(final Collection<EID> ids) throws StorageException {
+	default void deleteAllExisting(final Set<EID> ids) throws StorageException {
 		for (final EID id : ids) {
 			try {
 				delete(id);
