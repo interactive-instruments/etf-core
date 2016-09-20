@@ -164,6 +164,24 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 		children.forEach(c -> addChild(c));
 	}
 
+	// Todo move to immutable iface
+	private long assertions=-1;
+	public long getAssertionsSize() {
+		if(assertions==-1) {
+			assertions=0;
+			if (getTestModules() != null) {
+				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null).forEach(testModuleDto -> {
+					testModuleDto.getTestCases().stream().filter(testCaseDto -> testCaseDto.getTestSteps() != null).forEach(testCaseDto -> {
+						testCaseDto.getTestSteps().stream().filter(testStepDto -> testStepDto.getTestAssertions() != null).forEach(testStepDto -> {
+							assertions += testStepDto.getTestAssertions().size();
+						});
+					});
+				});
+			}
+		}
+		return assertions;
+	}
+
 	public void ensureBasicValidity() throws IncompleteDtoException {
 		super.ensureBasicValidity();
 		DtoValidityCheckUtils.ensureNotNullOrEmpty("supportedTestObjectTypes", supportedTestObjectTypes);

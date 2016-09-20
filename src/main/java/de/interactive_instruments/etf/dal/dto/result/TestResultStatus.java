@@ -84,4 +84,8 @@ public enum TestResultStatus {
 	public static TestResultStatus valueOf(int i) {
 		return TestResultStatus.values()[i];
 	}
+
+	public static String toString(int i) {
+		return TestResultStatus.values()[i].toString();
+	}
 }
