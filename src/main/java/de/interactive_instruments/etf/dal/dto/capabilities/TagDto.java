@@ -22,10 +22,23 @@ import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
  */
 public class TagDto extends MetaDataItemDto {
 
-	public TagDto() {}
+	private int priority;
+
+	public TagDto() {
+		this.priority=64;
+	}
 
 	private TagDto(final TagDto other) {
 		super(other);
+		this.priority=other.priority;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(final int priority) {
+		this.priority = priority;
 	}
 
 	@Override public TagDto createCopy() {
