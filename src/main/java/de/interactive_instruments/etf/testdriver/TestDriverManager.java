@@ -19,6 +19,7 @@ package de.interactive_instruments.etf.testdriver;
 import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.component.ComponentInfo;
+import de.interactive_instruments.etf.component.ComponentLoadingException;
 import de.interactive_instruments.etf.dal.dto.run.TestRunDto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
@@ -52,6 +53,10 @@ public interface TestDriverManager extends Configurable, Releasable {
 	}
 
 	List<ComponentInfo> getTestDriverInfo();
+
+	void loadAll() throws ComponentLoadingException, ConfigurationException;
+
+	void load(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
 
 	void unload(final EID testDriverId) throws ObjectWithIdNotFoundException;
 

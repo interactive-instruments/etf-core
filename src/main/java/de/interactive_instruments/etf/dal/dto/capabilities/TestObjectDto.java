@@ -59,6 +59,10 @@ public class TestObjectDto extends RepositoryItemDto {
 		this.testObjectTypes = testObjectTypes;
 	}
 
+	public void setTestObjectType(final TestObjectTypeDto testObjectType) {
+		this.testObjectTypes = new ArrayList<TestObjectTypeDto>() {{ add(testObjectType); }};
+	}
+
 	public Properties properties() {
 		if(properties==null) {
 			properties = new Properties();

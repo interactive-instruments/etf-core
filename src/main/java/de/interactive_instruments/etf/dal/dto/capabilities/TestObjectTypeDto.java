@@ -21,7 +21,8 @@ import java.util.List;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 
 public class TestObjectTypeDto extends MetaDataItemDto {
-	protected List<TestObjectTypeDto> subTypes;
+
+	private List<TestObjectTypeDto> subTypes;
 
 	public TestObjectTypeDto() {}
 
