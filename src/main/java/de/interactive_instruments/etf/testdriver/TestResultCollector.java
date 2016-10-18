@@ -1,11 +1,11 @@
-/*
- * Copyright ${year} interactive instruments GmbH
+/**
+ * Copyright 2010-2016 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.interactive_instruments.etf.testdriver;
-
-import de.interactive_instruments.IFile;
-import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,18 +21,28 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Map;
 
+import de.interactive_instruments.IFile;
+import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
+
 /**
  * The TestResultCollector is used to report failures and messages
- * during a test run as well as adding attachments and logging messages
- * (info, debug, error) that are written to a log and linked to the
- * test task result.
+ * during a test run as well as adding information about the control flow,
+ * attachments and logging messages (info, debug, error) which are written
+ * to a log file and linked from the test task result.
  *
- * The TestResultCollector is exposed by a test driver, is somehow injected into a
+ * The TestResultCollector is exposed by a test driver, injected into a
  * test engine and consumed during a test run by a test driver adapter.
+ *
+ * A class that implements the TestResultCollector should realize a
+ * state machine and could throw {@link IllegalStateException}s if
+ * operations are called in the wrong order.
+ *
+ * Complex / external types are avoided in order to facilitate easy
+ * integration.
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface TestResultCollector {
+public interface TestResultCollector extends BasicTestResultCollector {
 
 	/**
 	 * temporary, use {@link TestResultCollector#markAttachment} instead
@@ -59,39 +65,87 @@ public interface TestResultCollector {
 	IFile getResultFile();
 
 	/**
-	 * temporary, use {@link TestResultCollector#end} instead
+	 * Called when a Test Task is run
 	 *
-	 * will be removed in version 2.0.0 release version
-	 *
-	 * @return
-	 */
-	@Deprecated
-	void finish();
-
-	/**
-	 * Called when a test item is run
-	 *
-	 * @param testModelItemId Test Model Item EID
+	 * @param testTaskId Test Task EID
 	 *
 	 * @return eid of the recorded test result item
 	 *
 	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
 	 * @throws IllegalStateException if test already has been started or ended
 	 */
-	String start(final String testModelItemId) throws IllegalArgumentException, IllegalStateException;
+	default String startTestTask(final String testTaskId) throws IllegalArgumentException, IllegalStateException {
+		return startTestTask(testTaskId, System.currentTimeMillis());
+	}
 
 	/**
-	 * Called when a test item is run
+	 * Called when a Test Module is run
 	 *
-	 * @param testModelItemId Test Model Item EID
-	 * @param startTimestamp start timestamp
+	 * @param testModuleId Test Module EID
 	 *
 	 * @return eid of the recorded test result item
 	 *
 	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
 	 * @throws IllegalStateException if test already has been started or ended
 	 */
-	String start(final String testModelItemId, long startTimestamp) throws IllegalArgumentException, IllegalStateException;
+	default String startTestModule(final String testModuleId) throws IllegalArgumentException, IllegalStateException {
+		return startTestModule(testModuleId, System.currentTimeMillis());
+	}
+
+	/**
+	 * Called when a Test Case is run
+	 *
+	 * @param testCaseId Test Case EID
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
+	 * @throws IllegalStateException if test already has been started or ended
+	 */
+	default String startTestCase(final String testCaseId) throws IllegalArgumentException, IllegalStateException {
+		return startTestCase(testCaseId, System.currentTimeMillis());
+	}
+
+	/**
+	 * Called when a Test Step is run
+	 *
+	 * @param testStepId Test Step EID
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
+	 * @throws IllegalStateException if test already has been started or ended
+	 */
+	default String startTestStep(final String testStepId) throws IllegalArgumentException, IllegalStateException {
+		return startTestStep(testStepId, System.currentTimeMillis());
+	}
+
+	/**
+	 * Called when a Test Assertion is run
+	 *
+	 * @param testAssertionId Test Assertion EID
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
+	 * @throws IllegalStateException if test already has been started or ended
+	 */
+	default String startTestAssertion(final String testAssertionId) throws IllegalArgumentException, IllegalStateException {
+		return startTestAssertion(testAssertionId, System.currentTimeMillis());
+	}
+
+	/**
+	 * If a Test Case depends on other TestCases this method must be called after the recording of a
+	 * Test Case has been started. If any of those TestCases have the status {@link TestResultStatus#FAILED} or
+	 * {@link TestResultStatus#SKIPPED}, the recording of the Test Case will be stopped by invoking
+	 * {@link TestResultCollector#end(String, int)} with the status {@link TestResultStatus#SKIPPED}.
+	 *
+	 * @param testCaseIds Test Case EIDs
+	 * @return true if the Test Case has been skipped, false otherwise
+	 * @throws IllegalArgumentException if test already has been ended
+	 * @throws IllegalStateException if the current Test Case already has been ended or the recording of a TestCase has not been started
+	 */
+	boolean endWithSkippedIfTestCasesFailed(final String... testCaseIds) throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Called just after a test item has been run
@@ -104,21 +158,9 @@ public interface TestResultCollector {
 	 * @throws IllegalArgumentException if test already has been ended
 	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
 	 */
-	String end(final String testModelItemId, final int status) throws IllegalArgumentException, IllegalStateException;
-
-	/**
-	 * Called just after a test item has been run
-	 *
-	 * @param testModelItemId Test Model Item EID
-	 * @param status {@link TestResultStatus} as integer
-	 * @param stopTimestamp stop timestamp
-	 *
-	 * @return eid of the recorded test result item
-	 *
-	 * @throws IllegalArgumentException if test already has been ended
-	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
-	 */
-	String end(final String testModelItemId, final int status, long stopTimestamp) throws IllegalArgumentException, IllegalStateException;
+	default String end(final String testModelItemId, final int status) throws IllegalArgumentException, IllegalStateException {
+		return end(testModelItemId, status, System.currentTimeMillis());
+	}
 
 	/**
 	 * Returns the {@link TestResultStatus} of a non-parametrized Test Model Item.
@@ -207,7 +249,7 @@ public interface TestResultCollector {
 			final String label,
 			final String encoding,
 			final String mimeType) throws IOException {
-		return markAttachment(fileName,label,encoding,mimeType,null);
+		return markAttachment(fileName, label, encoding, mimeType, null);
 	}
 
 	/**
@@ -247,9 +289,35 @@ public interface TestResultCollector {
 			final String type) throws IOException;
 
 	/**
+	 * Save a String as attachment.
+	 *
+	 * The underlying collector may decide if the String is written to a file
+	 * and referenced from the test result document or if it is embedded
+	 * into the test result document.
+	 *
+	 * @param content input String
+	 * @param label Label for the attachment
+	 * @param mimeType mime type or null if the type should be auto detected
+	 * @param type attachment type
+	 *
+	 * @return eid of the recorded attachment
+	 *
+	 * @throws IOException if attachment could not be written
+	 */
+	String saveAttachment(
+			final String content,
+			final String label,
+			final String mimeType,
+			final String type) throws IOException;
+
+	/**
 	 * Returns a directory which can be used to store data temporary
 	 * during the test run.
+	 *
 	 * The directory and its content will be deleted after the test run!
+	 * Use the {@link TestResultCollector#markAttachment(String, String, String, String)}
+	 * method to mark single files which should be kept and attached to the
+	 * test result document.
 	 *
 	 * @return temporary directory file
 	 *
@@ -304,7 +372,8 @@ public interface TestResultCollector {
 
 	/**
 	 * Returns the logger object
-	 * @return
+	 *
+	 * @return TestRunLogger object
 	 */
 	TestRunLogger getLogger();
 
