@@ -38,17 +38,19 @@ public class EtfConstants {
 	 * PROPERTY KEYS
 	 */
 	public static final String ETF_PK_PREFIX = "etf.";
-	public static final String ETF_TESTDOMAIN_PK = ETF_PK_PREFIX + "TestDomainDto";
-	public static final String ETF_AUTHOR_PK = ETF_PK_PREFIX + "Author";
-	public static final String ETF_LAST_EDITOR_PK = ETF_PK_PREFIX + "LastEditor";
-	public static final String ETF_CREATION_DATE_PK = ETF_PK_PREFIX + "CreationDate";
-	public static final String ETF_LAST_UPDATE_DATE_PK = ETF_PK_PREFIX + "LastUpdateDate";
-	public static final String ETF_DESCRIPTION_PK = ETF_PK_PREFIX + "Description";
-	public static final String ETF_VERSION_PK = ETF_PK_PREFIX + "Version";
-	public static final String ETF_IMPL_STATUS_PK = ETF_PK_PREFIX + "Status";
-	public static final String ETF_IGNORE_PROPERTIES_PK = ETF_PK_PREFIX + "ignore.properties";
+	public static final String ETF_TESTDOMAIN_PK = ETF_PK_PREFIX + "testdomain";
+	public static final String ETF_AUTHOR_PK = ETF_PK_PREFIX + "author";
+	public static final String ETF_LAST_EDITOR_PK = ETF_PK_PREFIX + "last.editor";
+	public static final String ETF_CREATION_DATE_PK = ETF_PK_PREFIX + "creation.date";
+	public static final String ETF_LAST_UPDATE_DATE_PK = ETF_PK_PREFIX + "last.update.date";
+	public static final String ETF_DESCRIPTION_PK = ETF_PK_PREFIX + "description";
+	public static final String ETF_VERSION_PK = ETF_PK_PREFIX + "version";
+	public static final String ETF_IMPL_STATUS_PK = ETF_PK_PREFIX + "status";
+	public static final String ETF_REFERENCE_PK = ETF_PK_PREFIX + "reference";
+	public static final String ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK = ETF_PK_PREFIX + "supported.testobject.type.ids";
 
-	public static final String ETF_DATA_STORAGE_NAME = ETF_PK_PREFIX + "datastorage.name";
+
+	public static final String ETF_IGNORE_PROPERTIES_PK = ETF_PK_PREFIX + "ignore.properties";
 
 	public static Set<String> ETF_PROPERTY_KEYS = Collections.unmodifiableSet(
 			new TreeSet<String>() {
@@ -62,6 +64,8 @@ public class EtfConstants {
 					add(ETF_VERSION_PK);
 					add(ETF_IGNORE_PROPERTIES_PK);
 					add(ETF_IMPL_STATUS_PK);
+					add(ETF_REFERENCE_PK);
+					add(ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK);
 				}
 			});
 
@@ -84,8 +88,13 @@ public class EtfConstants {
 
 	/**
 	 * ETF test project property file
- 	 */
+	 */
 	public static final String ETF_TESTPROJECT_PROPERTY_FILE_SUFFIX = ".etftp.properties";
+
+	/**
+	 * Other properties
+	 */
+	public static final String ETF_DATA_STORAGE_NAME = ETF_PK_PREFIX + "datastorage.name";
 
 	// Slant font by Glenn Chappell
 	public static final String ETF_ASCII = "\n" +
