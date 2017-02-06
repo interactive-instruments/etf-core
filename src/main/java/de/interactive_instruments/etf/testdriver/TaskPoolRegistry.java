@@ -15,14 +15,14 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
-import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.exceptions.ExcUtils;
-import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.*;
+
+import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.exceptions.ExcUtils;
+import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 
 /**
  *
@@ -72,6 +72,16 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 		return c;
 	}
 
+	/**
+	 * Returns true if registry contains Task
+	 * @param id task UUID
+	 * @return <tt>true</tt> if this registry contains
+	 * the specified Task
+	 */
+	public boolean contains(final EID id) {
+		return tasks.containsKey((id));
+	}
+
 	public void removeDone() {
 		final List<EID> removeTaskIds = new ArrayList<>();
 		for (final T c : tasks.values()) {
@@ -84,6 +94,7 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 			}
 		}
 		removeTaskIds.forEach(this::release);
+
 	}
 
 	/**
@@ -103,7 +114,7 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 	 * @throws IllegalStateException if the future in the task is already set
 	 */
 	public synchronized Future<R> submitTask(final T task) throws NullPointerException, IllegalStateException {
-		final Future<R> future = threadPool.submit(task);
+		final Future future = threadPool.submit(task);
 		task.setFuture(future);
 		tasks.put(task.getId(), task);
 		cancelMap.put(task.getId(), future);

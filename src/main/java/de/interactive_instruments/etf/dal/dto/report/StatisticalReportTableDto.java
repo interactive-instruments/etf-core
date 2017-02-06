@@ -32,8 +32,7 @@ public class StatisticalReportTableDto extends MetaDataItemDto {
 		}
 	}
 
-	public StatisticalReportTableDto() {
-	}
+	public StatisticalReportTableDto() {}
 
 	private StatisticalReportTableDto(final StatisticalReportTableDto other) {
 		super(other);
@@ -57,7 +56,8 @@ public class StatisticalReportTableDto extends MetaDataItemDto {
 		this.entries = entries;
 	}
 
-	@Override public StatisticalReportTableDto createCopy() {
+	@Override
+	public StatisticalReportTableDto createCopy() {
 		return new StatisticalReportTableDto(this);
 	}
 }

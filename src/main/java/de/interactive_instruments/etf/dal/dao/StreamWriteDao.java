@@ -15,10 +15,10 @@
  */
 package de.interactive_instruments.etf.dal.dao;
 
+import java.io.InputStream;
+
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.exceptions.StorageException;
-
-import java.io.InputStream;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
@@ -42,7 +42,7 @@ public interface StreamWriteDao<T extends Dto> extends WriteDao<T> {
 	 * @throws StorageException
 	 */
 	default T add(final InputStream input) throws StorageException {
-		return add(input,null);
+		return add(input, null);
 	}
 
 	/**

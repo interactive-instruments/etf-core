@@ -41,7 +41,8 @@ public class TestModuleDto extends TestModelItemDto {
 		addChild(testCase);
 	}
 
-	@Override public TestModuleDto createCopy() {
+	@Override
+	public TestModuleDto createCopy() {
 		return new TestModuleDto(this);
 	}
 }

@@ -49,7 +49,8 @@ public class StatisticalReportTableTypeDto extends RepositoryItemDto {
 		this.columnExpressions = columnExpressions;
 	}
 
-	@Override public StatisticalReportTableTypeDto createCopy() {
+	@Override
+	public StatisticalReportTableTypeDto createCopy() {
 		return new StatisticalReportTableTypeDto(this);
 	}
 }

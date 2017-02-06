@@ -15,14 +15,14 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
+import java.util.Collection;
+
 import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-
-import java.util.Collection;
 
 /**
  * Test Driver

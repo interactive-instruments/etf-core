@@ -28,7 +28,8 @@ public class TestItemTypeDto extends MetaDataItemDto {
 		super(other);
 	}
 
-	@Override public TestItemTypeDto createCopy() {
+	@Override
+	public TestItemTypeDto createCopy() {
 		return new TestItemTypeDto(this);
 	}
 }

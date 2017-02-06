@@ -60,11 +60,15 @@ public class TestObjectDto extends RepositoryItemDto {
 	}
 
 	public void setTestObjectType(final TestObjectTypeDto testObjectType) {
-		this.testObjectTypes = new ArrayList<TestObjectTypeDto>() {{ add(testObjectType); }};
+		this.testObjectTypes = new ArrayList<TestObjectTypeDto>() {
+			{
+				add(testObjectType);
+			}
+		};
 	}
 
 	public Properties properties() {
-		if(properties==null) {
+		if (properties == null) {
 			properties = new Properties();
 		}
 		return properties;
@@ -86,7 +90,14 @@ public class TestObjectDto extends RepositoryItemDto {
 		return resources;
 	}
 
+	public int getResourcesSize() {
+		return resources != null ? resources.size() : 0;
+	}
+
 	public URI getResourceByName(final String name) {
+		if (resources == null) {
+			return null;
+		}
 		final ResourceDto r = resources.get(name);
 		return r != null ? r.getUri() : null;
 	}
@@ -119,7 +130,8 @@ public class TestObjectDto extends RepositoryItemDto {
 		}
 	}
 
-	@Override public TestObjectDto createCopy() {
+	@Override
+	public TestObjectDto createCopy() {
 		return new TestObjectDto(this);
 	}
 }

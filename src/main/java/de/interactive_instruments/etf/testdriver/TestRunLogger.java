@@ -15,17 +15,16 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
-import org.slf4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+
+import org.slf4j.Logger;
 
 /**
  * Logger used by TestDrivers
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface TestRunLogger extends TestRunLogReader, Logger {
-}
+public interface TestRunLogger extends TestRunLogReader, Logger {}

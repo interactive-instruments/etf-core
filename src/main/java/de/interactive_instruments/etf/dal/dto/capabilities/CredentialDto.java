@@ -60,7 +60,8 @@ public class CredentialDto extends RepositoryItemDto {
 		this.cipher = cipher;
 	}
 
-	@Override public CredentialDto createCopy() {
+	@Override
+	public CredentialDto createCopy() {
 		return new CredentialDto(this);
 	}
 }

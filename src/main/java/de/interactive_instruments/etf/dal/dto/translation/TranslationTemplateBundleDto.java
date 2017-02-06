@@ -101,7 +101,7 @@ public class TranslationTemplateBundleDto extends Dto {
 	 * @return the origin of the Template Bundle as URI
 	 */
 	public URI getSource() {
-		return source!=null ? URI.create(source) : null;
+		return source != null ? URI.create(source) : null;
 	}
 
 	/**
@@ -113,7 +113,8 @@ public class TranslationTemplateBundleDto extends Dto {
 		this.source = source.toString();
 	}
 
-	@Override public TranslationTemplateBundleDto createCopy() {
+	@Override
+	public TranslationTemplateBundleDto createCopy() {
 		return new TranslationTemplateBundleDto(this);
 	}
 

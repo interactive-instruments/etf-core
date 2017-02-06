@@ -34,8 +34,7 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	protected EidMap<TestModelItemDto> children;
 
-	protected TestModelItemDto() {
-	}
+	protected TestModelItemDto() {}
 
 	protected TestModelItemDto(final TestModelItemDto other) {
 		super(other);
@@ -44,7 +43,7 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	@Override
 	public List<? extends TestModelItemDto> getChildren() {
-		return children!=null ? children.values().stream().collect(Collectors.toList()) : null;
+		return children != null ? children.values().stream().collect(Collectors.toList()) : null;
 	}
 
 	@Override
@@ -65,10 +64,12 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	@Override
 	public void setChildren(final List<? extends TestModelItemDto> children) {
-		children.forEach(c -> {
-			c.setParent(this);
-			addChild(c);
-		});
+		if (children != null) {
+			children.forEach(c -> {
+				c.setParent(this);
+				addChild(c);
+			});
+		}
 	}
 
 	@Override

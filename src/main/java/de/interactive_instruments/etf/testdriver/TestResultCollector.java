@@ -28,7 +28,7 @@ import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
  * The TestResultCollector is used to report failures and messages
  * during a test run as well as adding information about the control flow,
  * attachments and logging messages (info, debug, error) which are written
- * to a log file and linked from the test task result.
+ * to a log path and linked from the test task result.
  *
  * The TestResultCollector is exposed by a test driver, injected into a
  * test engine and consumed during a test run by a test driver adapter.
@@ -63,6 +63,13 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 */
 	@Deprecated
 	IFile getResultFile();
+
+	/**
+	 * Returns the Test Task Result ID
+	 *
+	 * @return eid of the currently recorded Test Task Result
+	 */
+	String getTestTaskResultId();
 
 	/**
 	 * Called when a Test Task is run
@@ -211,7 +218,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	void addMessage(final String translationTemplateId, final String... tokensAndValues);
 
 	/**
-	 * Mark a file in the temporary directory as an attachment which will
+	 * Mark a path in the temporary directory as an attachment which will
 	 * be persisted and added to the result document
 	 *
 	 * @param fileName filename in temporary directory (relative path)
@@ -232,7 +239,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 			final String type) throws IOException;
 
 	/**
-	 * Mark a file in the temporary directory as an attachment which will
+	 * Mark a path in the temporary directory as an attachment which will
 	 * be persisted and added to the result document
 	 *
 	 * @param fileName filename in temporary directory (relative path)
@@ -291,7 +298,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	/**
 	 * Save a String as attachment.
 	 *
-	 * The underlying collector may decide if the String is written to a file
+	 * The underlying collector may decide if the String is written to a path
 	 * and referenced from the test result document or if it is embedded
 	 * into the test result document.
 	 *
@@ -319,7 +326,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 * method to mark single files which should be kept and attached to the
 	 * test result document.
 	 *
-	 * @return temporary directory file
+	 * @return temporary directory path
 	 *
 	 */
 	File getTempDir();
@@ -344,7 +351,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	void internalError(final Throwable e);
 
 	/**
-	 * Info message which is written to the log file
+	 * Info message which is written to the log path
 	 *
 	 * @param message message as String
 	 */
@@ -353,7 +360,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	}
 
 	/**
-	 * Error message which is written to the log file
+	 * Error message which is written to the log path
 	 *
 	 * @param message message as String
 	 */
@@ -362,7 +369,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	}
 
 	/**
-	 * Debug message which is written to the log file
+	 * Debug message which is written to the log path
 	 *
 	 * @param message message as String
 	 */

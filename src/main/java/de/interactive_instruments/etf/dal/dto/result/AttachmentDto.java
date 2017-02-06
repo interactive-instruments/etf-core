@@ -87,7 +87,8 @@ public class AttachmentDto extends Dto {
 		this.embeddedData = embeddedData;
 	}
 
-	@Override public AttachmentDto createCopy() {
+	@Override
+	public AttachmentDto createCopy() {
 		return new AttachmentDto(this);
 	}
 }

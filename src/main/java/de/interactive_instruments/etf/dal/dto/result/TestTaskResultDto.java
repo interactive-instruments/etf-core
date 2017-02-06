@@ -53,7 +53,7 @@ public class TestTaskResultDto extends ResultModelItemDto {
 	}
 
 	public Collection<AttachmentDto> getAttachments() {
-		return attachments!=null ? attachments.values() : null;
+		return attachments != null ? attachments.values() : null;
 	}
 
 	public void setAttachments(final List<AttachmentDto> attachments) {
@@ -70,7 +70,7 @@ public class TestTaskResultDto extends ResultModelItemDto {
 	}
 
 	public AttachmentDto getAttachmentById(final EID id) {
-		return this.attachments!=null ? this.attachments.get(id) : null;
+		return this.attachments != null ? this.attachments.get(id) : null;
 	}
 
 	public TestObjectDto getTestObject() {
@@ -91,7 +91,8 @@ public class TestTaskResultDto extends ResultModelItemDto {
 		return sb.toString();
 	}
 
-	@Override public TestTaskResultDto createCopy() {
+	@Override
+	public TestTaskResultDto createCopy() {
 		return new TestTaskResultDto(this);
 	}
 }

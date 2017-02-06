@@ -37,7 +37,8 @@ public class ResultStyleDto extends RepositoryItemDto {
 		this.resource = resource;
 	}
 
-	@Override public ResultStyleDto createCopy() {
+	@Override
+	public ResultStyleDto createCopy() {
 		return new ResultStyleDto(this);
 	}
 

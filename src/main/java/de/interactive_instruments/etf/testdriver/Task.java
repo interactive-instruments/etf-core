@@ -15,14 +15,14 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import de.interactive_instruments.Cancelable;
 import de.interactive_instruments.Initializable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.model.EID;
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * Task interface which is implemented by {@link Runnable} objects

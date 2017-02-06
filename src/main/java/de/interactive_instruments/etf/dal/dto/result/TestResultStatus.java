@@ -35,7 +35,7 @@ public enum TestResultStatus {
 
 	/**
 	 * SKIPPED, if at least one status value is SKIPPED because a
-	 *                         test case depends on another test case which has the status FAILED
+	 * test case depends on another test case which has the status FAILED or SKIPPED
 	 *
 	 *
 	 */
@@ -43,8 +43,8 @@ public enum TestResultStatus {
 
 	/**
 	 * NOT_APPLICABLE if at least one status value is NOT_APPLICABLE,
-	 *                         in the case the test object does not provide the capabilities for executing
-	 *                         the test
+	 * in the case the test object does not provide the capabilities for executing
+	 * the test
 	 *
 	 */
 	NOT_APPLICABLE,
@@ -56,8 +56,7 @@ public enum TestResultStatus {
 	INFO,
 
 	/**
-	 * WARNING, if at least one status value is
-	 *                         WARNING
+	 * WARNING, if at least one status value is WARNING
 	 *
 	 */
 	WARNING,
@@ -70,9 +69,8 @@ public enum TestResultStatus {
 
 	/**
 	 * PASSED_MANUAL, if at least one status value is PASSED_MANUAL
-	 *                         (if the test is not automated and the user has to validate results manually
-	 *                         based on instructions in the report) and all others are values are
-	 *                         PASSED
+	 * (if the test is not automated and the user has to validate results manually
+	 * based on instructions in the report) and all others are values are PASSED
 	 *
 	 */
 	PASSED_MANUAL;

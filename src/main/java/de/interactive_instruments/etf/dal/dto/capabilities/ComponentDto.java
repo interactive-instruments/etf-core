@@ -23,8 +23,7 @@ public class ComponentDto extends MetaDataItemDto {
 	protected String vendor;
 	protected String version;
 
-	public ComponentDto() {
-	}
+	public ComponentDto() {}
 
 	public ComponentDto(final ComponentInfo componentInfo) {
 		this.label = componentInfo.getName();
@@ -56,7 +55,8 @@ public class ComponentDto extends MetaDataItemDto {
 		this.version = value;
 	}
 
-	@Override public ComponentDto createCopy() {
+	@Override
+	public ComponentDto createCopy() {
 		return new ComponentDto(this);
 	}
 }

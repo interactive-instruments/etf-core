@@ -23,8 +23,7 @@ package de.interactive_instruments.etf.dal.dto;
 public abstract class ModelItemDto extends Dto {
 	protected ModelItemDto parent;
 
-	public ModelItemDto() {
-	}
+	public ModelItemDto() {}
 
 	public ModelItemDto(final ModelItemDto other) {
 		this.id = other.id;

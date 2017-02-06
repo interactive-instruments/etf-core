@@ -118,7 +118,8 @@ public class TestAssertionDto extends TestModelItemDto {
 		return sb.toString();
 	}
 
-	@Override public TestAssertionDto createCopy() {
+	@Override
+	public TestAssertionDto createCopy() {
 		return new TestAssertionDto(this);
 	}
 }

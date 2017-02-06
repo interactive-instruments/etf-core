@@ -35,8 +35,7 @@ public class TestTaskDto extends ModelItemDto {
 	private TestTaskResultDto testTaskResult;
 	private Arguments arguments;
 
-	public TestTaskDto() {
-	}
+	public TestTaskDto() {}
 
 	private TestTaskDto(final TestTaskDto other) {
 		super(other);
@@ -83,8 +82,8 @@ public class TestTaskDto extends ModelItemDto {
 	}
 
 	public Arguments getArguments() {
-		if(arguments==null) {
-			arguments=new Arguments();
+		if (arguments == null) {
+			arguments = new Arguments();
 		}
 		return arguments;
 	}
@@ -113,7 +112,8 @@ public class TestTaskDto extends ModelItemDto {
 		DtoValidityCheckUtils.ensureNotNullAndHasId("testObject", testObject);
 	}
 
-	@Override public TestTaskDto createCopy() {
+	@Override
+	public TestTaskDto createCopy() {
 		return new TestTaskDto(this);
 	}
 }

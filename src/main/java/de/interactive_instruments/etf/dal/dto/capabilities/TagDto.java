@@ -25,12 +25,12 @@ public class TagDto extends MetaDataItemDto {
 	private int priority;
 
 	public TagDto() {
-		this.priority=64;
+		this.priority = 64;
 	}
 
 	private TagDto(final TagDto other) {
 		super(other);
-		this.priority=other.priority;
+		this.priority = other.priority;
 	}
 
 	public int getPriority() {
@@ -41,7 +41,8 @@ public class TagDto extends MetaDataItemDto {
 		this.priority = priority;
 	}
 
-	@Override public TagDto createCopy() {
+	@Override
+	public TagDto createCopy() {
 		return new TagDto(this);
 	}
 }

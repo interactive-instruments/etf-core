@@ -52,7 +52,8 @@ public class TestCaseResultDto extends ResultModelItemDto {
 		this.arguments = argumentsDto;
 	}
 
-	@Override public TestCaseResultDto createCopy() {
+	@Override
+	public TestCaseResultDto createCopy() {
 		return new TestCaseResultDto(this);
 	}
 }

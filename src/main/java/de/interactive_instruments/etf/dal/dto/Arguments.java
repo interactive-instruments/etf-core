@@ -30,28 +30,30 @@ public class Arguments {
 	private Map<String, Argument> values = new HashMap<>();
 
 	public Arguments(final PropertyHolder holder) {
-		holder.forEach( p -> values.put(p.getKey(), new Argument(p.getKey(), p.getValue())));
+		holder.forEach(p -> values.put(p.getKey(), new Argument(p.getKey(), p.getValue())));
 	}
 
-	public Arguments() {
-	}
+	public Arguments() {}
 
 	public Arguments(final Map<String, String> map) {
-		map.entrySet().forEach( e -> values.put(e.getKey(), new Argument(e.getKey(), e.getValue())));
+		map.entrySet().forEach(e -> values.put(e.getKey(), new Argument(e.getKey(), e.getValue())));
 	}
 
 	public static class Argument {
 		private String name;
 		private String value;
-		public Argument() {
-		}
+
+		public Argument() {}
+
 		public Argument(final String name, final String value) {
 			this.name = name;
 			this.value = value;
 		}
+
 		public String getName() {
 			return name;
 		}
+
 		public String getValue() {
 			return value;
 		}
@@ -105,7 +107,7 @@ public class Arguments {
 				return map;
 			} else {
 				final Map<String, String> vals = new HashMap<>();
-				values.entrySet().forEach( e -> vals.put(e.getKey(), e.getValue().getValue()));
+				values.entrySet().forEach(e -> vals.put(e.getKey(), e.getValue().getValue()));
 				return vals;
 			}
 		}
@@ -122,13 +124,13 @@ public class Arguments {
 	// TODO tmp
 	public String value(final String name) {
 		final Argument val = values.get(name);
-		return val!=null ? val.getValue() : null;
+		return val != null ? val.getValue() : null;
 	}
 
 	// TODO tmp
 	public Map<String, String> values() {
 		final Map<String, String> vals = new HashMap<>();
-		values.entrySet().forEach( e -> vals.put(e.getKey(), e.getValue().getValue()));
+		values.entrySet().forEach(e -> vals.put(e.getKey(), e.getValue().getValue()));
 		return vals;
 	}
 

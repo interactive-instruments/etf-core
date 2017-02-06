@@ -68,7 +68,8 @@ public class TestAssertionResultDto extends ResultModelItemDto {
 		return sb.toString();
 	}
 
-	@Override public TestAssertionResultDto createCopy() {
+	@Override
+	public TestAssertionResultDto createCopy() {
 		return new TestAssertionResultDto(this);
 	}
 }

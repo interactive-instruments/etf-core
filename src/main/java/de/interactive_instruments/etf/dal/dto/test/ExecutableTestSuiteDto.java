@@ -27,15 +27,13 @@ import de.interactive_instruments.etf.dal.dto.ModelItemTreeNode;
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.ComponentDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
-import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
-import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
 import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 import de.interactive_instruments.etf.model.DefaultEidMap;
 import de.interactive_instruments.etf.model.EidMap;
-import de.interactive_instruments.etf.model.DependencyHolder;
+import de.interactive_instruments.etf.model.NestedDependencyHolder;
 import de.interactive_instruments.etf.model.ParameterSet;
 
-public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelItemTreeNode<TestModelItemDto>, DependencyHolder<ExecutableTestSuiteDto> {
+public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelItemTreeNode<TestModelItemDto>, NestedDependencyHolder<ExecutableTestSuiteDto> {
 
 	private ComponentDto testDriver;
 	private TranslationTemplateBundleDto translationTemplateBundle;
@@ -85,13 +83,20 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 		this.supportedTestObjectTypes = supportedTestObjectTypes;
 	}
 
+	public void addSupportedTestObjectType(final TestObjectTypeDto supportedTestObjectType) {
+		if (this.supportedTestObjectTypes == null) {
+			this.supportedTestObjectTypes = new ArrayList<>(2);
+		}
+		this.supportedTestObjectTypes.add(supportedTestObjectType);
+	}
+
 	public void setDependencies(final List<ExecutableTestSuiteDto> dependencies) {
 		this.dependencies = dependencies;
 	}
 
 	public void addDependency(final ExecutableTestSuiteDto dependency) {
-		if(this.dependencies==null) {
-			this.dependencies = new ArrayList<>();
+		if (this.dependencies == null) {
+			this.dependencies = new ArrayList<>(2);
 		}
 		dependencies.add(dependency);
 	}
@@ -165,10 +170,11 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 	}
 
 	// Todo move to immutable iface
-	private long assertions=-1;
+	private long assertions = -1;
+
 	public long getAssertionsSize() {
-		if(assertions==-1) {
-			assertions=0;
+		if (assertions == -1) {
+			assertions = 0;
 			if (getTestModules() != null) {
 				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null).forEach(testModuleDto -> {
 					testModuleDto.getTestCases().stream().filter(testCaseDto -> testCaseDto.getTestSteps() != null).forEach(testCaseDto -> {
@@ -188,7 +194,8 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 		DtoValidityCheckUtils.ensureNotNullAndHasId("testDriver", testDriver);
 	}
 
-	@Override public ExecutableTestSuiteDto createCopy() {
+	@Override
+	public ExecutableTestSuiteDto createCopy() {
 		return new ExecutableTestSuiteDto(this);
 	}
 }

@@ -95,7 +95,8 @@ public class TranslationArgumentCollectionDto extends Dto {
 		return sb.toString();
 	}
 
-	@Override public TranslationArgumentCollectionDto createCopy() {
+	@Override
+	public TranslationArgumentCollectionDto createCopy() {
 		return new TranslationArgumentCollectionDto(this);
 	}
 }

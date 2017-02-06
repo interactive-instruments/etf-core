@@ -15,22 +15,22 @@
  */
 package de.interactive_instruments.etf.component;
 
-import de.interactive_instruments.exceptions.InitializationException;
-
 import java.nio.file.Path;
+
+import de.interactive_instruments.exceptions.InitializationException;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
 public class ComponentLoadingException extends InitializationException {
+
+	public ComponentLoadingException(final Path jar, final Exception e) {
+		super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
+	}
+
 	public ComponentLoadingException(final Path jar, final Throwable e) {
-		super("Loading of component JAR \""+jar.getFileName()+"\" failed: "+e.getMessage(),e);
+		super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
 	}
-
-	public ComponentLoadingException(final Path jar, final String msg) {
-		super("Loading of component JAR \""+jar.getFileName()+"\" failed: "+msg);
-	}
-
 
 	public ComponentLoadingException(String msg) {
 		super(msg);

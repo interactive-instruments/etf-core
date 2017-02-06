@@ -37,7 +37,8 @@ public class TestModuleResultDto extends ResultModelItemDto {
 		addChild(testCaseResult);
 	}
 
-	@Override public TestModuleResultDto createCopy() {
+	@Override
+	public TestModuleResultDto createCopy() {
 		return new TestModuleResultDto(this);
 	}
 }

@@ -31,15 +31,15 @@ public interface RemoteRepositoryItem extends RepositoryItem, Releasable {
 	/**
 	 * Gets the remote item and deploys it on the local system.
 	 **
-	 * @return file on the local system.
+	 * @return path on the local system.
 	 * @throws IOException if download fails
 	 */
 	IFile makeAvailable(final Path path) throws IOException;
 
 	/**
-	 * Get the fetched file on the local system.
+	 * Get the fetched path on the local system.
 	 *
-	 * @return file on local system; null if isAvailable() returns false;
+	 * @return path on local system; null if isAvailable() returns false;
 	 */
 	IFile getLocal();
 

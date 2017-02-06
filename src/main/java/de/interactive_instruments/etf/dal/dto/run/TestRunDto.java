@@ -20,14 +20,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
 import de.interactive_instruments.etf.dal.dto.IncompleteDtoException;
+import de.interactive_instruments.etf.dal.dto.ModelItemDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectDto;
+import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-
-import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
-import de.interactive_instruments.etf.dal.dto.ModelItemDto;
-import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
@@ -40,6 +39,8 @@ public class TestRunDto extends ModelItemDto {
 	private String startedBy;
 	private List<TestTaskDto> testTasks;
 	private String logPath;
+	// FIXME aggregate from test tasks
+	private TestResultStatus testResultStatus;
 
 	public TestRunDto() {
 
@@ -52,7 +53,7 @@ public class TestRunDto extends ModelItemDto {
 		this.defaultLang = other.defaultLang;
 		this.startTimestamp = other.startTimestamp;
 		this.startedBy = other.startedBy;
-		if(other.testTasks!=null) {
+		if (other.testTasks != null) {
 			this.testTasks = new ArrayList<>();
 			this.testTasks.addAll(other.testTasks.stream().map(
 					TestTaskDto::createCopy).collect(Collectors.toList()));
@@ -60,10 +61,6 @@ public class TestRunDto extends ModelItemDto {
 		this.logPath = other.logPath;
 		this.testResultStatus = other.testResultStatus;
 	}
-
-	// Test RUN status is queried from the test task objects!
-
-	private TestResultStatus testResultStatus;
 
 	public String getLabel() {
 		return label;
@@ -123,21 +120,21 @@ public class TestRunDto extends ModelItemDto {
 	}
 
 	public List<TestObjectDto> getTestObjects() {
-		if(this.testTasks!=null) {
+		if (this.testTasks != null) {
 			return this.testTasks.stream().map(TestTaskDto::getTestObject).collect(Collectors.toList());
 		}
 		return null;
 	}
 
 	public List<ExecutableTestSuiteDto> getExecutableTestSuites() {
-		if(this.testTasks!=null) {
+		if (this.testTasks != null) {
 			return this.testTasks.stream().map(TestTaskDto::getExecutableTestSuite).collect(Collectors.toList());
 		}
 		return null;
 	}
 
 	public List<TestTaskResultDto> getTestTaskResults() {
-		if(this.testTasks!=null) {
+		if (this.testTasks != null) {
 			return this.testTasks.stream().map(TestTaskDto::getTestTaskResult).collect(Collectors.toList());
 		}
 		return null;
@@ -180,7 +177,8 @@ public class TestRunDto extends ModelItemDto {
 		DtoValidityCheckUtils.ensureNotNullOrEmpty("testTasks", testTasks);
 	}
 
-	@Override public TestRunDto createCopy() {
+	@Override
+	public TestRunDto createCopy() {
 		return new TestRunDto(this);
 	}
 
