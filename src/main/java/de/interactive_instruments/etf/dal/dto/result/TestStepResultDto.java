@@ -16,7 +16,6 @@
 package de.interactive_instruments.etf.dal.dto.result;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,12 +24,16 @@ import java.util.List;
 public final class TestStepResultDto extends ResultModelItemDto implements AttachmentDtoHolder {
 
 	private List<AttachmentDto> attachments;
+	private List<TestStepResultDto> invokedTestSteps;
+	private List<TestCaseResultDto> invokedTestCases;
 
 	public TestStepResultDto() {}
 
 	private TestStepResultDto(final TestStepResultDto other) {
 		super(other);
 		this.attachments = other.attachments;
+		this.invokedTestSteps = other.invokedTestSteps;
+		this.invokedTestCases = other.invokedTestCases;
 	}
 
 	public List<TestAssertionResultDto> getTestAssertionResults() {
@@ -60,7 +63,38 @@ public final class TestStepResultDto extends ResultModelItemDto implements Attac
 		attachments.add(attachment);
 	}
 
-	@Override public TestStepResultDto createCopy() {
+	public List<TestStepResultDto> getInvokedTestSteps() {
+		return invokedTestSteps;
+	}
+
+	public void setInvokedTestSteps(final List<TestStepResultDto> invokedTestSteps) {
+		this.invokedTestSteps = invokedTestSteps;
+	}
+
+	public void addInvokedTestSteps(final TestStepResultDto testStep) {
+		if (invokedTestSteps == null) {
+			invokedTestSteps = new ArrayList<>(2);
+		}
+		invokedTestSteps.add(testStep);
+	}
+
+	public List<TestCaseResultDto> getInvokedTestCases() {
+		return invokedTestCases;
+	}
+
+	public void setInvokedTestCases(final List<TestCaseResultDto> invokedTestCases) {
+		this.invokedTestCases = invokedTestCases;
+	}
+
+	public void addInvokedTestCases(final TestCaseResultDto testCase) {
+		if (invokedTestCases == null) {
+			invokedTestCases = new ArrayList<>(2);
+		}
+		invokedTestCases.add(testCase);
+	}
+
+	@Override
+	public TestStepResultDto createCopy() {
 		return new TestStepResultDto(this);
 	}
 }
