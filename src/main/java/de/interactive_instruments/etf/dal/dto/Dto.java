@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.dal.dto;
 
 import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.etf.model.EidHolder;
 
 /**
  * Abstract Data Transfer Object for the ETF model which is used as a simple container
@@ -25,7 +26,7 @@ import de.interactive_instruments.etf.model.EID;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public abstract class Dto implements Comparable {
+public abstract class Dto implements Comparable, EidHolder {
 
 	protected EID id;
 
@@ -60,13 +61,6 @@ public abstract class Dto implements Comparable {
 		if (id == null) {
 			throw new IncompleteDtoException("Required property 'id' not set!");
 		}
-	}
-
-	@Override public int compareTo(final Object o) {
-		if(o instanceof Dto) {
-			return ((Dto) o).getId().compareTo(this);
-		}
-		throw new IllegalArgumentException("Invalid object type comparison");
 	}
 
 	public abstract <T> T createCopy();
