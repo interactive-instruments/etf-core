@@ -84,7 +84,7 @@ public abstract class ResultModelItemDto extends ModelItemDto implements ModelIt
 
 	@Override
 	public List<? extends ResultModelItemDto> getChildren() {
-		return children.values().stream().collect(Collectors.toList());
+		return children != null ? children.values().stream().collect(Collectors.toList()) : null;
 
 	}
 
