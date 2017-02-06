@@ -15,11 +15,6 @@
  */
 package de.interactive_instruments.etf.dal.dao;
 
-import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.properties.Properties;
-
-import java.util.Collection;
-
 /**
  * Filter criteria for a Dao request
  *
@@ -39,13 +34,9 @@ public interface Filter {
 	/**
 	 * The maximum number of Dtos that should be returned
 	 *
-	 * Default: 100
-	 *
 	 * @return the maximum number of Dtos that should be returned
 	 */
-	default int limit() {
-		return 100;
-	}
+	int limit();
 
 	enum LevelOfDetail {
 		/**
@@ -70,6 +61,4 @@ public interface Filter {
 	default LevelOfDetail levelOfDetail() {
 		return LevelOfDetail.SIMPLE;
 	}
-
-
 }
