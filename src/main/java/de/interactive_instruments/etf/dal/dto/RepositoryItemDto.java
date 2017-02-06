@@ -107,6 +107,14 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 		this.version = version.toString();
 	}
 
+	public void increaseVersion() {
+		if (this.version == null) {
+			this.version = Version.parse("1.0.0").getAsString();
+		} else {
+			this.version = Version.parse(this.version).incBugfix().getAsString();
+		}
+	}
+
 	/**
 	 * Gets the value of the author property.
 	 *
@@ -155,8 +163,10 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 		this.creationDate = value;
 	}
 
-	public void setCreationDateNow() {
-		this.creationDate = new Date();
+	public void setCreationDateNowIfNotSet() {
+		if (this.creationDate == null) {
+			this.creationDate = new Date();
+		}
 	}
 
 	/**
@@ -174,13 +184,18 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 	/**
 	 * Sets the value of the lastEditor property.
 	 *
-	 * @param value
+	 * Automatically sets the author if not set
+	 *
+	 * @param editor
 	 *     allowed object is
 	 *     {@link String }
 	 *
 	 */
-	public void setLastEditor(String value) {
-		this.lastEditor = value;
+	public void setLastEditor(final String editor) {
+		this.lastEditor = editor;
+		if (this.author == null) {
+			this.author = editor;
+		}
 	}
 
 	/**
@@ -205,6 +220,13 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 	 */
 	public void setLastUpdateDate(Date value) {
 		this.lastUpdateDate = value;
+		if (this.creationDate == null) {
+			this.creationDate = new Date();
+		}
+	}
+
+	public void setLastUpdateDateNow() {
+		setLastUpdateDate(new Date());
 	}
 
 	public ModelItemDto getReplacedBy() {
@@ -232,7 +254,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 	}
 
 	public URI getRemoteResource() {
-		return URI.create(remoteResource);
+		return remoteResource != null ? URI.create(remoteResource) : null;
 	}
 
 	public void setRemoteResource(final URI remoteResource) {
@@ -294,7 +316,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 			throw new IncompleteDtoException("Required property 'creationDate' must be set!");
 		}
 		if (remoteResource != null && localPath == null) {
-			throw new IncompleteDtoException("Property 'remoteResource' is set but not required property 'localPath' !");
+			throw new IncompleteDtoException("Prop 'remoteResource' is set but not required property 'localPath' !");
 		}
 	}
 }
