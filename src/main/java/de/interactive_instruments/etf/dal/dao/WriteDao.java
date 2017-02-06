@@ -63,6 +63,18 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 */
 	T update(final T dto) throws StorageException, ObjectWithIdNotFoundException;
 
+	/**
+	 * Update one Dto in data storage
+	 *
+	 * Please note: even if the Dto is of type RepositoryItemDto the EID is not updated!
+	 *
+	 * @param dto old dto
+	 *
+	 * @throws StorageException
+	 * @throws ObjectWithIdNotFoundException
+	 */
+	void updateWithoutEidChange(final T dto) throws StorageException, ObjectWithIdNotFoundException;
+
 	default T replace(final T dto) throws StorageException, ObjectWithIdNotFoundException {
 		delete(dto.getId());
 		add(dto);
