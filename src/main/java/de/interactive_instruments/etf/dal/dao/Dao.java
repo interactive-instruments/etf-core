@@ -71,4 +71,12 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	 * @return EidMap of Output Formats
 	 */
 	EidMap<OutputFormat> getOutputFormats();
+
+	/**
+	 * Last modification (update/insert) date
+	 * @return
+	 */
+	long getLastModificationDate();
+
+	FilterBuilder getFilterBuilder();
 }
