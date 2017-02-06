@@ -38,7 +38,7 @@ public class EtfConstants {
 	 * PROPERTY KEYS
 	 */
 	public static final String ETF_PK_PREFIX = "etf.";
-	public static final String ETF_TESTDOMAIN_PK = ETF_PK_PREFIX + "testdomain";
+	public static final String ETF_TESTDOMAIN_PK = ETF_PK_PREFIX + "test.domain";
 	public static final String ETF_AUTHOR_PK = ETF_PK_PREFIX + "author";
 	public static final String ETF_LAST_EDITOR_PK = ETF_PK_PREFIX + "last.editor";
 	public static final String ETF_CREATION_DATE_PK = ETF_PK_PREFIX + "creation.date";
@@ -47,8 +47,8 @@ public class EtfConstants {
 	public static final String ETF_VERSION_PK = ETF_PK_PREFIX + "version";
 	public static final String ETF_IMPL_STATUS_PK = ETF_PK_PREFIX + "status";
 	public static final String ETF_REFERENCE_PK = ETF_PK_PREFIX + "reference";
-	public static final String ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK = ETF_PK_PREFIX + "supported.testobject.type.ids";
-
+	public static final String ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK = ETF_PK_PREFIX + "supported.test.object.type.ids";
+	public static final String ETF_TRANSLATION_TEMPLATE_BUNDLE_ID_PK = ETF_PK_PREFIX + "translation.template.bundle.id";
 
 	public static final String ETF_IGNORE_PROPERTIES_PK = ETF_PK_PREFIX + "ignore.properties";
 
@@ -87,7 +87,7 @@ public class EtfConstants {
 	public static final String ETF_XMLNS = "http://www.interactive-instruments.de/etf/2.0";
 
 	/**
-	 * ETF test project property file
+	 * ETF test project property path
 	 */
 	public static final String ETF_TESTPROJECT_PROPERTY_FILE_SUFFIX = ".etftp.properties";
 
