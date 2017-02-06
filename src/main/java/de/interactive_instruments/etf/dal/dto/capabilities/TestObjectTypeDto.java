@@ -24,11 +24,27 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 
 	private List<TestObjectTypeDto> subTypes;
 
+	// List of supported filenameExtensions
+	private List<String> filenameExtensions;
+
+	// List of supported mimetypes
+	private List<String> mimeTypes;
+
+	// Detection expression (as Xpath)
+	private String detectionExpression;
+
+	// Naming convention for Test Objects as regex
+	private String namingConvention;
+
 	public TestObjectTypeDto() {}
 
 	private TestObjectTypeDto(final TestObjectTypeDto other) {
 		super(other);
 		this.subTypes = other.subTypes;
+		this.namingConvention = other.namingConvention;
+		this.filenameExtensions = other.filenameExtensions;
+		this.mimeTypes = other.mimeTypes;
+		this.detectionExpression = other.detectionExpression;
 	}
 
 	public List<TestObjectTypeDto> getSubTypes() {
@@ -46,7 +62,40 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 		subTypes.add(subType);
 	}
 
-	@Override public TestObjectTypeDto createCopy() {
+	public String getNamingConvention() {
+		return namingConvention;
+	}
+
+	public void setNamingConvention(final String namingConvention) {
+		this.namingConvention = namingConvention;
+	}
+
+	public List<String> getFilenameExtensions() {
+		return filenameExtensions;
+	}
+
+	public void setFilenameExtensions(final List<String> filenameExtensions) {
+		this.filenameExtensions = filenameExtensions;
+	}
+
+	public List<String> getMimeTypes() {
+		return mimeTypes;
+	}
+
+	public void setMimeTypes(final List<String> mimeTypes) {
+		this.mimeTypes = mimeTypes;
+	}
+
+	public String getDetectionExpression() {
+		return detectionExpression;
+	}
+
+	public void setDetectionExpression(final String detectionExpression) {
+		this.detectionExpression = detectionExpression;
+	}
+
+	@Override
+	public TestObjectTypeDto createCopy() {
 		return new TestObjectTypeDto(this);
 	}
 }

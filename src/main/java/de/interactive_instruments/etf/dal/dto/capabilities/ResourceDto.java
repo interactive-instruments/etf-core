@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.dal.dto.capabilities;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class ResourceDto {
 
 	}
 
-	public ResourceDto(final String name, final String uri) {
+	public ResourceDto(final String name, final String uri) throws URISyntaxException {
 		this.name = name;
 		setUri(uri);
 	}
@@ -45,7 +46,7 @@ public class ResourceDto {
 		setUri(uri);
 	}
 
-	public ResourceDto(final String name, final String uri, final CredentialDto credential) {
+	public ResourceDto(final String name, final String uri, final CredentialDto credential) throws URISyntaxException {
 		this.credential = credential;
 		this.name = name;
 		setUri(uri);
@@ -81,7 +82,7 @@ public class ResourceDto {
 		this.uri = uri.toString();
 	}
 
-	public void setUri(final String uri) {
-		this.uri = URI.create(uri).toString();
+	public void setUri(final String uri) throws URISyntaxException {
+		this.uri = new URI(uri).toString();
 	}
 }

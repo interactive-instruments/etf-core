@@ -47,6 +47,8 @@ class EidFactoryLoader {
 
 		private static class DefaultEidFactory implements EidFactory {
 
+			// TODO rename to createNewId(). Include a timestamp:
+			// https://engineering.instagram.com/sharding-ids-at-instagram-1cf5a71e5a5c#.fgealvsj9
 			@Override
 			public EID createRandomId() {
 				return new DefaultEid(UUID.randomUUID().toString());
@@ -63,7 +65,7 @@ class EidFactoryLoader {
 				try {
 					if (uuid.length() == 36) {
 						return new DefaultEid(UUID.fromString(uuid).toString());
-					}else if (uuid.length() == 39 && uuid.startsWith("EID")) {
+					} else if (uuid.length() == 39 && uuid.startsWith("EID")) {
 						return new DefaultEid(UUID.fromString(uuid.substring(3)).toString());
 					}
 				} catch (IllegalArgumentException e) {

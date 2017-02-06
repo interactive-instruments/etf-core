@@ -17,15 +17,11 @@ package de.interactive_instruments.etf.dal.dto.test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
-import de.interactive_instruments.etf.model.DefaultEidMap;
-import de.interactive_instruments.etf.model.DependencyHolder;
-import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.NestedDependencyHolder;
 
-public class TestCaseDto extends TestModelItemDto implements DependencyHolder<TestCaseDto> {
+public class TestCaseDto extends TestModelItemDto implements NestedDependencyHolder<TestCaseDto> {
 
 	private List<TestCaseDto> dependencies;
 
@@ -53,7 +49,7 @@ public class TestCaseDto extends TestModelItemDto implements DependencyHolder<Te
 	}
 
 	public void addDependency(final TestCaseDto dependency) {
-		if(this.dependencies==null) {
+		if (this.dependencies == null) {
 			this.dependencies = new ArrayList<>();
 		}
 		dependencies.add(dependency);
@@ -63,7 +59,8 @@ public class TestCaseDto extends TestModelItemDto implements DependencyHolder<Te
 		return dependencies;
 	}
 
-	@Override public TestCaseDto createCopy() {
+	@Override
+	public TestCaseDto createCopy() {
 		return new TestCaseDto(this);
 	}
 }
