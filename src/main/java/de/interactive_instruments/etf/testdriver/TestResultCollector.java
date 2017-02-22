@@ -193,6 +193,14 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	boolean statusEqualsAny(final String testModelItemId, final String... testResultStatus) throws IllegalArgumentException;
 
 	/**
+	 * The error limit is set as a default test run parameter. Returns true if the error limit exceeded, false otherwise.
+	 * Should be used by the client to avoid constructing expensive error messages.
+	 *
+	 * @return true it the error limit exceeded, false otherwise
+	 */
+	boolean isErrorLimitExceeded();
+
+	/**
 	 * Add a message
 	 *
 	 * @param translationTemplateId Translation Template ID
