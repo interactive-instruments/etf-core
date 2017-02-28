@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,9 +42,10 @@ public interface Filter {
 		/**
 		 * Don't include references in result
 		 */
-		SIMPLE, /**
-				 * Include historical references to older items
-				 */
+		SIMPLE,
+		/**
+		 * Include historical references to older items
+		 */
 		HISTORY,
 
 		/**

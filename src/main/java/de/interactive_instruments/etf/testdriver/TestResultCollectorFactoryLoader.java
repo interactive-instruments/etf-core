@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ class TestResultCollectorFactoryLoader {
 
 	private static final class InstanceHolder {
 		static final TestResultCollectorFactory findResultCollectorFactory() {
-			final ServiceLoader<TestResultCollectorFactory> collectorFactories = ServiceLoader.load(TestResultCollectorFactory.class);
+			final ServiceLoader<TestResultCollectorFactory> collectorFactories = ServiceLoader
+					.load(TestResultCollectorFactory.class);
 			final String collectorFactoryClassname = System.getProperty(ETF_TESTDRIVER_RESULT_COLLECTOR_FACTORY);
 			try {
 				if (SUtils.isNullOrEmpty(collectorFactoryClassname)) {

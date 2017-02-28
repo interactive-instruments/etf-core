@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,5 +77,6 @@ public interface PreparedDtoResolver<T extends Dto> {
 	 * @throws StorageException internal Store exception
 	 * @throws ObjectWithIdNotFoundException Invalid ID provided
 	 */
-	PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter) throws StorageException, ObjectWithIdNotFoundException;
+	PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter)
+			throws StorageException, ObjectWithIdNotFoundException;
 }

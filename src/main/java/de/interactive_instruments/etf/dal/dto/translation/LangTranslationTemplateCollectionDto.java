@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,8 @@ public class LangTranslationTemplateCollectionDto {
 	 */
 	void add(final TranslationTemplateDto templateDto) {
 		translationTemplates.put(
-				SUtils.requireNonNullOrEmpty(templateDto.getLanguage(), "TranslationTemplate name is null or empty"), templateDto);
+				SUtils.requireNonNullOrEmpty(templateDto.getLanguage(), "TranslationTemplate name is null or empty"),
+				templateDto);
 	}
 
 	/**

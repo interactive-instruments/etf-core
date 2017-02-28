@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ import de.interactive_instruments.etf.model.EidMap;
 import de.interactive_instruments.etf.model.NestedDependencyHolder;
 import de.interactive_instruments.etf.model.ParameterSet;
 
-public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelItemTreeNode<TestModelItemDto>, NestedDependencyHolder<ExecutableTestSuiteDto> {
+public class ExecutableTestSuiteDto extends RepositoryItemDto
+		implements ModelItemTreeNode<TestModelItemDto>, NestedDependencyHolder<ExecutableTestSuiteDto> {
 
 	private ComponentDto testDriver;
 	private TranslationTemplateBundleDto translationTemplateBundle;
@@ -176,13 +177,17 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto implements ModelIt
 		if (assertions == -1) {
 			assertions = 0;
 			if (getTestModules() != null) {
-				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null).forEach(testModuleDto -> {
-					testModuleDto.getTestCases().stream().filter(testCaseDto -> testCaseDto.getTestSteps() != null).forEach(testCaseDto -> {
-						testCaseDto.getTestSteps().stream().filter(testStepDto -> testStepDto.getTestAssertions() != null).forEach(testStepDto -> {
-							assertions += testStepDto.getTestAssertions().size();
+				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null)
+						.forEach(testModuleDto -> {
+							testModuleDto.getTestCases().stream().filter(testCaseDto -> testCaseDto.getTestSteps() != null)
+									.forEach(testCaseDto -> {
+										testCaseDto.getTestSteps().stream()
+												.filter(testStepDto -> testStepDto.getTestAssertions() != null)
+												.forEach(testStepDto -> {
+													assertions += testStepDto.getTestAssertions().size();
+												});
+									});
 						});
-					});
-				});
 			}
 		}
 		return assertions;

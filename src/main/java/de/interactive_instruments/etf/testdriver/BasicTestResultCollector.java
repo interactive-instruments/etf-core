@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,8 @@ public interface BasicTestResultCollector extends Releasable {
 	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
 	 * @throws IllegalStateException if test already has been started or ended
 	 */
-	String startTestModule(final String testModuleId, long startTimestamp) throws IllegalArgumentException, IllegalStateException;
+	String startTestModule(final String testModuleId, long startTimestamp)
+			throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Called when a Test Case is run
@@ -88,7 +89,8 @@ public interface BasicTestResultCollector extends Releasable {
 	 * @throws IllegalArgumentException if the eid is invalid or the test can't be started in the current context
 	 * @throws IllegalStateException if test already has been started or ended
 	 */
-	String startTestAssertion(final String testAssertionId, long startTimestamp) throws IllegalArgumentException, IllegalStateException;
+	String startTestAssertion(final String testAssertionId, long startTimestamp)
+			throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Called just after a test item has been run
@@ -102,7 +104,8 @@ public interface BasicTestResultCollector extends Releasable {
 	 * @throws IllegalArgumentException if test already has been ended
 	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
 	 */
-	String end(final String testModelItemId, final int status, long stopTimestamp) throws IllegalArgumentException, IllegalStateException;
+	String end(final String testModelItemId, final int status, long stopTimestamp)
+			throws IllegalArgumentException, IllegalStateException;
 
 	/**
 	 * Returns the currently recorded model type

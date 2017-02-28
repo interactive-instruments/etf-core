@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@ import de.interactive_instruments.etf.model.EidMap;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface PreparedDtoCollection<T extends Dto> extends OutputFormatStreamable, Iterable<T>, EidMap<T>, Releasable, Comparable<PreparedDtoCollection> {
+public interface PreparedDtoCollection<T extends Dto>
+		extends OutputFormatStreamable, Iterable<T>, EidMap<T>, Releasable, Comparable<PreparedDtoCollection> {
 
 	default Collection<T> asCollection() {
 		return values();

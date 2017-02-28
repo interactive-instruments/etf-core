@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2016 interactive instruments GmbH
+ * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,5 +34,6 @@ public interface OutputFormatStreamable {
 	 * @param outputFormat
 	 * @param outputStream
 	 */
-	void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream) throws IOException;
+	void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream)
+			throws IOException;
 }
