@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.dal.dto;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -251,6 +252,13 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 
 	public void setTags(final List<TagDto> tagDtos) {
 		this.tagDtos = tagDtos;
+	}
+
+	public void addTag(final TagDto tagDto) {
+		if (this.tagDtos == null) {
+			this.tagDtos = new ArrayList<>();
+		}
+		this.tagDtos.add(tagDto);
 	}
 
 	public URI getRemoteResource() {
