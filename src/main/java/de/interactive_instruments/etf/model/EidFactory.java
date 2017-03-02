@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.model;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * Interface for a factory that creates etf identifier objects.
@@ -63,6 +64,13 @@ public interface EidFactory {
 	 * @return
 	 */
 	EID createAndPreserveUUID(UUID uuid);
+
+	/**
+	 * Returns the pattern to check the ID
+	 *
+	 * @return
+	 */
+	Pattern getPattern();
 
 	static EidFactory getDefault() {
 		return EidFactoryLoader.instance();

@@ -18,6 +18,7 @@ package de.interactive_instruments.etf.model;
 import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import de.interactive_instruments.SUtils;
 import de.interactive_instruments.exceptions.ExcUtils;
@@ -46,6 +47,8 @@ class EidFactoryLoader {
 		}
 
 		private static class DefaultEidFactory implements EidFactory {
+			private static Pattern pattern = Pattern.compile(
+					"EID[0-9A-F]{8}-[0-9A-F]{4}-[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}", Pattern.CASE_INSENSITIVE);
 
 			// TODO rename to createNewId(). Include a timestamp:
 			// https://engineering.instagram.com/sharding-ids-at-instagram-1cf5a71e5a5c#.fgealvsj9
@@ -77,6 +80,10 @@ class EidFactoryLoader {
 			@Override
 			public EID createAndPreserveUUID(final UUID uuid) {
 				return new DefaultEid(uuid.toString());
+			}
+
+			@Override public Pattern getPattern() {
+				return pattern;
 			}
 		}
 
