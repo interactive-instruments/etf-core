@@ -78,5 +78,6 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	 */
 	long getLastModificationDate();
 
-	FilterBuilder getFilterBuilder();
+	// Todo
+	// FilterBuilder getFilterBuilder();
 }
