@@ -35,6 +35,7 @@ dependencies {
 
     compileOnly group: 'org.slf4j', name: 'slf4j-api', version: etf_slf4jApiVersion
 
+    testCompile group: 'de.interactive_instruments', name: 'ii-commons-util', version:'2.0.0'+project.snapshotSuffix
     testCompile group: 'junit', name: 'junit', version: etf_junitTestVersion
 
     compile group: 'xerces', name: 'xercesImpl', version: etf_xercesVersion
