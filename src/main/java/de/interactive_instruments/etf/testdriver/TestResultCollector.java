@@ -201,31 +201,6 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	boolean isErrorLimitExceeded();
 
 	/**
-	 * Add a message
-	 *
-	 * @param translationTemplateId Translation Template ID
-	 */
-	void addMessage(final String translationTemplateId);
-
-	/**
-	 * Add a message with translation parameters as token value pairs
-	 *
-	 * @param translationTemplateId Translation Template ID
-	 * @param tokenValuePairs Translation Template message as token value pair
-	 */
-	void addMessage(final String translationTemplateId, final Map<String, String> tokenValuePairs);
-
-	/**
-	 * Add a message with translation parameters as token value pairs
-	 *
-	 * @param translationTemplateId Translation Template ID
-	 * @param tokensAndValues Translation Template message as alternating tokens and values
-	 *
-	 * @throws IllegalArgumentException if number of tokensAndValues arguments is odd
-	 */
-	void addMessage(final String translationTemplateId, final String... tokensAndValues);
-
-	/**
 	 * Mark a path in the temporary directory as an attachment which will
 	 * be persisted and added to the result document
 	 *

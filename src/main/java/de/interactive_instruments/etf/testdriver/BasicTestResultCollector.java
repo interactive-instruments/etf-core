@@ -18,6 +18,8 @@ package de.interactive_instruments.etf.testdriver;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 
+import java.util.Map;
+
 /**
  * Basic Test Result Collector interface
  *
@@ -106,6 +108,31 @@ public interface BasicTestResultCollector extends Releasable {
 	 */
 	String end(final String testModelItemId, final int status, long stopTimestamp)
 			throws IllegalArgumentException, IllegalStateException;
+
+	/**
+	 * Add a message
+	 *
+	 * @param translationTemplateId Translation Template ID
+	 */
+	void addMessage(final String translationTemplateId);
+
+	/**
+	 * Add a message with translation parameters as token value pairs
+	 *
+	 * @param translationTemplateId Translation Template ID
+	 * @param tokenValuePairs Translation Template message as token value pair
+	 */
+	void addMessage(final String translationTemplateId, final Map<String, String> tokenValuePairs);
+
+	/**
+	 * Add a message with translation parameters as token value pairs
+	 *
+	 * @param translationTemplateId Translation Template ID
+	 * @param tokensAndValues Translation Template message as alternating tokens and values
+	 *
+	 * @throws IllegalArgumentException if number of tokensAndValues arguments is odd
+	 */
+	void addMessage(final String translationTemplateId, final String... tokensAndValues);
 
 	/**
 	 * Returns the currently recorded model type
