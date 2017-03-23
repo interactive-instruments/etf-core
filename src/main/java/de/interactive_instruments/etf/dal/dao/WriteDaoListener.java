@@ -26,31 +26,18 @@ import de.interactive_instruments.etf.model.EID;
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */
-public interface WriteDaoListener {
+public interface WriteDaoListener<T extends Dto> {
 
 	enum EventType {
 		ADD, UPDATE, DELETE
 	}
 
 	/**
-	 * Informs the listener about a write operation that has been performed with
-	 * several IDs.
+	 * Informs the listener about a write operation that has been performed
+	 * on a DTO.
 	 *
 	 * @param event {@link EventType}
-	 * @param ids {@link EID}
+	 * @param dto {@link Dto}
 	 */
-	void writeOperationPerformed(final EventType event, final Set<EID> ids);
-
-	void writeOperationPerformed(final EventType event, final EID id);
-
-	/**
-	 * Informs the listener about a write operation that has been performed with
-	 * several DTOs.
-	 *
-	 * @param event {@link EventType}
-	 * @param dtos {@link Dto}
-	 */
-	void writeOperationPerformed(final EventType event, final Collection<? extends Dto> dtos);
-
-	void writeOperationPerformed(final EventType event, final Dto dtos);
+	void writeOperationPerformed(final EventType event, final PreparedDto<T> dto);
 }
