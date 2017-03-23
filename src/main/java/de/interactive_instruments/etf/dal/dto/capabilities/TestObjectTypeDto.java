@@ -24,16 +24,22 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 
 	private List<TestObjectTypeDto> subTypes;
 
-	// List of supported filenameExtensions
+	// Optional list of supported filenameExtensions
 	private List<String> filenameExtensions;
 
-	// List of supported mimetypes
+	// Optional list of supported mimetypes
 	private List<String> mimeTypes;
 
-	// Detection expression (as Xpath)
+	// Optional detection expression (as Xpath)
 	private String detectionExpression;
 
-	// Naming convention for Test Objects as regex
+	// Optional expression for extracting the Test Object label (as Xpath)
+	private String labelExpression;
+
+	// Optional expression for extracting the Test Object description (as Xpath)
+	private String descriptionExpression;
+
+	// Optional naming convention for the associated Test Objects as regex
 	private String namingConvention;
 
 	public TestObjectTypeDto() {}
@@ -45,6 +51,8 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 		this.filenameExtensions = other.filenameExtensions;
 		this.mimeTypes = other.mimeTypes;
 		this.detectionExpression = other.detectionExpression;
+		this.labelExpression = other.labelExpression;
+		this.descriptionExpression = other.descriptionExpression;
 	}
 
 	public List<TestObjectTypeDto> getSubTypes() {
@@ -92,6 +100,22 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 
 	public void setDetectionExpression(final String detectionExpression) {
 		this.detectionExpression = detectionExpression;
+	}
+
+	public String getLabelExpression() {
+		return labelExpression;
+	}
+
+	public void setLabelExpression(final String labelExpression) {
+		this.labelExpression = labelExpression;
+	}
+
+	public String getDescriptionExpression() {
+		return descriptionExpression;
+	}
+
+	public void setDescriptionExpression(final String descriptionExpression) {
+		this.descriptionExpression = descriptionExpression;
 	}
 
 	@Override

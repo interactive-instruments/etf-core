@@ -47,7 +47,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	/**
 	 * temporary, use {@link TestResultCollector#markAttachment} instead
 	 *
-	 * will be removed in version 2.0.0 release version
+	 * TODO will be removed in version 2.0.0 release version
 	 *
 	 * @return
 	 */
@@ -57,7 +57,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	/**
 	 * temporary
 	 *
-	 * will be removed in version 2.0.0 release version
+	 * TODO will be removed in version 2.0.0 release version
 	 *
 	 * @return
 	 */
@@ -148,7 +148,9 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 * {@link TestResultCollector#end(String, int)} with the status {@link TestResultStatus#SKIPPED}.
 	 *
 	 * @param testCaseIds Test Case EIDs
+	 *
 	 * @return true if the Test Case has been skipped, false otherwise
+	 *
 	 * @throws IllegalArgumentException if test already has been ended
 	 * @throws IllegalStateException if the current Test Case already has been ended or the recording of a TestCase has not been started
 	 */
@@ -168,6 +170,25 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	default String end(final String testModelItemId, final int status) throws IllegalArgumentException, IllegalStateException {
 		return end(testModelItemId, status, System.currentTimeMillis());
 	}
+
+	/**
+	 * Called just after a test item has been run. The status is automatically determined from previous end() calls.
+	 *
+	 * Note: if the status cannot be determined or the collector is on the lowest test level (Test Assertion), the
+	 * status will be set to 'failed'!
+	 *
+	 * @param testModelItemId Test Model Item EID
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if test already has been ended
+	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
+	 */
+	default String end(final String testModelItemId) throws IllegalArgumentException, IllegalStateException {
+		return end(testModelItemId, System.currentTimeMillis());
+	}
+
+
 
 	/**
 	 * Returns the {@link TestResultStatus} of a non-parametrized Test Model Item.
@@ -202,7 +223,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 
 	/**
 	 * Mark a path in the temporary directory as an attachment which will
-	 * be persisted and added to the result document
+	 * be persisted and referenced in the result document
 	 *
 	 * @param fileName filename in temporary directory (relative path)
 	 * @param label Label for the attachment
@@ -223,7 +244,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 
 	/**
 	 * Mark a path in the temporary directory as an attachment which will
-	 * be persisted and added to the result document
+	 * be persisted and referenced in the result document
 	 *
 	 * @param fileName filename in temporary directory (relative path)
 	 * @param label Label for the attachment
@@ -283,7 +304,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 *
 	 * The underlying collector may decide if the String is written to a path
 	 * and referenced from the test result document or if it is embedded
-	 * into the test result document.
+	 * into the test result document based on the size of the message.
 	 *
 	 * @param content input String
 	 * @param label Label for the attachment
@@ -305,6 +326,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 * during the test run.
 	 *
 	 * The directory and its content will be deleted after the test run!
+	 *
 	 * Use the {@link TestResultCollector#markAttachment(String, String, String, String)}
 	 * method to mark single files which should be kept and attached to the
 	 * test result document.

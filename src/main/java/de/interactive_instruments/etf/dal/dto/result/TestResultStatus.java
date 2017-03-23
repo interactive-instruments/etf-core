@@ -21,15 +21,17 @@ public enum TestResultStatus {
 	// new enum constants have to be added at the END !!!
 
 	/**
+	 *
 	 * PASSED, if all status values are PASSED
 	 *
+	 * ordinal: 0
 	 */
 	PASSED,
 
 	/**
 	 * FAILED, if at least one status value is FAILED
 	 *
-	 *
+	 * ordinal: 1
 	 */
 	FAILED,
 
@@ -37,7 +39,7 @@ public enum TestResultStatus {
 	 * SKIPPED, if at least one status value is SKIPPED because a
 	 * test case depends on another test case which has the status FAILED or SKIPPED
 	 *
-	 *
+	 * ordinal: 2
 	 */
 	SKIPPED,
 
@@ -46,24 +48,28 @@ public enum TestResultStatus {
 	 * in the case the test object does not provide the capabilities for executing
 	 * the test
 	 *
+	 * ordinal: 3
 	 */
 	NOT_APPLICABLE,
 
 	/**
 	 * INFO, if at least one status value is INFO
 	 *
+	 * ordinal: 4
 	 */
 	INFO,
 
 	/**
 	 * WARNING, if at least one status value is WARNING
 	 *
+	 * ordinal: 5
 	 */
 	WARNING,
 
 	/**
 	 * UNDEFINED, in all other cases
 	 *
+	 * ordinal: 6
 	 */
 	UNDEFINED,
 
@@ -72,6 +78,7 @@ public enum TestResultStatus {
 	 * (if the test is not automated and the user has to validate results manually
 	 * based on instructions in the report) and all others are values are PASSED
 	 *
+	 * ordinal: 7
 	 */
 	PASSED_MANUAL;
 

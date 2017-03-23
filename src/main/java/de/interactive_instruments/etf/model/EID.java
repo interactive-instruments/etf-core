@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.model;
 import java.util.UUID;
 
 /**
- * The etf ID class is intended to provide identifiers in the ETF environment and
+ * The ETF ID class is intended to provide identifiers in the ETF environment and
  * maps a String to an internal presentation and an UUID representation
  *
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
