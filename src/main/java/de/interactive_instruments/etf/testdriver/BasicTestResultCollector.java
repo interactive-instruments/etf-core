@@ -110,6 +110,23 @@ public interface BasicTestResultCollector extends Releasable {
 			throws IllegalArgumentException, IllegalStateException;
 
 	/**
+	 * Called just after a test item has been run. The status is automatically determined from previous end() calls.
+	 *
+	 * Note: if the status cannot be determined or the collector is on the lowest test level (Test Assertion), the
+	 * status will be set to 'UNDEFINED'!
+	 *
+	 * @param testModelItemId Test Model Item EID
+	 * @param stopTimestamp stop timestamp
+	 *
+	 * @return eid of the recorded test result item
+	 *
+	 * @throws IllegalArgumentException if test already has been ended
+	 * @throws IllegalStateException if test already has been ended or hasn't been started yet
+	 */
+	String end(final String testModelItemId, long stopTimestamp)
+			throws IllegalArgumentException, IllegalStateException;
+
+	/**
 	 * Add a message
 	 *
 	 * @param translationTemplateId Translation Template ID
