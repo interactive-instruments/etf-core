@@ -15,6 +15,8 @@
  */
 package de.interactive_instruments.etf.dal.dto.result;
 
+import de.interactive_instruments.etf.dal.dto.translation.TranslationArgumentCollectionDto;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import java.util.List;
 public final class TestStepResultDto extends ResultModelItemDto implements AttachmentDtoHolder {
 
 	private List<AttachmentDto> attachments;
+	private List<TranslationArgumentCollectionDto> messages;
 	private List<TestStepResultDto> invokedTestSteps;
 	private List<TestCaseResultDto> invokedTestCases;
 
@@ -34,6 +37,7 @@ public final class TestStepResultDto extends ResultModelItemDto implements Attac
 		this.attachments = other.attachments;
 		this.invokedTestSteps = other.invokedTestSteps;
 		this.invokedTestCases = other.invokedTestCases;
+		this.messages = other.messages;
 	}
 
 	public List<TestAssertionResultDto> getTestAssertionResults() {
@@ -91,6 +95,21 @@ public final class TestStepResultDto extends ResultModelItemDto implements Attac
 			invokedTestCases = new ArrayList<>(2);
 		}
 		invokedTestCases.add(testCase);
+	}
+
+	public List<TranslationArgumentCollectionDto> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(final List<TranslationArgumentCollectionDto> messages) {
+		this.messages = messages;
+	}
+
+	public void addMessage(final TranslationArgumentCollectionDto message) {
+		if (this.messages == null) {
+			this.messages = new ArrayList<>();
+		}
+		this.messages.add(message);
 	}
 
 	@Override
