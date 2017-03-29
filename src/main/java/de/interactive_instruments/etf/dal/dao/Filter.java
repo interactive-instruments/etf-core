@@ -62,4 +62,12 @@ public interface Filter {
 	default LevelOfDetail levelOfDetail() {
 		return LevelOfDetail.SIMPLE;
 	}
+
+	/**
+	 * List of fields that should be shown
+	 * @return
+	 */
+	default String fields() {
+		return "*";
+	}
 }
