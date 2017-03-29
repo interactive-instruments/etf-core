@@ -141,7 +141,18 @@ public class TestRunDto extends ModelItemDto {
 	}
 
 	public TestResultStatus getTestResultStatus() {
-		return testResultStatus;
+		// return the status if one is set - otherwise determine the value
+		if (testResultStatus == null) {
+			final List<TestTaskResultDto> testTaskResultDtos = getTestTaskResults();
+			if (testTaskResultDtos != null) {
+				final List<TestResultStatus> results = testTaskResultDtos.stream().map(TestTaskResultDto::getResultStatus)
+						.collect(Collectors.toList());
+				return TestResultStatus.aggregateStatus(results);
+			}
+			return TestResultStatus.UNDEFINED;
+		} else {
+			return testResultStatus;
+		}
 	}
 
 	public void setTestResultStatus(final TestResultStatus testResultStatus) {
