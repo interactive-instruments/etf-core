@@ -15,6 +15,8 @@
  */
 package de.interactive_instruments.etf.dal.dto.result;
 
+import java.util.Collection;
+
 public enum TestResultStatus {
 
 	// The ordinal() function is used for faster int to enum conversion:
@@ -92,5 +94,76 @@ public enum TestResultStatus {
 
 	public static String toString(int i) {
 		return TestResultStatus.values()[i].toString();
+	}
+
+	public static TestResultStatus aggregateStatus(final Collection<TestResultStatus> status) {
+		if (status == null || status.size() == 0) {
+			return TestResultStatus.UNDEFINED;
+		}
+
+		return aggregateStatus(status.toArray(new TestResultStatus[status.size()]));
+	}
+
+	public static TestResultStatus aggregateStatus(final TestResultStatus... status) {
+		if (status == null || status.length == 0) {
+			return TestResultStatus.UNDEFINED;
+		} else if (status.length == 1) {
+			return status[0];
+		}
+		int currentStatus = status[0].ordinal();
+		for (int i = 1; i < status.length; i++) {
+			final int s = 10 * currentStatus + status[i].ordinal();
+			switch (s) {
+			case 10:
+			case 11:
+			case 12:
+			case 13:
+			case 14:
+			case 15:
+			case 16:
+			case 17:
+			case 21:
+			case 31:
+			case 41:
+			case 51:
+			case 61:
+			case 71:
+				// Directly return FAILED 1 - * or * - 1 FAILED
+				return TestResultStatus.FAILED;
+			case 00:
+			case 20:
+			case 22:
+			case 23:
+			case 24:
+			case 25:
+			case 26:
+			case 27:
+				// Ignore SKIPPED 2 - * (except FAILED)
+			case 30:
+			case 33:
+			case 34:
+			case 35:
+			case 36:
+			case 37:
+				// Ignore NOT_APPLICABLE 3 - * (except FAILED, SKIPPED)
+			case 40:
+			case 44:
+			case 46:
+			case 47:
+				// Ignore INFO 4 - * (except FAILED, SKIPPED, NOT_APPLICABLE, WARNING)
+			case 50:
+			case 54:
+			case 55:
+			case 56:
+			case 57:
+				// Ignore WARNING 5 - * (except FAILED, SKIPPED, NOT_APPLICABLE)
+			case 70:
+				break;
+			default:
+				currentStatus = status[i].ordinal();
+				break;
+			}
+		}
+		return TestResultStatus.values()[currentStatus];
 	}
 }
