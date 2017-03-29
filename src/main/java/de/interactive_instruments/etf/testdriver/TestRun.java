@@ -16,10 +16,8 @@
 package de.interactive_instruments.etf.testdriver;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import de.interactive_instruments.etf.dal.dto.run.TestRunDto;
-import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.InitializationException;
 import de.interactive_instruments.exceptions.InvalidStateTransitionException;
 import de.interactive_instruments.exceptions.config.ConfigurationException;

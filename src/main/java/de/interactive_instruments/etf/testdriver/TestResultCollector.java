@@ -188,8 +188,6 @@ public interface TestResultCollector extends BasicTestResultCollector {
 		return end(testModelItemId, System.currentTimeMillis());
 	}
 
-
-
 	/**
 	 * Returns the {@link TestResultStatus} of a non-parametrized Test Model Item.
 	 * "Undefined" is returned if the Test Model Item has not yet been executed.

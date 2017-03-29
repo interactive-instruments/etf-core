@@ -15,9 +15,7 @@
  */
 package de.interactive_instruments.etf.model;
 
-import de.interactive_instruments.properties.KVP;
 import de.interactive_instruments.properties.MutablePropertyHolder;
-import de.interactive_instruments.properties.PropertyHolder;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )

@@ -15,13 +15,14 @@
  */
 package de.interactive_instruments.etf.dal.dto.result;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 import de.interactive_instruments.etf.dal.dto.ModelItemDto;
 import de.interactive_instruments.etf.dal.dto.ModelItemTreeNode;
-import de.interactive_instruments.etf.dal.dto.test.TestModelItemDto;
 import de.interactive_instruments.etf.model.DefaultEidMap;
 import de.interactive_instruments.etf.model.EidMap;
 

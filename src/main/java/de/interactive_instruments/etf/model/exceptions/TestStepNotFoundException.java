@@ -15,8 +15,6 @@
  */
 package de.interactive_instruments.etf.model.exceptions;
 
-import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
-
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
  */

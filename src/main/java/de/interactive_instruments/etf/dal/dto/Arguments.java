@@ -15,7 +15,9 @@
  */
 package de.interactive_instruments.etf.dal.dto;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import de.interactive_instruments.etf.model.Parameterizable;
 import de.interactive_instruments.properties.PropertyHolder;

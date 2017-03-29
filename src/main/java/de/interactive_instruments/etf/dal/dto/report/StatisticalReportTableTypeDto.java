@@ -18,7 +18,6 @@ package de.interactive_instruments.etf.dal.dto.report;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
-import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 
 public class StatisticalReportTableTypeDto extends RepositoryItemDto {
 

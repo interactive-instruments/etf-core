@@ -16,10 +16,11 @@
 package de.interactive_instruments.etf.dal.dto.translation;
 
 import java.net.URI;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 
 /**
  * TranslationTemplateBundleDto represents a bundle of

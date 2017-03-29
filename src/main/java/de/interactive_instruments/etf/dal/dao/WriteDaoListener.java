@@ -15,11 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dao;
 
-import java.util.Collection;
-import java.util.Set;
-
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.model.EID;
 
 /**
  * Event Listener for write operations

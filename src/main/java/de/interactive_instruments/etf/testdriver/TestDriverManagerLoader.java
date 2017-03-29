@@ -18,7 +18,6 @@ package de.interactive_instruments.etf.testdriver;
 import java.util.ServiceLoader;
 
 import de.interactive_instruments.SUtils;
-import de.interactive_instruments.etf.model.EidFactory;
 
 /**
  * Loads a EidFactory service provider

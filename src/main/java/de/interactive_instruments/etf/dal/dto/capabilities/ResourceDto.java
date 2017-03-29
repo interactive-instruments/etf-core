@@ -17,9 +17,6 @@ package de.interactive_instruments.etf.dal.dto.capabilities;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *

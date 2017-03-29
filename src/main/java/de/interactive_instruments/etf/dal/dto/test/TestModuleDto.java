@@ -15,11 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dto.test;
 
-import java.util.Collection;
 import java.util.List;
-
-import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
-import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 
 public class TestModuleDto extends TestModelItemDto {
 

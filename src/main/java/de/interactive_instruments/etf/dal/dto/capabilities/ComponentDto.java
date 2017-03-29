@@ -17,7 +17,6 @@ package de.interactive_instruments.etf.dal.dto.capabilities;
 
 import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
-import de.interactive_instruments.etf.model.EidFactory;
 
 public class ComponentDto extends MetaDataItemDto {
 	protected String vendor;

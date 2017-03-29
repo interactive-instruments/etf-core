@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.dal.dto.result.AttachmentDto;
 
 /**
  * Collection of token/value pairs that are used to replace tokens

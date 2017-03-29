@@ -20,8 +20,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import de.interactive_instruments.CLUtils;
-import de.interactive_instruments.II_Constants;
-import de.interactive_instruments.SUtils;
 
 /**
  * Constants which are used in the whole framework

@@ -82,7 +82,8 @@ class EidFactoryLoader {
 				return new DefaultEid(uuid.toString());
 			}
 
-			@Override public Pattern getPattern() {
+			@Override
+			public Pattern getPattern() {
 				return pattern;
 			}
 		}

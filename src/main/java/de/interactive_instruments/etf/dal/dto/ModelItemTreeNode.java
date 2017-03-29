@@ -17,7 +17,6 @@ package de.interactive_instruments.etf.dal.dto;
 
 import java.util.List;
 
-import de.interactive_instruments.etf.dal.dto.test.TestModelItemDto;
 import de.interactive_instruments.etf.model.EidMap;
 
 /**

@@ -15,10 +15,10 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
+import java.util.Map;
+
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
-
-import java.util.Map;
 
 /**
  * Basic Test Result Collector interface

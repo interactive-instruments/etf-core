@@ -15,12 +15,7 @@
  */
 package de.interactive_instruments.etf.testdriver;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-
-import org.slf4j.Logger;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )

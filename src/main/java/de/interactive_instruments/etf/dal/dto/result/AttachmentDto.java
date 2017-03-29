@@ -18,7 +18,6 @@ package de.interactive_instruments.etf.dal.dto.result;
 import java.net.URI;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.dal.dto.report.StatisticalReportTableTypeDto;
 
 public class AttachmentDto extends Dto {
 	private String encoding;

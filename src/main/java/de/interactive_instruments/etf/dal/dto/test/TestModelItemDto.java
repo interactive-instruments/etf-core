@@ -15,7 +15,6 @@
  */
 package de.interactive_instruments.etf.dal.dto.test;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

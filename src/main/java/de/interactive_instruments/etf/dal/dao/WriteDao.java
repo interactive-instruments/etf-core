@@ -18,8 +18,6 @@ package de.interactive_instruments.etf.dal.dao;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.xml.bind.Marshaller;
-
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ExcUtils;

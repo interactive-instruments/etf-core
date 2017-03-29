@@ -15,7 +15,10 @@
  */
 package de.interactive_instruments.etf.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )

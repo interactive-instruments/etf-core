@@ -17,7 +17,6 @@ package de.interactive_instruments.etf.dal.dto;
 
 import de.interactive_instruments.SUtils;
 import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplateCollectionDto;
-import de.interactive_instruments.properties.Properties;
 
 /**
  * Data transfer object which possesses meta data

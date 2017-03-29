@@ -17,7 +17,6 @@ package de.interactive_instruments.etf.dal.dao;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import de.interactive_instruments.Configurable;
 import de.interactive_instruments.IFile;
