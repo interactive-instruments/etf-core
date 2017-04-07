@@ -31,6 +31,11 @@ public abstract class LocalizableError extends Throwable {
 	protected final Map<String, Object> arguments;
 
 	private static Map<String, Object> toMap(final Object... arguments) {
+		if(arguments==null || arguments.length==0) {
+			return Collections.EMPTY_MAP;
+		}else if(arguments.length==1) {
+			return Collections.singletonMap("0", arguments[0]);
+		}
 		final Map<String, Object> map = new TreeMap<>();
 		for (int i = 0, argumentsLength = arguments.length; i < argumentsLength; i++) {
 			map.put(String.valueOf(i), arguments[i]);
@@ -47,7 +52,7 @@ public abstract class LocalizableError extends Throwable {
 	protected LocalizableError(final String id, final Exception e) {
 		super(e);
 		this.id = id;
-		arguments = Collections.singletonMap("0", e);
+		arguments = Collections.singletonMap("0", e.getMessage());
 	}
 
 	protected LocalizableError(final String id, final Exception e, final Object... arguments) {
@@ -71,7 +76,7 @@ public abstract class LocalizableError extends Throwable {
 	protected LocalizableError(final Exception e) {
 		super(e);
 		this.id = null;
-		arguments = Collections.singletonMap("0", e);
+		arguments = Collections.singletonMap("0", e.getMessage());
 	}
 
 	public final String getId() {
