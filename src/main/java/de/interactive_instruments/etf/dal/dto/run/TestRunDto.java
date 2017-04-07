@@ -135,28 +135,37 @@ public class TestRunDto extends ModelItemDto {
 
 	public List<TestTaskResultDto> getTestTaskResults() {
 		if (this.testTasks != null) {
-			return this.testTasks.stream().map(TestTaskDto::getTestTaskResult).collect(Collectors.toList());
+			return this.testTasks.stream()
+					.filter( r -> r.getTestTaskResult()!=null)
+					.map(TestTaskDto::getTestTaskResult)
+					.collect(Collectors.toList());
 		}
 		return null;
 	}
 
-	public TestResultStatus getTestResultStatus() {
+	public String getTestResultStatus() {
 		// return the status if one is set - otherwise determine the value
 		if (testResultStatus == null) {
 			final List<TestTaskResultDto> testTaskResultDtos = getTestTaskResults();
-			if (testTaskResultDtos != null) {
-				final List<TestResultStatus> results = testTaskResultDtos.stream().map(TestTaskResultDto::getResultStatus)
+			if (testTaskResultDtos != null && !testTaskResultDtos.isEmpty()) {
+				final List<TestResultStatus> results = testTaskResultDtos.stream()
+						.filter( t -> t.getResultStatus()!=null)
+						.map(TestTaskResultDto::getResultStatus)
 						.collect(Collectors.toList());
-				return TestResultStatus.aggregateStatus(results);
+				return TestResultStatus.aggregateStatus(results).toString();
 			}
-			return TestResultStatus.UNDEFINED;
+			return TestResultStatus.UNDEFINED.toString();
 		} else {
-			return testResultStatus;
+			return testResultStatus.toString();
 		}
 	}
 
 	public void setTestResultStatus(final TestResultStatus testResultStatus) {
 		this.testResultStatus = testResultStatus;
+	}
+
+	public void setTestResultStatus(final String testResultStatus) {
+		this.testResultStatus = TestResultStatus.valueOf(testResultStatus);
 	}
 
 	@Override
