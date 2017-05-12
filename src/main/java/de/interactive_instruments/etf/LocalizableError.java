@@ -31,9 +31,9 @@ public abstract class LocalizableError extends Throwable {
 	protected final Map<String, Object> arguments;
 
 	private static Map<String, Object> toMap(final Object... arguments) {
-		if(arguments==null || arguments.length==0) {
+		if (arguments == null || arguments.length == 0) {
 			return Collections.EMPTY_MAP;
-		}else if(arguments.length==1) {
+		} else if (arguments.length == 1) {
 			return Collections.singletonMap("0", arguments[0]);
 		}
 		final Map<String, Object> map = new TreeMap<>();

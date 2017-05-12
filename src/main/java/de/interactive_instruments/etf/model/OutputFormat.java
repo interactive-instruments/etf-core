@@ -59,4 +59,9 @@ public interface OutputFormat extends Comparable<OutputFormat>, Parameterizable 
 	void streamTo(final PropertyHolder arguments,
 			final InputStream inputStream,
 			final OutputStream outputStreamStream) throws IOException;
+
+	@Override
+	default int compareTo(final OutputFormat o) {
+		return getId().compareTo(o.getId());
+	}
 }
