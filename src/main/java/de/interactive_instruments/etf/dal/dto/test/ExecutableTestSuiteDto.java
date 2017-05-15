@@ -144,7 +144,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 
 	@Override
 	public List<? extends TestModelItemDto> getChildren() {
-		return testModules.values().stream().collect(Collectors.toList());
+		return testModules!=null ? testModules.values().stream().collect(Collectors.toList()) : null;
 	}
 
 	@Override
