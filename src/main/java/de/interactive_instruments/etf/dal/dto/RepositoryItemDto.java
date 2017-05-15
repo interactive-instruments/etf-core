@@ -323,8 +323,8 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 		if (creationDate == null) {
 			throw new IncompleteDtoException("Required property 'creationDate' must be set!");
 		}
-		if (remoteResource != null && localPath == null) {
-			throw new IncompleteDtoException("Prop 'remoteResource' is set but not required property 'localPath' !");
+		if (remoteResource == null && localPath == null) {
+			throw new IncompleteDtoException("Neither property 'remoteResource' nor property 'localPath' are set !");
 		}
 	}
 }
