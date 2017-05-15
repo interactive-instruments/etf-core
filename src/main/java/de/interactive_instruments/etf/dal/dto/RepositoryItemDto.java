@@ -101,7 +101,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 	 *
 	 */
 	public void setVersionFromStr(final String value) {
-		this.version = value;
+		this.version = Version.parse(value).getAsString();
 	}
 
 	public void setVersion(final Version version) {
