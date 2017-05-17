@@ -15,10 +15,7 @@
  */
 package de.interactive_instruments.etf.model;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -34,6 +31,10 @@ public class DefaultEidMap<V> implements EidMap<V> {
 
 	public DefaultEidMap(final Map<EID, V> map) {
 		internalMap = map;
+	}
+
+	public EidMap<V> unmodifiable() {
+		return new DefaultEidMap<>(Collections.unmodifiableMap(this));
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class DefaultEidMap<V> implements EidMap<V> {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		return internalMap.equals(o);
 	}
 

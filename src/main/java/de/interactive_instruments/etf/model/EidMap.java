@@ -32,10 +32,12 @@ public interface EidMap<V> extends Map<EID, V> {
 		return new ArrayList(values());
 	}
 
+	EidMap<V> unmodifiable();
+
 	class StrEqContainer implements Comparable {
 		private final String s;
 
-		StrEqContainer(Object key) {
+		StrEqContainer(final Object key) {
 			s = (String) key;
 		}
 
@@ -50,12 +52,12 @@ public interface EidMap<V> extends Map<EID, V> {
 		}
 
 		@Override
-		public boolean equals(Object obj) {
-			return ((EID) obj).equals(s);
+		public boolean equals(final Object obj) {
+			return obj.equals(s);
 		}
 
 		@Override
-		public int compareTo(Object o) {
+		public int compareTo(final Object o) {
 			return s.compareTo(o.toString());
 		}
 	}
@@ -114,5 +116,4 @@ public interface EidMap<V> extends Map<EID, V> {
 	}
 
 	boolean _internalContainsKey(Object key);
-
 }
