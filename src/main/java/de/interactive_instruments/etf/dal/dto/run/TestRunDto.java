@@ -136,7 +136,7 @@ public class TestRunDto extends ModelItemDto {
 	public List<TestTaskResultDto> getTestTaskResults() {
 		if (this.testTasks != null) {
 			return this.testTasks.stream()
-					.filter( r -> r.getTestTaskResult()!=null)
+					.filter(r -> r.getTestTaskResult() != null)
 					.map(TestTaskDto::getTestTaskResult)
 					.collect(Collectors.toList());
 		}
@@ -149,7 +149,7 @@ public class TestRunDto extends ModelItemDto {
 			final List<TestTaskResultDto> testTaskResultDtos = getTestTaskResults();
 			if (testTaskResultDtos != null && !testTaskResultDtos.isEmpty()) {
 				final List<TestResultStatus> results = testTaskResultDtos.stream()
-						.filter( t -> t.getResultStatus()!=null)
+						.filter(t -> t.getResultStatus() != null)
 						.map(TestTaskResultDto::getResultStatus)
 						.collect(Collectors.toList());
 				return TestResultStatus.aggregateStatus(results).toString();

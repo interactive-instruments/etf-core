@@ -33,5 +33,4 @@ public interface ComponentInfo {
 	String getVendor();
 
 	String getDescription();
-
 }
