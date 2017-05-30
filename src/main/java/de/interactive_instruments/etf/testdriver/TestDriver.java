@@ -23,13 +23,38 @@ import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
+import de.interactive_instruments.exceptions.InitializationException;
+import de.interactive_instruments.exceptions.InvalidStateTransitionException;
+import de.interactive_instruments.exceptions.config.ConfigurationException;
 
 /**
  * Test Driver
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * Encapsulates a test engine, manages test engine specific Executable Test Suites
+ * and defines the main entry point for executing Test Suites against an
+ * Test Object.
+ *
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestDriver extends Configurable, Releasable {
+
+	/**
+	 * Returns the Test Driver's component information
+	 *
+	 * @return Test Driver component information
+	 */
+	ComponentInfo getInfo();
+
+	/**
+	 * Used by the Test Driver to report Executable Test Suite life cycle changes
+	 * and to observe changes in other Test Drivers that are loaded in parallel.
+	 *
+	 * The mechanism is used to synchronize Ets cross-Test Driver dependencies. Must be called
+	 * before {@link #init()}
+	 *
+	 * @param mediator Mediator object
+	 */
+	void setLifeCycleMediator(final ExecutableTestSuiteLifeCycleListenerMediator mediator);
 
 	/**
 	 * Returns a collection of all Executable Test Suits
@@ -46,24 +71,19 @@ public interface TestDriver extends Configurable, Releasable {
 	Collection<TestObjectTypeDto> getTestObjectTypes();
 
 	/**
-	 * Returns the Test Driver's component information
-	 *
-	 * @return Test Driver component information
-	 */
-	ComponentInfo getInfo();
-
-	/**
-	 * Requests the Test Driver to give information about unknown ETS
+	 * Requests information about unknown ETS from the Test Driver
 	 *
 	 * @param etsLookupRequest ETS holding object
 	 */
 	void lookupExecutableTestSuites(final EtsLookupRequest etsLookupRequest);
 
+
 	/**
 	 * Creates a new Test Task
 	 *
 	 * @param testTaskDto Test Task Dto
-	 * @return
+	 * @return {@link TestTask} a Test Task object that can be submitted to a {@link TaskPoolRegistry}
+	 * @throws TestTaskInitializationException if the Test Task initialization failed
 	 */
 	TestTask createTestTask(final TestTaskDto testTaskDto) throws TestTaskInitializationException;
 }
