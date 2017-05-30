@@ -16,6 +16,7 @@
 package de.interactive_instruments.etf.dal.dto.result;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectDto;
@@ -29,6 +30,8 @@ public class TestTaskResultDto extends ResultModelItemDto {
 
 	private TestObjectDto testObject;
 
+	private String errorMessage;
+
 	public TestTaskResultDto() {
 
 	}
@@ -37,6 +40,7 @@ public class TestTaskResultDto extends ResultModelItemDto {
 		super(other);
 		this.attachments = other.attachments;
 		this.testObject = other.testObject;
+		this.errorMessage = other.errorMessage;
 	}
 
 	public List<TestModuleResultDto> getTestModuleResults() {
@@ -44,11 +48,15 @@ public class TestTaskResultDto extends ResultModelItemDto {
 	}
 
 	public void setTestModuleResults(final List<TestModuleResultDto> testSuiteResults) {
-		setChildren(testSuiteResults);
+		if(errorMessage !=null) {
+			setChildren(testSuiteResults);
+		}
 	}
 
 	public void addTestModuleResult(final TestModuleResultDto testModuleResultDto) {
-		addChild(testModuleResultDto);
+		if(errorMessage !=null) {
+			addChild(testModuleResultDto);
+		}
 	}
 
 	public Collection<AttachmentDto> getAttachments() {
@@ -59,6 +67,20 @@ public class TestTaskResultDto extends ResultModelItemDto {
 		for (final AttachmentDto attachment : attachments) {
 			addAttachment(attachment);
 		}
+	}
+
+	public void setInternalError(final Exception e) {
+		errorMessage = e.getMessage();
+		children=null;
+		if(startTimestamp==null) {
+			startTimestamp = new Date();
+		}
+		duration = 1;
+		resultStatus = TestResultStatus.UNDEFINED.toString();
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
 	public void addAttachment(final AttachmentDto attachment) {

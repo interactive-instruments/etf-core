@@ -40,7 +40,7 @@ import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
  * Complex / external types are avoided in order to facilitate easy
  * integration.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestResultCollector extends BasicTestResultCollector {
 
@@ -49,7 +49,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 *
 	 * TODO will be removed in version 2.0.0 release version
 	 *
-	 * @return
+	 * @return attachment directory
 	 */
 	@Deprecated
 	IFile getAttachmentDir();
@@ -59,7 +59,7 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 *
 	 * TODO will be removed in version 2.0.0 release version
 	 *
-	 * @return
+	 * @return result file
 	 */
 	@Deprecated
 	IFile getResultFile();
@@ -352,6 +352,15 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 * @param e Exception
 	 */
 	void internalError(final Throwable e);
+
+	/**
+	 * Report an error and abort the test
+	 *
+	 * @param errorMessage untranslated error message
+	 * @param bytes error bytes to save to a file
+	 * @param mimeType MIME type
+	 */
+	void internalError(final String errorMessage, final byte[] bytes, final String mimeType);
 
 	/**
 	 * Info message which is written to the log path
