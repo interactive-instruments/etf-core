@@ -18,20 +18,15 @@ package de.interactive_instruments.etf.model;
 import de.interactive_instruments.Versionable;
 
 /**
- * Interface for objects that possess an ETF ID
+ * Interface for objects that possess an ETF EGAID
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface EgaidHolder extends Comparable, Versionable {
+public interface EgaidHolder extends Versionable {
 
-	EGAID getEgaid();
+	EGAID getEgaId();
 
-	@Override
-	default int compareTo(final Object o) {
-		if (o instanceof EgaidHolder) {
-			return ((EgaidHolder) o).getEgaid().compareTo(this.getEgaid());
-		}
-		throw new IllegalArgumentException("Invalid object type comparison: " +
-				o.getClass().getName() + " can not be compared with an EidHolder.");
+	default String getEgaIdAsString() {
+		return getEgaId().getEgaId();
 	}
 }
