@@ -15,13 +15,15 @@
  */
 package de.interactive_instruments.etf.model;
 
+import de.interactive_instruments.SUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EidMap<V> extends Map<EID, V> {
 	default Collection asCollection() {
@@ -34,33 +36,10 @@ public interface EidMap<V> extends Map<EID, V> {
 
 	EidMap<V> unmodifiable();
 
-	class StrEqContainer implements Comparable {
-		private final String s;
 
-		StrEqContainer(final Object key) {
-			s = (String) key;
-		}
+	EidMap<V> getAll(final Collection<?> keys);
 
-		@Override
-		public String toString() {
-			return s;
-		}
-
-		@Override
-		public int hashCode() {
-			return s.hashCode();
-		}
-
-		@Override
-		public boolean equals(final Object obj) {
-			return obj.equals(s);
-		}
-
-		@Override
-		public int compareTo(final Object o) {
-			return s.compareTo(o.toString());
-		}
-	}
+	void removeAll(final Collection<?> keys);
 
 	/**
 	 * Default interface wrapper for searching the eid map directly with strings.
@@ -92,7 +71,7 @@ public interface EidMap<V> extends Map<EID, V> {
 	 */
 	default V get(final Object key) {
 		if (key instanceof String) {
-			return _internalGet(new StrEqContainer(key));
+			return _internalGet(new SUtils.StrEqContainer(key));
 		}
 		return _internalGet(key);
 	}
@@ -101,7 +80,7 @@ public interface EidMap<V> extends Map<EID, V> {
 
 	default V remove(Object key) {
 		if (key instanceof String) {
-			return _internalRemove(new StrEqContainer(key));
+			return _internalRemove(new SUtils.StrEqContainer(key));
 		}
 		return _internalRemove(key);
 	}
@@ -110,7 +89,7 @@ public interface EidMap<V> extends Map<EID, V> {
 
 	default boolean containsKey(Object key) {
 		if (key instanceof String) {
-			return _internalContainsKey(new StrEqContainer(key));
+			return _internalContainsKey(new SUtils.StrEqContainer(key));
 		}
 		return _internalContainsKey(key);
 	}

@@ -19,12 +19,18 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
 
+import de.interactive_instruments.ImmutableVersion;
 import de.interactive_instruments.SUtils;
 import de.interactive_instruments.Version;
 import de.interactive_instruments.etf.dal.dto.capabilities.TagDto;
+import de.interactive_instruments.etf.model.Disableable;
+import de.interactive_instruments.etf.model.EGAID;
+import de.interactive_instruments.etf.model.EgaidHolder;
 
-public abstract class RepositoryItemDto extends MetaDataItemDto {
+public abstract class RepositoryItemDto extends MetaDataItemDto implements EgaidHolder, Disableable {
+
 	protected RepositoryItemDto replacedBy;
 	protected String replacementReason;
 	protected byte[] itemHash;
@@ -36,6 +42,8 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 	protected List<TagDto> tagDtos;
 	protected String remoteResource;
 	protected String localPath;
+	protected boolean disabled;
+	protected String egaid;
 
 	public RepositoryItemDto() {}
 
@@ -52,6 +60,8 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 		this.tagDtos = other.tagDtos;
 		this.remoteResource = other.remoteResource;
 		this.localPath = other.localPath;
+		this.disabled = other.disabled;
+		this.egaid = other.egaid;
 	}
 
 	/**
@@ -275,6 +285,60 @@ public abstract class RepositoryItemDto extends MetaDataItemDto {
 
 	public void setLocalPath(final String localPath) {
 		this.localPath = localPath;
+	}
+
+	@Override
+	public void setDisabled(final boolean disabled) {
+		this.disabled=disabled;
+	}
+
+	@Override
+	public boolean isDisabled() {
+		return this.disabled;
+	}
+
+	@Override
+	public EGAID getEgaId() {
+		return new EGAID() {
+			private final Matcher m = EGAID_WP.matcher(egaid);
+			@Override public String getArtifactId() {
+				m.matches();
+				return m.group(2);
+			}
+
+			@Override public String getGroupId() {
+				m.matches();
+				return m.group(1);
+			}
+
+			@Override public String getEgaId() {
+				return egaid;
+			}
+
+			@Override public ImmutableVersion getVersion() {
+				return version!=null ? Version.parse(version) : null;
+			}
+		};
+	}
+
+	public void setEgaId(final String egaid) {
+		if("".equals(egaid)) {
+			this.egaid=null;
+		}else {
+			final Matcher m = EGAID.EGAID_REF.matcher(egaid);
+			if (!m.matches()) {
+				throw new IllegalArgumentException("Not an EGAID: " + egaid);
+			}
+			this.egaid = m.group(1) + "." + m.group(2);
+			final String v = m.group(4);
+			if(v!=null) {
+				this.version=v;
+			}
+		}
+	}
+
+	public String getEgaIdRef() {
+		return this.egaid+this.version;
 	}
 
 	@Override

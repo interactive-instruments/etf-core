@@ -19,7 +19,7 @@ import java.util.*;
 
 /**
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class DefaultEidMap<V> implements EidMap<V> {
 
@@ -35,6 +35,23 @@ public class DefaultEidMap<V> implements EidMap<V> {
 
 	public EidMap<V> unmodifiable() {
 		return new DefaultEidMap<>(Collections.unmodifiableMap(this));
+	}
+
+	@Override
+	public EidMap<V> getAll(final Collection<?> keys) {
+		final EidMap map = new DefaultEidMap();
+		for (final Object key : keys) {
+			final V v = internalMap.get(key);
+			if(v!=null) {
+				map.put(key,v);
+			}
+		}
+		return map.isEmpty() ? null : map;
+	}
+
+	@Override
+	public void removeAll(final Collection<?> keys) {
+		keys.forEach( k -> remove(k));
 	}
 
 	@Override

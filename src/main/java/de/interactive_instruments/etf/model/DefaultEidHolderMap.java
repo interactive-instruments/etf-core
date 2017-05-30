@@ -16,10 +16,11 @@
 package de.interactive_instruments.etf.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> implements EidHolderMap<V> {
 
@@ -32,19 +33,58 @@ public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> i
 	}
 
 	public DefaultEidHolderMap(final Collection<V> collection) {
-		super();
-		collection.forEach(e -> put(e.getId(), e));
+		super(collection.stream().collect(
+				Collectors.toMap( i -> i.getId(), i -> i, (i1,i2) -> i1, LinkedHashMap::new)));
+
+	}
+
+	public DefaultEidHolderMap(final V[] array) {
+		super(Arrays.stream(array).collect(
+				Collectors.toMap( i -> i.getId(), i -> i, (i1,i2) -> i1, LinkedHashMap::new)));
+	}
+
+	public DefaultEidHolderMap(final V singleItem) {
+		super(Collections.singletonMap(singleItem.getId(),singleItem));
+	}
+
+	public EidSet<V> toSet() {
+		return new DefaultEidSet<>(values());
+	}
+
+	@Override
+	public EidHolderMap<V> getAll(final Collection<?> keys) {
+		final EidHolderMap map = new DefaultEidHolderMap();
+		for (final Object key : keys) {
+			final V v = get(key);
+			if(v!=null) {
+				map.put(key,v);
+			}
+		}
+		return map.isEmpty() ? null : map;
 	}
 
 	public V add(V v) {
 		return put(v.getId(), v);
 	}
 
-	public Set<EID> ids() {
-		return keySet();
+	public void addAll(Collection<V> values) {
+		for (final V value : values) {
+			put(value.getId(), value);
+		}
 	}
 
 	public EidHolderMap<V> unmodifiable() {
 		return new DefaultEidHolderMap<>(Collections.unmodifiableMap(this));
+	}
+
+	/**
+	 * Unmodifiable
+	 *
+	 * @param singleItem single item
+	 * @param <V> type
+	 * @return an EID holding object
+	 */
+	public static <V extends EidHolder> EidHolderMap<V> singleton(final V singleItem) {
+		return new DefaultEidHolderMap<>(Collections.singleton(singleItem));
 	}
 }

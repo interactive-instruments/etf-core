@@ -15,10 +15,20 @@
  */
 package de.interactive_instruments.etf.model;
 
+import java.util.Collection;
+
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EidHolderMap<V extends EidHolder> extends EidMap<V> {
 
 	EidHolderMap<V> unmodifiable();
+
+	EidSet<V> toSet();
+
+	V add(V v);
+
+	void addAll(Collection<V> values);
+
+	EidHolderMap<V> getAll(final Collection<?> keys);
 }

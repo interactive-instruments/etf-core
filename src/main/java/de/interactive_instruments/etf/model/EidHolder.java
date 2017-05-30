@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.model;
 /**
  * Interface for objects that possess an ETF ID
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EidHolder extends Comparable {
 	EID getId();
@@ -27,6 +27,8 @@ public interface EidHolder extends Comparable {
 	default int compareTo(final Object o) {
 		if (o instanceof EidHolder) {
 			return ((EidHolder) o).getId().compareTo(this.getId());
+		}else if(o instanceof String) {
+			return ((String)o).compareTo(this.getId().getId());
 		}
 		throw new IllegalArgumentException("Invalid object type comparison: " +
 				o.getClass().getName() + " can not be compared with an EidHolder.");
