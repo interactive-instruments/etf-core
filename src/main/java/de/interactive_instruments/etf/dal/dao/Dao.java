@@ -19,15 +19,13 @@ import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Initializable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.etf.model.EidMap;
-import de.interactive_instruments.etf.model.OutputFormat;
+import de.interactive_instruments.etf.model.*;
 import de.interactive_instruments.exceptions.StorageException;
 
 /**
  * Data Access Object which returns Data Transfer Objects
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable, Initializable, Releasable {
 
@@ -48,11 +46,14 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	/**
 	 * Returns a collection of Dtos as PrepatedDtoCollection
 	 *
+	 * Items that are an instance of {@link Disableable} and are disabled,
+	 * are not listed directly in the collection but may be pulled in as references.
+	 *
 	 * @param filter criteria
 	 *
 	 * @return a PrepatedDtoCollection
 	 *
-	 * @throws StorageException
+	 * @throws StorageException if an internal error occurs
 	 */
 	PreparedDtoCollection<T> getAll(final Filter filter) throws StorageException;
 
@@ -62,7 +63,28 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	 * @param id Dto ID
 	 * @return true if Dto with ID exists
 	 */
-	boolean exists(EID id);
+	boolean exists(final EID id);
+
+	/**
+	 * Check if Dto with ID exists and is disabled
+	 *
+	 * If the item is no instance of {@link Disableable}, false is always returned.
+	 *
+	 * @param id Dto ID
+	 * @return true if Dto with ID exists and is disabled, false otherwise
+	 */
+	boolean isDisabled(final EID id);
+
+	/**
+	 * An item is available if it exists ({@link #exists(EID)})
+	 * and is not disabled {@link #isDisabled(EID)}.
+	 *
+	 * @param id Dto ID
+	 * @return true if existent and not disabled
+	 */
+	default boolean available(final EID id) {
+		return exists(id) && !isDisabled(id);
+	}
 
 	/**
 	 * Returns supported OutputFormats which can be used in
@@ -74,7 +96,7 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 
 	/**
 	 * Last modification (update/insert) date
-	 * @return
+	 * @return last modification date as long
 	 */
 	long getLastModificationDate();
 
