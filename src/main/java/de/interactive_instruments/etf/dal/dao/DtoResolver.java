@@ -26,16 +26,16 @@ import de.interactive_instruments.exceptions.StorageException;
 /**
  * DtoResolver
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface DtoResolver<T extends Dto> {
 	/**
 	 * Return a Dto
 	 *
 	 * @param id Dto ID
-	 * @return
-	 * @throws StorageException
-	 * @throws ObjectWithIdNotFoundException
+	 * @return resolved type
+	 * @throws StorageException if an internal error occurs
+	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
 	 */
 	T getById(final EID id) throws StorageException, ObjectWithIdNotFoundException;
 
@@ -43,9 +43,9 @@ public interface DtoResolver<T extends Dto> {
 	 * Return a collection of DTOs
 	 *
 	 * @param id Dto ID
-	 * @return
-	 * @throws StorageException
-	 * @throws ObjectWithIdNotFoundException
+	 * @return collection of resolved types
+	 * @throws StorageException if an internal error occurs
+	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
 	 */
 	Collection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException;
 }

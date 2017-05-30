@@ -29,7 +29,7 @@ import de.interactive_instruments.SUtils;
  * A template can be accessed through its language:
  * {@link LangTranslationTemplateCollectionDto#getByLanguage(String)}
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class LangTranslationTemplateCollectionDto {
 
@@ -64,7 +64,7 @@ public class LangTranslationTemplateCollectionDto {
 	/**
 	 * Returns the name of this collection
 	 *
-	 * @return
+	 * @return name
 	 */
 	public String getName() {
 		return name;
@@ -84,7 +84,7 @@ public class LangTranslationTemplateCollectionDto {
 	/**
 	 * Return a TranslationTemplate by its language
 	 *
-	 * @param language
+	 * @param language ISO language code
 	 *
 	 * @return TranslationTemplateDto
 	 */

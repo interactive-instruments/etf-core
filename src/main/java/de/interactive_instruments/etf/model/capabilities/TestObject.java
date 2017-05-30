@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.model.capabilities;
 import de.interactive_instruments.etf.model.EidHolder;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObject extends EidHolder {
 

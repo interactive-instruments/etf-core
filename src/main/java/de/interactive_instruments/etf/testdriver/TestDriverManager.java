@@ -27,16 +27,17 @@ import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
 import de.interactive_instruments.exceptions.config.ConfigurationException;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestDriverManager extends Configurable, Releasable {
 
 	/**
 	 * Create a new Test Run
 	 *
-	 * @param testRunDto
-	 * @return
-	 * @throws TestRunInitializationException
+	 * @param testRunDto Test Run Dto
+	 * @param collectorFactory TestResultCollectorFactory
+	 * @return executable TestRun object
+	 * @throws TestRunInitializationException if the initialization failed
 	 */
 	TestRun createTestRun(final TestRunDto testRunDto, final TestResultCollectorFactory collectorFactory)
 			throws TestRunInitializationException;
@@ -44,9 +45,9 @@ public interface TestDriverManager extends Configurable, Releasable {
 	/**
 	 * Create a new Test Run, use default TestResultCollectorFactory
 	 *
-	 * @param testRunDto
-	 * @return
-	 * @throws TestRunInitializationException
+	 * @param testRunDto Test Run Dto
+	 * @return executable TestRun object
+	 * @throws TestRunInitializationException if the initialization failed
 	 */
 	default TestRun createTestRun(final TestRunDto testRunDto) throws TestRunInitializationException {
 		return createTestRun(testRunDto, TestResultCollectorFactory.getDefault());

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ import de.interactive_instruments.properties.PropertyHolder;
 
 /**
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class Arguments {
 
@@ -91,7 +91,8 @@ public class Arguments {
 
 		/**
 		 * Does not return any null values
-		 * @return
+		 *
+		 * @return key value pairs
 		 */
 		public Map<String, String> values() {
 			if (applicable) {
@@ -123,6 +124,10 @@ public class Arguments {
 		return new ArgumentParameterSet(parameterizable);
 	}
 
+	public boolean isEmpty() {
+		return values.isEmpty();
+	}
+
 	// TODO tmp
 	public String value(final String name) {
 		final Argument val = values.get(name);
@@ -136,4 +141,17 @@ public class Arguments {
 		return vals;
 	}
 
+	@Override public String toString() {
+		final StringBuffer sb = new StringBuffer("Arguments{");
+		sb.append("applicableParamTypeName='").append(applicableParamTypeName).append('\'');
+		sb.append(", values={");
+		for (final Map.Entry<String, String> entry : values().entrySet()) {
+			sb.append(entry.getKey());
+			sb.append('=');
+			sb.append(entry.getValue());
+			sb.append(' ');
+		}
+		sb.append("}}");
+		return sb.toString();
+	}
 }

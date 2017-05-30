@@ -24,15 +24,17 @@ import de.interactive_instruments.properties.PropertyHolder;
 /**
  * Interface for streaming data in a specific {@link OutputFormat}
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface OutputFormatStreamable {
 
 	/**
 	 * Write data to a stream in a specific {@link OutputFormat}
 	 *
-	 * @param outputFormat
-	 * @param outputStream
+	 * @param outputFormat Output Format
+	 * @param arguments transformation arguments
+	 * @param outputStream target output stream
+	 * @throws IOException if the streaming failed
 	 */
 	void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream)
 			throws IOException;

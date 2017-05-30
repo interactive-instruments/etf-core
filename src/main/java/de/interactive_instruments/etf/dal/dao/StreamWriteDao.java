@@ -21,7 +21,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.exceptions.StorageException;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface StreamWriteDao<T extends Dto> extends WriteDao<T> {
 
@@ -39,7 +39,9 @@ public interface StreamWriteDao<T extends Dto> extends WriteDao<T> {
 	/**
 	 * Reads, validates and adds a Type from an input stream
 	 *
-	 * @throws StorageException
+	 * @return created Dto
+	 * @param input input stream
+	 * @throws StorageException if an internal error occurs
 	 */
 	default T add(final InputStream input) throws StorageException {
 		return add(input, null);
@@ -48,7 +50,10 @@ public interface StreamWriteDao<T extends Dto> extends WriteDao<T> {
 	/**
 	 * Reads, validates and adds a Type from an input stream
 	 *
-	 * @throws StorageException
+	 * @return created Dto
+	 * @param input input stream
+	 * @param hook a hook object that is called just before the Dto is persisted
+	 * @throws StorageException if an internal error occurs
 	 */
 	T add(final InputStream input, final ChangeBeforeStoreHook<T> hook) throws StorageException;
 

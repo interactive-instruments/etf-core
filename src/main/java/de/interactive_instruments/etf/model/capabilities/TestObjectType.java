@@ -22,7 +22,7 @@ import de.interactive_instruments.etf.model.EidHolder;
 
 /**
  * TODO remove DTO and use this type
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObjectType extends EidHolder {
 

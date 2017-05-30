@@ -26,7 +26,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
  * TranslationTemplateBundleDto represents a bundle of
  * {@link LangTranslationTemplateCollectionDto} that can be accessed through its name.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TranslationTemplateBundleDto extends Dto {
 
@@ -52,7 +52,7 @@ public class TranslationTemplateBundleDto extends Dto {
 	/**
 	 * Add TranslationTemplates
 	 *
-	 * @param translationTemplates
+	 * @param translationTemplates TranslationTemplateDtos to add
 	 */
 	public void addTranslationTemplates(
 			final Collection<TranslationTemplateDto> translationTemplates) {
@@ -75,7 +75,7 @@ public class TranslationTemplateBundleDto extends Dto {
 	 * Returns a LangTranslationTemplateCollectionDto by its name
 	 *
 	 * @param name Language Translations Template Collections name {@link LangTranslationTemplateCollectionDto#name}
-	 * @return
+	 * @return LangTranslationTemplateCollectionDto
 	 */
 	public LangTranslationTemplateCollectionDto getTranslationTemplateCollection(final String name) {
 		return langTranslationTemplates != null ? langTranslationTemplates.get(name) : null;
@@ -86,7 +86,7 @@ public class TranslationTemplateBundleDto extends Dto {
 	 *
 	 * @param name Translations Template name {@link TranslationTemplateDto#name}
 	 * @param language Translations Template language {@link TranslationTemplateDto#language}
-	 * @return
+	 * @return TranslationTemplateDto
 	 */
 	public TranslationTemplateDto getTranslationTemplate(final String name, String language) {
 		final LangTranslationTemplateCollectionDto langTranslationTemplateCollection = getTranslationTemplateCollection(name);
@@ -108,7 +108,7 @@ public class TranslationTemplateBundleDto extends Dto {
 	/**
 	 * Set the origin of the Template Bundle
 	 *
-	 * @param source
+	 * @param source origin
 	 */
 	public void setSource(final URI source) {
 		this.source = source.toString();

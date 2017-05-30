@@ -15,10 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dto.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
@@ -28,10 +25,7 @@ import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.ComponentDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
-import de.interactive_instruments.etf.model.DefaultEidMap;
-import de.interactive_instruments.etf.model.EidMap;
-import de.interactive_instruments.etf.model.NestedDependencyHolder;
-import de.interactive_instruments.etf.model.ParameterSet;
+import de.interactive_instruments.etf.model.*;
 
 public class ExecutableTestSuiteDto extends RepositoryItemDto
 		implements ModelItemTreeNode<TestModelItemDto>, NestedDependencyHolder<ExecutableTestSuiteDto> {
@@ -39,11 +33,10 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 	private ComponentDto testDriver;
 	private TranslationTemplateBundleDto translationTemplateBundle;
 	private List<TestObjectTypeDto> supportedTestObjectTypes;
-	// private List<ExecutableTestSuiteDependencyDto> dependencies;
 	private List<ExecutableTestSuiteDto> dependencies;
 	private List<TestObjectTypeDto> consumableResultTestObjectTypes;
 	private List<TestCaseDto> parameterizedTestCases;
-	private DefaultEidMap<TestModelItemDto> testModules;
+	private DefaultEidHolderMap<TestModelItemDto> testModules;
 	private ParameterSet parameters;
 
 	public ExecutableTestSuiteDto() {}
@@ -95,9 +88,13 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 		this.dependencies = dependencies;
 	}
 
+	public void setDependencies(final EidHolderMap<ExecutableTestSuiteDto> dependencies) {
+		this.dependencies = dependencies.asList();
+	}
+
 	public void addDependency(final ExecutableTestSuiteDto dependency) {
 		if (this.dependencies == null) {
-			this.dependencies = new ArrayList<>(2);
+			this.dependencies = new ArrayList<>();
 		}
 		dependencies.add(dependency);
 	}
@@ -155,7 +152,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 	@Override
 	public void addChild(final TestModelItemDto child) {
 		if (this.testModules == null) {
-			this.testModules = new DefaultEidMap<>();
+			this.testModules = new DefaultEidHolderMap<>();
 		}
 		Objects.requireNonNull(child);
 		Objects.requireNonNull(child.getId(), "Cannot add item whose ID is null");
@@ -165,7 +162,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 	@Override
 	public void setChildren(final List<? extends TestModelItemDto> children) {
 		if (this.testModules == null) {
-			this.testModules = new DefaultEidMap<>();
+			this.testModules = new DefaultEidHolderMap<>();
 		}
 		children.forEach(c -> addChild(c));
 	}

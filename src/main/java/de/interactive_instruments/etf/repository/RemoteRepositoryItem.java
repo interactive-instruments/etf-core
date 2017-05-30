@@ -24,13 +24,14 @@ import de.interactive_instruments.Releasable;
 /**
  * An interface for an item in a remote repository.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface RemoteRepositoryItem extends RepositoryItem, Releasable {
 
 	/**
 	 * Gets the remote item and deploys it on the local system.
-	 **
+	 *
+	 * @param path remote path
 	 * @return path on the local system.
 	 * @throws IOException if download fails
 	 */

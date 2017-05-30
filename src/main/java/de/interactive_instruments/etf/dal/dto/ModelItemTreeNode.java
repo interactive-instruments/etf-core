@@ -21,7 +21,7 @@ import de.interactive_instruments.etf.model.EidMap;
 
 /**
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface ModelItemTreeNode<T> {
 

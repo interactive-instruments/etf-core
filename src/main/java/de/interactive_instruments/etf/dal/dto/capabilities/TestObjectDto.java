@@ -27,7 +27,7 @@ import de.interactive_instruments.properties.Properties;
  * references to resources and may consist of one or multiple Test Object Types
  * {@link TestObjectTypeDto}.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestObjectDto extends RepositoryItemDto {
 

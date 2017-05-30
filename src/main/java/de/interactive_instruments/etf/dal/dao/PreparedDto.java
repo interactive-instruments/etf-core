@@ -21,7 +21,7 @@ import de.interactive_instruments.etf.model.EID;
 /**
  * Prepared statement for querying a Data Transfer Object or for directly streaming it in the desired output format
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface PreparedDto<T extends Dto> extends OutputFormatStreamable, Comparable<PreparedDto> {
 

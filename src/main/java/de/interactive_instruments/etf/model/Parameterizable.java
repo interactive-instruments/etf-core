@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface Parameterizable {
 

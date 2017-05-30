@@ -24,7 +24,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
  * Collection of token/value pairs that are used to replace tokens
  * in TranslationTemplates
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TranslationArgumentCollectionDto extends Dto {
 

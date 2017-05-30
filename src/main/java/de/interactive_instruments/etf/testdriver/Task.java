@@ -29,23 +29,23 @@ import de.interactive_instruments.etf.model.EID;
  *
  * Task objects are managed by the {@link TaskPoolRegistry}
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  *
  */
 public interface Task<T> extends Callable<T>, TaskState, Releasable, Cancelable, Initializable {
 
 	/**
-	 * ETF {@EID}
+	 * ETF {@link EID}
 	 *
-	 * @return
+	 * @return ID
 	 */
 	EID getId();
 
 	/**
 	 * Get the result even if the task did not finish!
-	 * Use {@waitForResult()} to block the calling thread until the Task finished.
+	 * Use {@link #waitForResult()} to block the calling thread until the Task finished.
 	 *
-	 * @return
+	 * @return result
 	 */
 	T getResult();
 
@@ -62,10 +62,12 @@ public interface Task<T> extends Callable<T>, TaskState, Releasable, Cancelable,
 	/**
 	 * Wait for result
 	 *
-	 * @return T
+	 * @return T result
 	 *
-	 * @throws InterruptedException
-	 * @throws ExecutionException
+	 * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied,
+	 * and the thread is interrupted, either before or during the activity.
+	 * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task
+	 * that aborted by throwing an exception.
 	 */
 	T waitForResult() throws InterruptedException, ExecutionException;
 }

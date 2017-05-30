@@ -24,7 +24,7 @@ import de.interactive_instruments.etf.model.EidMap;
 /**
  * Prepared statement for querying a collection of Data Transfer Object or for directly streaming it in the desired output format
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface PreparedDtoCollection<T extends Dto>
 		extends OutputFormatStreamable, Iterable<T>, EidMap<T>, Releasable, Comparable<PreparedDtoCollection> {

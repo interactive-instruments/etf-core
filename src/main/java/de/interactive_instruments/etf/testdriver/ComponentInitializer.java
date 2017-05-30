@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 /**
  * Entry point annotation for the etf class loader
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

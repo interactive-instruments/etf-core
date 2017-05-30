@@ -23,7 +23,7 @@ import de.interactive_instruments.etf.model.EidMap;
 import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObjectTypeDetector extends Comparable<TestObjectTypeDetector> {
 

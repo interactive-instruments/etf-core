@@ -25,7 +25,7 @@ import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestTaskDto extends ModelItemDto {
 
@@ -43,7 +43,7 @@ public class TestTaskDto extends ModelItemDto {
 		this.testObject = other.testObject;
 		this.resultStyle = other.resultStyle;
 		this.testTaskResult = other.testTaskResult;
-		this.arguments = other.arguments;
+		this.arguments = other.arguments.isEmpty() ? null : other.arguments;
 	}
 
 	public ExecutableTestSuiteDto getExecutableTestSuite() {

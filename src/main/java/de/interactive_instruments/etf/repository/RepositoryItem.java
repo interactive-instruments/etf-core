@@ -24,9 +24,9 @@ import de.interactive_instruments.model.std.RetrievableItem;
 /**
  * An interface for an item in a repository.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface RepositoryItem extends RetrievableItem, Versionable {
+public interface RepositoryItem extends RetrievableItem, Comparable, Versionable {
 
 	/**
 	 * The items last modified data.
@@ -70,7 +70,7 @@ public interface RepositoryItem extends RetrievableItem, Versionable {
 		if (rItemId != 0) {
 			return rItemId;
 		}
-		final int rItemVersion = getLabel().compareTo(rItem.getLabel());
+		final int rItemVersion = getVersion().compareTo(rItem.getVersion());
 		if (rItemVersion != 0) {
 			return rItemVersion;
 		}

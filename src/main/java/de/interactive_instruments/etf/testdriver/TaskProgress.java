@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.testdriver;
 import java.util.Date;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TaskProgress extends TaskState {
 
@@ -39,7 +39,7 @@ public interface TaskProgress extends TaskState {
 	/**
 	 * Number of completed steps in percent
 	 *
-	 * @return
+	 * @return progress as double
 	 */
 	default double getPercentStepsCompleted() {
 		return ((double) getCurrentStepsCompleted() / getMaxSteps()) * 100;
@@ -48,14 +48,14 @@ public interface TaskProgress extends TaskState {
 	/**
 	 * Returns the date of the start of the task
 	 *
-	 * @return
+	 * @return stat timestamp
 	 */
 	Date getStartTimestamp();
 
 	/**
 	 * Read access to the current log path
 	 *
-	 * @return
+	 * @return Log Reader object
 	 */
 	TestRunLogReader getLogReader();
 }

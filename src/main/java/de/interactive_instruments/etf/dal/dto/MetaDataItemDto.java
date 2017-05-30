@@ -21,7 +21,7 @@ import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplat
 /**
  * Data transfer object which possesses meta data
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public abstract class MetaDataItemDto extends ModelItemDto {
 

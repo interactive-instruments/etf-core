@@ -16,7 +16,7 @@
 package de.interactive_instruments.etf.model.exceptions;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestCaseNotFoundException extends Exception {
 	public TestCaseNotFoundException(final String message) {

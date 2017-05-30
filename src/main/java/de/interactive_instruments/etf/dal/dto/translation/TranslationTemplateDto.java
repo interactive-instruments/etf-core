@@ -22,7 +22,7 @@ import java.util.Objects;
  * tokens in a specific language. A Translation Template is used to
  * translate messages.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TranslationTemplateDto {
 

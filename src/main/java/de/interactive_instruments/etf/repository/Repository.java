@@ -27,7 +27,7 @@ import de.interactive_instruments.model.std.RetrievableItem;
 /**
  * A repository that serves (remote) repository items.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface Repository extends RetrievableItem, Configurable, Releasable {
 
@@ -78,7 +78,7 @@ public interface Repository extends RetrievableItem, Configurable, Releasable {
 	 *
 	 * @param label item label
 	 * @return found repository item
-	 * @throws StorageException
+	 * @throws StorageException if repository is not initialized or a fetching error occurred
 	 */
 	List<RepositoryItem> getItemsForLabel(String label) throws StorageException;
 

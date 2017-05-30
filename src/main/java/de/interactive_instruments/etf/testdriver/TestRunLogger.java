@@ -20,6 +20,6 @@ import org.slf4j.Logger;
 /**
  * Logger used by TestDrivers
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestRunLogger extends TestRunLogReader, Logger {}

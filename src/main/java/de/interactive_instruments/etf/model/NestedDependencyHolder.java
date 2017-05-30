@@ -16,6 +16,6 @@
 package de.interactive_instruments.etf.model;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface NestedDependencyHolder<T extends NestedDependencyHolder> extends FlatDependencyHolder<T> {}

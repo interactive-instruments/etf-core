@@ -23,7 +23,7 @@ import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
 /**
  * Basic Test Result Collector interface
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface BasicTestResultCollector extends Releasable {
 

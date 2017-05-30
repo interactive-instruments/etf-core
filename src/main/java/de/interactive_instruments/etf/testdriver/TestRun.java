@@ -25,7 +25,7 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
 /**
  * Test Run
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestRun extends Task<TestRunDto> {
 

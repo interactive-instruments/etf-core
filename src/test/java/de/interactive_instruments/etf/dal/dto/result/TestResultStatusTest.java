@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestResultStatusTest {
 
@@ -38,6 +38,6 @@ public class TestResultStatusTest {
 		assertEquals(TestResultStatus.UNDEFINED,
 				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL, TestResultStatus.UNDEFINED));
 		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus(TestResultStatus.UNDEFINED));
-		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus(null));
+		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus((TestResultStatus[]) null));
 	}
 }

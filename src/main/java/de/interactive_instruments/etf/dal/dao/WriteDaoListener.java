@@ -20,7 +20,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
 /**
  * Event Listener for write operations
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface WriteDaoListener<T extends Dto> {
 

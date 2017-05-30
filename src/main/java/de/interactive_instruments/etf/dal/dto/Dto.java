@@ -24,7 +24,7 @@ import de.interactive_instruments.etf.model.EidHolder;
  * A DTO does not contain any business logic but may implement internal consistency
  * checks and basic validations.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public abstract class Dto implements Comparable, EidHolder {
 
@@ -47,7 +47,7 @@ public abstract class Dto implements Comparable, EidHolder {
 	 * A descriptive label for identifying  Dtos
 	 * (used in error messages)
 	 *
-	 * @return
+	 * @return dto label as string
 	 */
 	public String getDescriptiveLabel() {
 		if (id == null) {

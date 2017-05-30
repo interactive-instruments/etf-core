@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.dal.dao.exceptions;
 import de.interactive_instruments.exceptions.StorageException;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class StoreException extends StorageException {
 

@@ -21,14 +21,14 @@ import java.util.regex.Pattern;
 /**
  * Interface for a factory that creates etf identifier objects.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EidFactory {
 
 	/**
 	 * Creates an EID with an internal random ID
 	 *
-	 * @return new EID
+	 * @return created EID
 	 */
 	EID createRandomId();
 
@@ -37,8 +37,8 @@ public interface EidFactory {
 	 *
 	 * str equals createFromStrToUUID(str).getId();
 	 *
-	 * @param str
-	 * @return
+	 * @param str string
+	 * @return created EID
 	 */
 	EID createAndPreserveStr(String str);
 
@@ -50,8 +50,8 @@ public interface EidFactory {
 	 * UUID.nameUUIDFromBytes(uuidStr).toString() equals
 	 * createUUID(uuidStr).toUUID().toString()
 	 *
-	 * @param uuidStr
-	 * @return
+	 * @param uuidStr a string as UUID or a simple string from which a EID is generated
+	 * @return created EID
 	 */
 	EID createUUID(String uuidStr);
 
@@ -60,18 +60,23 @@ public interface EidFactory {
 	 *
 	 * uuid equals createAndPreserveUUID(uuid).toUUID();
 	 *
-	 * @param uuid
-	 * @return
+	 * @param uuid UUID object
+	 * @return created EID
 	 */
 	EID createAndPreserveUUID(UUID uuid);
 
 	/**
 	 * Returns the pattern to check the ID
 	 *
-	 * @return
+	 * @return pattern to check an ID
 	 */
 	Pattern getPattern();
 
+	/**
+	 * Get the default factory
+	 *
+	 * @return default factory
+	 */
 	static EidFactory getDefault() {
 		return EidFactoryLoader.instance();
 	}

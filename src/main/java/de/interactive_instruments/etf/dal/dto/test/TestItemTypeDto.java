@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.dal.dto.test;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestItemTypeDto extends MetaDataItemDto {
 

@@ -16,7 +16,7 @@
 package de.interactive_instruments.etf.dal.dto.result;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface AttachmentDtoHolder {
 

@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.model;
 import java.util.Collection;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface FlatDependencyHolder<T> {
 	Collection<T> getDependencies();

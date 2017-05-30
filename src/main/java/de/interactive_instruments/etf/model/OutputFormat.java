@@ -25,36 +25,37 @@ import de.interactive_instruments.properties.PropertyHolder;
 /**
  *
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface OutputFormat extends Comparable<OutputFormat>, Parameterizable {
 
 	/**
 	 * Identifier for the OutputFormat
 	 *
-	 * @return
+	 * @return id of the output format
 	 */
 	EID getId();
 
 	/**
 	 * Name of the OutputFormat
 	 *
-	 * @return
+	 * @return a label for the output format
 	 */
 	String getLabel();
 
 	/**
 	 * The media type that will be produced
 	 *
-	 * @return
+	 * @return Media type
 	 */
 	MediaType getMediaTypeType();
 
 	/**
 	 *
-	 * @param arguments
-	 * @param inputStream
-	 * @param outputStreamStream
+	 * @param arguments transformation arguments
+	 * @param inputStream the input stream to transform
+	 * @param outputStreamStream the target output stream
+	 * @throws IOException streaming failed
 	 */
 	void streamTo(final PropertyHolder arguments,
 			final InputStream inputStream,

@@ -27,14 +27,14 @@ import de.interactive_instruments.exceptions.StorageException;
 /**
  * DataStorage managed by the DataStorageManager
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface DataStorage extends Configurable, Releasable {
 
 	/**
 	 * Reset the data storage
 	 *
-	 * @throws StorageException
+	 * @throws StorageException if an internal error occurs
 	 */
 	void reset() throws StorageException;
 
@@ -42,14 +42,14 @@ public interface DataStorage extends Configurable, Releasable {
 	 * Create a data storage backup and returns the backup name
 	 *
 	 * @return the backup name
-	 * @throws StorageException
+	 * @throws StorageException if an internal error occurs
 	 */
 	String createBackup() throws StorageException;
 
 	/**
 	 * List all available backup names
 	 *
-	 * @return
+	 * @return list of available backups
 	 */
 	List<String> getBackupList();
 
@@ -57,13 +57,14 @@ public interface DataStorage extends Configurable, Releasable {
 	 * Restore a data storage backup by its backup name
 	 *
 	 * @param backupName name of the backup
-	 * @throws StorageException
+	 * @throws StorageException if an internal error occurs
 	 */
-	void restoreBackup(String backupName) throws StorageException;
+	void restoreBackup(final String backupName) throws StorageException;
 
 	/**
 	 * Returns the Data Access Object mappings for each Dto
 	 *
+	 * @param <T> Dto type
 	 * @return Data Access Object mappings for each Dto
 	 */
 	<T extends Dto> Map<Class<T>, Dao<T>> getDaoMappings();
@@ -72,7 +73,8 @@ public interface DataStorage extends Configurable, Releasable {
 	 * Retuns a Data Access Object which serves the class or null
 	 *
 	 * @param dtoType Dto type
-	 * @return
+	 * @param <T> Dto type
+	 * @return Dto type class
 	 */
 	default <T extends Dto> Dao<T> getDao(final Class<T> dtoType) {
 		return (Dao<T>) getDaoMappings().get(dtoType);
@@ -80,12 +82,7 @@ public interface DataStorage extends Configurable, Releasable {
 
 	/**
 	 * Clean unused items and optimize data storage
+	 * @throws StorageException if an internal error occurs
 	 */
 	void cleanAndOptimize() throws StorageException;
-
-	/**
-	 * will be removed in version 2.1.0
-	 */
-	@Deprecated
-	void addFile(final IFile file) throws StorageException;
 }

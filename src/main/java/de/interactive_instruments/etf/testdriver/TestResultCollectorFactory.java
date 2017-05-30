@@ -18,7 +18,7 @@ package de.interactive_instruments.etf.testdriver;
 import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 
 /**
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestResultCollectorFactory {
 	TestResultCollector createTestResultCollector(final TestRunLogger logger, final TestTaskDto testTaskDto);

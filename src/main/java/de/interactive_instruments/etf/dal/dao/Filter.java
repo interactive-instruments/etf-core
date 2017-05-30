@@ -20,7 +20,7 @@ package de.interactive_instruments.etf.dal.dao;
  *
  * Todo: filter by tags for Executable Test Suite Controller + filter by Date for removeExpiredItemsHolder()
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface Filter {
 
@@ -65,7 +65,7 @@ public interface Filter {
 
 	/**
 	 * List of fields that should be shown
-	 * @return
+	 * @return List of fields as String, separated with a comma, or *
 	 */
 	default String fields() {
 		return "*";

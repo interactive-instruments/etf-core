@@ -33,7 +33,7 @@ import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
  * The TaskProgressInterface is used by a client to monitor the progress of
  * the Thread without blocking it.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  *
  * @param <R> the the future result type
  *
@@ -60,6 +60,7 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 	 * the status of the task
 	 * @param id task UUID
 	 * @return TaskWithProgressIndication
+	 * @throws ObjectWithIdNotFoundException if the task does not exist
 	 */
 	public T getTaskById(final EID id)
 			throws ObjectWithIdNotFoundException {
@@ -108,7 +109,7 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 	/**
 	 * Starts the task by submitting it to task to the pool.
 	 * The progress of the task is then accessible by calling getTaskProgress()
-	 * @param task
+	 * @param task executable task
 	 * @return Future which might be used to get the result of the task
 	 * @throws NullPointerException if taskProgress is not set
 	 * @throws IllegalStateException if the future in the task is already set

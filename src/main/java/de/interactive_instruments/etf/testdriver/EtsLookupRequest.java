@@ -19,6 +19,9 @@ import java.util.Set;
 
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.etf.model.EidHolderMap;
+import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.EidSet;
 
 /**
  * Responsible TestDrivers add known Executable Test Suites
@@ -26,10 +29,10 @@ import de.interactive_instruments.etf.model.EID;
  *
  * Realizes the chain of responsibility pattern.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EtsLookupRequest {
-	Set<EID> getUnknownEts();
+	Set<EID> getUnknownEtsIds();
 
-	void addKnownEts(final Set<ExecutableTestSuiteDto> knownEts);
+	void addKnownEts(final EidSet<ExecutableTestSuiteDto> knownEts);
 }

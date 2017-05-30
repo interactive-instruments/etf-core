@@ -26,7 +26,7 @@ import de.interactive_instruments.exceptions.ExcUtils;
  * This implementation is based on the features of the UUID class.
  * The id can be generated randomly or deduced from a string.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 class DefaultEid implements EID, Comparable {
 

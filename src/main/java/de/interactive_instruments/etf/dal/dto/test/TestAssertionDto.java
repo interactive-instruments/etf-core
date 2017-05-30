@@ -25,7 +25,7 @@ import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplat
 /**
  * An Assertion embodies the expectation of a test result.
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TestAssertionDto extends TestModelItemDto {
 

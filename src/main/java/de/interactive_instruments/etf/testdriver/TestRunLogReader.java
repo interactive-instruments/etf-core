@@ -22,30 +22,30 @@ import java.util.List;
 /**
  * Log path read interface
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestRunLogReader {
 	/**
 	 * Returns the logger that is used to log information about
 	 * the progress of the task
 	 *
-	 * @return
+	 * @return log file
 	 */
 	File getLogFile();
 
 	/**
 	 * Return messages
 	 *
-	 * @param knownPosition
-	 * @return
+	 * @param knownPosition last known position
+	 * @return log messages as list
 	 */
 	List<String> getLogMessages(final long knownPosition);
 
 	/**
 	 * Stream messages to an OutputStream
 	 *
-	 * @param knownPosition
-	 * @param outputStream
+	 * @param knownPosition last known position
+	 * @param outputStream target output stream
 	 */
 	void streamLogMessagesTo(final long knownPosition, final OutputStream outputStream);
 }
