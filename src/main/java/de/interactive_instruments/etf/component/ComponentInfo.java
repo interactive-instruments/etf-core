@@ -20,7 +20,7 @@ import de.interactive_instruments.etf.model.EID;
 /**
  * Component meta information
  *
- * @author J. Herrmann ( herrmann <aT) interactive-instruments (doT> de )
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface ComponentInfo {
 
