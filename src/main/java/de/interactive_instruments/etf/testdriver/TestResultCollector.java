@@ -359,8 +359,9 @@ public interface TestResultCollector extends BasicTestResultCollector {
 	 * @param errorMessage untranslated error message
 	 * @param bytes error bytes to save to a file
 	 * @param mimeType MIME type
+	 * @return eid of the recorded test Task
 	 */
-	void internalError(final String errorMessage, final byte[] bytes, final String mimeType);
+	String internalError(final String errorMessage, final byte[] bytes, final String mimeType);
 
 	/**
 	 * Info message which is written to the log path

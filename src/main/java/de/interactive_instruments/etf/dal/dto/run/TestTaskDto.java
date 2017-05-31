@@ -43,7 +43,7 @@ public class TestTaskDto extends ModelItemDto {
 		this.testObject = other.testObject;
 		this.resultStyle = other.resultStyle;
 		this.testTaskResult = other.testTaskResult;
-		this.arguments = other.arguments.isEmpty() ? null : other.arguments;
+		this.arguments = other.arguments;
 	}
 
 	public ExecutableTestSuiteDto getExecutableTestSuite() {
