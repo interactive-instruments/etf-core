@@ -19,8 +19,6 @@ import java.util.Set;
 
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.etf.model.EidHolderMap;
-import de.interactive_instruments.etf.model.EidMap;
 import de.interactive_instruments.etf.model.EidSet;
 
 /**

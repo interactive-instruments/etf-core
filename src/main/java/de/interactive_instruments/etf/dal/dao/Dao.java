@@ -19,7 +19,10 @@ import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Initializable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
-import de.interactive_instruments.etf.model.*;
+import de.interactive_instruments.etf.model.Disableable;
+import de.interactive_instruments.etf.model.EID;
+import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.OutputFormat;
 import de.interactive_instruments.exceptions.StorageException;
 
 /**
@@ -71,6 +74,7 @@ public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable
 	 * If the item is no instance of {@link Disableable}, false is always returned.
 	 *
 	 * @param id Dto ID
+	 *
 	 * @return true if Dto with ID exists and is disabled, false otherwise
 	 */
 	boolean isDisabled(final EID id);

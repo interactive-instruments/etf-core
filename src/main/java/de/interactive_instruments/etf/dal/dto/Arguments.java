@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2010-2017 interactive instruments GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -141,7 +141,8 @@ public class Arguments {
 		return vals;
 	}
 
-	@Override public String toString() {
+	@Override
+	public String toString() {
 		final StringBuffer sb = new StringBuffer("Arguments{");
 		sb.append("applicableParamTypeName='").append(applicableParamTypeName).append('\'');
 		sb.append(", values={");

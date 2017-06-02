@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.interactive_instruments.Configurable;
-import de.interactive_instruments.IFile;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.exceptions.StorageException;

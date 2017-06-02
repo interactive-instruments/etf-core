@@ -15,7 +15,6 @@
  */
 package de.interactive_instruments.etf.model.capabilities;
 
-import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidHolder;
