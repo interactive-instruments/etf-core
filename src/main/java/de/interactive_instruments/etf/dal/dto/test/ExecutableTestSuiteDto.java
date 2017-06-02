@@ -15,7 +15,10 @@
  */
 package de.interactive_instruments.etf.dal.dto.test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
@@ -36,7 +39,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 	private List<ExecutableTestSuiteDto> dependencies;
 	private List<TestObjectTypeDto> consumableResultTestObjectTypes;
 	private List<TestCaseDto> parameterizedTestCases;
-	private DefaultEidHolderMap<TestModelItemDto> testModules;
+	private EidHolderMap<TestModelItemDto> testModules;
 	private ParameterSet parameters;
 
 	public ExecutableTestSuiteDto() {}
@@ -49,7 +52,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 		this.dependencies = other.dependencies;
 		this.consumableResultTestObjectTypes = other.consumableResultTestObjectTypes;
 		this.parameterizedTestCases = other.parameterizedTestCases;
-		this.testModules = other.testModules;
+		this.testModules = other.testModules.createCopy();
 		this.parameters = other.parameters;
 	}
 
@@ -164,7 +167,8 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 		if (this.testModules == null) {
 			this.testModules = new DefaultEidHolderMap<>();
 		}
-		children.forEach(c -> addChild(c));
+		// use getChildrenAsMap().clear() instead to delete children
+		Objects.requireNonNull(children, "Attempt to set children to null").forEach(c -> addChild(c));
 	}
 
 	// Todo move to immutable iface

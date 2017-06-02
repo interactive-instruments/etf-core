@@ -15,16 +15,17 @@
  */
 package de.interactive_instruments.etf.model;
 
-import de.interactive_instruments.SUtils;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import de.interactive_instruments.Copyable;
+import de.interactive_instruments.SUtils;
+
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface EidSet<V extends EidHolder> extends Set<V> {
+public interface EidSet<V extends EidHolder> extends Set<V>, Copyable<EidSet<V>> {
 
 	EidSet<V> unmodifiable();
 
@@ -51,7 +52,7 @@ public interface EidSet<V extends EidHolder> extends Set<V> {
 	boolean internalRemove(Object o);
 
 	default boolean containsAll(final Collection<?> c) {
-		if (c!=null && c.iterator().next() instanceof String) {
+		if (c != null && c.iterator().next() instanceof String) {
 			return internalContainsAll(SUtils.StrEqContainer.createSet(c));
 		}
 		return internalContainsAll(c);
@@ -60,7 +61,7 @@ public interface EidSet<V extends EidHolder> extends Set<V> {
 	boolean internalContainsAll(Collection<?> c);
 
 	default boolean retainAll(final Collection<?> c) {
-		if (c!=null && c.iterator().next() instanceof String) {
+		if (c != null && c.iterator().next() instanceof String) {
 			return internalRetainAll(SUtils.StrEqContainer.createSet(c));
 		}
 		return internalRetainAll(c);
@@ -69,7 +70,7 @@ public interface EidSet<V extends EidHolder> extends Set<V> {
 	boolean internalRetainAll(Collection<?> c);
 
 	default boolean removeAll(final Collection<?> c) {
-		if (c!=null && c.iterator().next() instanceof String) {
+		if (c != null && c.iterator().next() instanceof String) {
 			return internalRemoveAll(SUtils.StrEqContainer.createSet(c));
 		}
 		return internalRemoveAll(c);

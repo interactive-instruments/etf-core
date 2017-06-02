@@ -15,6 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dto;
 
+import de.interactive_instruments.Copyable;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidHolder;
 
@@ -26,7 +27,7 @@ import de.interactive_instruments.etf.model.EidHolder;
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public abstract class Dto implements Comparable, EidHolder {
+public abstract class Dto implements Comparable, EidHolder, Copyable<Dto> {
 
 	protected EID id;
 
@@ -62,6 +63,4 @@ public abstract class Dto implements Comparable, EidHolder {
 			throw new IncompleteDtoException("Required property 'id' not set!");
 		}
 	}
-
-	public abstract <T> T createCopy();
 }

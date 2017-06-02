@@ -17,6 +17,8 @@ package de.interactive_instruments.etf.model;
 
 import java.util.*;
 
+import de.interactive_instruments.Copyable;
+
 /**
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
@@ -37,13 +39,17 @@ public class DefaultEidMap<V> implements EidMap<V> {
 		return new DefaultEidMap<>(Collections.unmodifiableMap(this));
 	}
 
+	public EidMap<V> createCopy() {
+		return new DefaultEidMap(Copyable.createCopy(this.internalMap));
+	}
+
 	@Override
 	public EidMap<V> getAll(final Collection<?> keys) {
 		final EidMap map = new DefaultEidMap();
 		for (final Object key : keys) {
 			final V v = internalMap.get(key);
-			if(v!=null) {
-				map.put(key,v);
+			if (v != null) {
+				map.put(key, v);
 			}
 		}
 		return map.isEmpty() ? null : map;
@@ -51,7 +57,7 @@ public class DefaultEidMap<V> implements EidMap<V> {
 
 	@Override
 	public void removeAll(final Collection<?> keys) {
-		keys.forEach( k -> remove(k));
+		keys.forEach(k -> remove(k));
 	}
 
 	@Override

@@ -289,7 +289,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 
 	@Override
 	public void setDisabled(final boolean disabled) {
-		this.disabled=disabled;
+		this.disabled = disabled;
 	}
 
 	@Override
@@ -301,44 +301,49 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 	public EGAID getEgaId() {
 		return new EGAID() {
 			private final Matcher m = EGAID_WP.matcher(egaid);
-			@Override public String getArtifactId() {
+
+			@Override
+			public String getArtifactId() {
 				m.matches();
 				return m.group(2);
 			}
 
-			@Override public String getGroupId() {
+			@Override
+			public String getGroupId() {
 				m.matches();
 				return m.group(1);
 			}
 
-			@Override public String getEgaId() {
+			@Override
+			public String getEgaId() {
 				return egaid;
 			}
 
-			@Override public ImmutableVersion getVersion() {
-				return version!=null ? Version.parse(version) : null;
+			@Override
+			public ImmutableVersion getVersion() {
+				return version != null ? Version.parse(version) : null;
 			}
 		};
 	}
 
 	public void setEgaId(final String egaid) {
-		if("".equals(egaid)) {
-			this.egaid=null;
-		}else {
+		if ("".equals(egaid)) {
+			this.egaid = null;
+		} else {
 			final Matcher m = EGAID.EGAID_REF.matcher(egaid);
 			if (!m.matches()) {
 				throw new IllegalArgumentException("Not an EGAID: " + egaid);
 			}
 			this.egaid = m.group(1) + "." + m.group(2);
 			final String v = m.group(4);
-			if(v!=null) {
-				this.version=v;
+			if (v != null) {
+				this.version = v;
 			}
 		}
 	}
 
 	public String getEgaIdRef() {
-		return this.egaid+this.version;
+		return this.egaid + this.version;
 	}
 
 	@Override

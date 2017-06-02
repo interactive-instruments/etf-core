@@ -15,10 +15,10 @@
  */
 package de.interactive_instruments.etf.model;
 
+import java.util.regex.Pattern;
+
 import de.interactive_instruments.ImmutableVersion;
 import de.interactive_instruments.Versionable;
-
-import java.util.regex.Pattern;
 
 /**
  * The ETF Group and Artifact ID class is intended to provide
@@ -31,7 +31,8 @@ public interface EGAID extends Versionable, Comparable {
 
 	Pattern EGAID = Pattern.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
 	Pattern EGAID_WP = Pattern.compile("([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
-	Pattern EGAID_REF = Pattern.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)(:([0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?|latest))?");
+	Pattern EGAID_REF = Pattern
+			.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)(:([0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?|latest))?");
 
 	String getArtifactId();
 
@@ -40,21 +41,20 @@ public interface EGAID extends Versionable, Comparable {
 	String getEgaId();
 
 	default String getEgaIdRef() {
-		final ImmutableVersion v =  this.getVersion();
-		if(v!=null) {
-			return getEgaId()+":"+v;
+		final ImmutableVersion v = this.getVersion();
+		if (v != null) {
+			return getEgaId() + ":" + v;
 		}
 		return getEgaId();
 	}
 
-	@Override default int compareTo(final Object o) {
-		if(o instanceof EGAID) {
-			return ((EGAID)o).getEgaIdRef().
-					compareToIgnoreCase(getEgaIdRef());
-		}else if(o instanceof EgaidHolder) {
+	@Override
+	default int compareTo(final Object o) {
+		if (o instanceof EGAID) {
+			return ((EGAID) o).getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
+		} else if (o instanceof EgaidHolder) {
 			final EGAID h = ((EgaidHolder) o).getEgaId();
-			return h.getEgaIdRef().
-					compareToIgnoreCase(getEgaIdRef());
+			return h.getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
 		}
 		return -1;
 	}

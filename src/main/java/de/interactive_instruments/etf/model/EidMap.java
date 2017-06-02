@@ -15,17 +15,18 @@
  */
 package de.interactive_instruments.etf.model;
 
-import de.interactive_instruments.SUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import de.interactive_instruments.Copyable;
+import de.interactive_instruments.SUtils;
+
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface EidMap<V> extends Map<EID, V> {
+public interface EidMap<V> extends Map<EID, V>, Copyable<EidMap<V>> {
 	default Collection asCollection() {
 		return values();
 	}
@@ -35,7 +36,6 @@ public interface EidMap<V> extends Map<EID, V> {
 	}
 
 	EidMap<V> unmodifiable();
-
 
 	EidMap<V> getAll(final Collection<?> keys);
 

@@ -24,6 +24,8 @@ public interface EidHolderMap<V extends EidHolder> extends EidMap<V> {
 
 	EidHolderMap<V> unmodifiable();
 
+	EidHolderMap<V> createCopy();
+
 	EidSet<V> toSet();
 
 	V add(V v);

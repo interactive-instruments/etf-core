@@ -18,6 +18,8 @@ package de.interactive_instruments.etf.model;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import de.interactive_instruments.Copyable;
+
 /**
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
@@ -34,17 +36,25 @@ public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> i
 
 	public DefaultEidHolderMap(final Collection<V> collection) {
 		super(collection.stream().collect(
-				Collectors.toMap( i -> i.getId(), i -> i, (i1,i2) -> i1, LinkedHashMap::new)));
+				Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
 
 	}
 
 	public DefaultEidHolderMap(final V[] array) {
 		super(Arrays.stream(array).collect(
-				Collectors.toMap( i -> i.getId(), i -> i, (i1,i2) -> i1, LinkedHashMap::new)));
+				Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
 	}
 
 	public DefaultEidHolderMap(final V singleItem) {
-		super(Collections.singletonMap(singleItem.getId(),singleItem));
+		super(Collections.singletonMap(singleItem.getId(), singleItem));
+	}
+
+	public EidHolderMap<V> unmodifiable() {
+		return new DefaultEidHolderMap<>(Collections.unmodifiableMap(this));
+	}
+
+	public EidHolderMap<V> createCopy() {
+		return new DefaultEidHolderMap<>(Copyable.createCopy(this));
 	}
 
 	public EidSet<V> toSet() {
@@ -56,8 +66,8 @@ public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> i
 		final EidHolderMap map = new DefaultEidHolderMap();
 		for (final Object key : keys) {
 			final V v = get(key);
-			if(v!=null) {
-				map.put(key,v);
+			if (v != null) {
+				map.put(key, v);
 			}
 		}
 		return map.isEmpty() ? null : map;
@@ -71,10 +81,6 @@ public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> i
 		for (final V value : values) {
 			put(value.getId(), value);
 		}
-	}
-
-	public EidHolderMap<V> unmodifiable() {
-		return new DefaultEidHolderMap<>(Collections.unmodifiableMap(this));
 	}
 
 	/**

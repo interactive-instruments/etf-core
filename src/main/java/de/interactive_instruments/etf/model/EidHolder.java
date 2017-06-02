@@ -27,8 +27,8 @@ public interface EidHolder extends Comparable {
 	default int compareTo(final Object o) {
 		if (o instanceof EidHolder) {
 			return ((EidHolder) o).getId().compareTo(this.getId());
-		}else if(o instanceof String) {
-			return ((String)o).compareTo(this.getId().getId());
+		} else if (o instanceof String) {
+			return ((String) o).compareTo(this.getId().getId());
 		}
 		throw new IllegalArgumentException("Invalid object type comparison: " +
 				o.getClass().getName() + " can not be compared with an EidHolder.");

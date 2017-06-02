@@ -37,7 +37,9 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	protected TestModelItemDto(final TestModelItemDto other) {
 		super(other);
-		this.children = other.children;
+		if (other.children != null) {
+			this.children = other.children.createCopy();
+		}
 	}
 
 	@Override
