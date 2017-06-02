@@ -53,17 +53,33 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	void addAll(final Collection<T> dtoCollection) throws StorageException;
 
 	/**
-	 * Update one Dto in data storage
+	 * Update one existing Dto in the data storage
 	 *
-	 * If non-existing Dtos are an instance of {@link RepositoryItemDto},
-	 * updated Dtos with a NEW EID will be returned.
+	 * If the Dto is an instance of {@link RepositoryItemDto},
+	 * the updated Dto with a NEW EID will be returned.
 	 *
 	 * @param dto old dto
 	 * @return the new dto, if the Dto is of type RepositoryItemDto its id will change!
 	 * @throws StorageException if the Dto can not be updated
 	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
 	 */
-	T update(final T dto) throws StorageException, ObjectWithIdNotFoundException;
+	default T update(final T dto) throws StorageException, ObjectWithIdNotFoundException {
+		return update(dto, null);
+	}
+
+	/**
+	 * Update one existing Dto in data storage with a new ID
+	 *
+	 * If the new ID parameter is null, the ID is not changed -except for a Dto that is an
+	 * instance of {@link RepositoryItemDto}, for which the updated Dto with a NEW EID is returned.
+	 *
+	 * @param dto old dto
+	 * @param newId non-existing new ID or null for no ID change/random ID (depends on type)
+	 * @return the new dto
+	 * @throws StorageException if the Dto can not be updated
+	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
+	 */
+	T update(final T dto, final EID newId) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Replace an existing Dto in data storage
@@ -74,7 +90,19 @@ public interface WriteDao<T extends Dto> extends Dao<T> {
 	 * @throws StorageException if the Dto can not be replaced
 	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
 	 */
-	void replace(final T dto) throws StorageException, ObjectWithIdNotFoundException;
+	default void replace(final T dto) throws StorageException, ObjectWithIdNotFoundException {
+		replace(dto, null);
+	}
+
+	/**
+	 * Replace an existing Dto in data storage and set a new ID
+	 *
+	 * @param dto old dto
+	 * @param newId non-existing new ID or null for no change
+	 * @throws StorageException if the Dto can not be replaced
+	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
+	 */
+	void replace(final T dto, final EID newId) throws StorageException, ObjectWithIdNotFoundException;
 
 	/**
 	 * Update multiple Dtos in data storage
