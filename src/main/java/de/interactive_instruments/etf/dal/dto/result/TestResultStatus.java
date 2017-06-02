@@ -82,7 +82,16 @@ public enum TestResultStatus {
 	 *
 	 * ordinal: 7
 	 */
-	PASSED_MANUAL;
+	PASSED_MANUAL,
+
+	/**
+	 * INTERNAL_ERROR, if at least one status value is INTERNAL_ERROR
+	 * in the case the test engine throws an unexpected error that forces the test
+	 * run to stop
+	 *
+	 * ordinal: 8
+	 */
+	INTERNAL_ERROR;
 
 	public int value() {
 		return ordinal();
@@ -100,7 +109,6 @@ public enum TestResultStatus {
 		if (status == null || status.size() == 0) {
 			return TestResultStatus.UNDEFINED;
 		}
-
 		return aggregateStatus(status.toArray(new TestResultStatus[status.size()]));
 	}
 
@@ -113,8 +121,27 @@ public enum TestResultStatus {
 		int currentStatus = status[0].ordinal();
 		for (int i = 1; i < status.length; i++) {
 			final int s = 10 * currentStatus + status[i].ordinal();
+			// iterate over the status codes and compare the current status with the next status code
 			switch (s) {
-			case 10:
+			case 80:
+			case 81:
+			case 82:
+			case 83:
+			case 84:
+			case 85:
+			case 86:
+			case 87:
+			case 88:
+			case 78:
+			case 68:
+			case 58:
+			case 48:
+			case 38:
+			case 28:
+			case 18:
+				// Directly return INTERNAL_ERROR 8 - * or * - 8 INTERNAL_ERROR
+				return TestResultStatus.INTERNAL_ERROR;
+			// list of status codes that are overwritten by the next status code
 			case 11:
 			case 12:
 			case 13:
@@ -122,14 +149,7 @@ public enum TestResultStatus {
 			case 15:
 			case 16:
 			case 17:
-			case 21:
-			case 31:
-			case 41:
-			case 51:
-			case 61:
-			case 71:
-				// Directly return FAILED 1 - * or * - 1 FAILED
-				return TestResultStatus.FAILED;
+				// Ignore FAILED 1 - * (except INTERNAL_ERROR)
 			case 00:
 			case 20:
 			case 22:

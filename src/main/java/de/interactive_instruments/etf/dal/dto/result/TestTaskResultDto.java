@@ -48,13 +48,13 @@ public class TestTaskResultDto extends ResultModelItemDto {
 	}
 
 	public void setTestModuleResults(final List<TestModuleResultDto> testSuiteResults) {
-		if(errorMessage !=null) {
+		if (errorMessage != null) {
 			setChildren(testSuiteResults);
 		}
 	}
 
 	public void addTestModuleResult(final TestModuleResultDto testModuleResultDto) {
-		if(errorMessage !=null) {
+		if (errorMessage != null) {
 			addChild(testModuleResultDto);
 		}
 	}
@@ -70,9 +70,12 @@ public class TestTaskResultDto extends ResultModelItemDto {
 	}
 
 	public void setInternalError(final Exception e) {
+		if (errorMessage != null) {
+			throw new IllegalStateException("Internal error already set");
+		}
 		errorMessage = e.getMessage();
-		children=null;
-		if(startTimestamp==null) {
+		children = null;
+		if (startTimestamp == null) {
 			startTimestamp = new Date();
 		}
 		duration = 1;

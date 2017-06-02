@@ -26,18 +26,46 @@ public class TestResultStatusTest {
 
 	@Test
 	public void testAggregateStatus() {
+
+		assertEquals(TestResultStatus.PASSED,
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.PASSED));
+
+		assertEquals(TestResultStatus.FAILED,
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.FAILED));
+
 		assertEquals(TestResultStatus.FAILED,
 				TestResultStatus.aggregateStatus(TestResultStatus.SKIPPED, TestResultStatus.INFO, TestResultStatus.FAILED));
+
+		assertEquals(TestResultStatus.FAILED,
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL, TestResultStatus.UNDEFINED,
+						TestResultStatus.FAILED));
+
 		assertEquals(TestResultStatus.SKIPPED,
 				TestResultStatus.aggregateStatus(TestResultStatus.SKIPPED, TestResultStatus.PASSED));
+
 		assertEquals(TestResultStatus.WARNING,
 				TestResultStatus.aggregateStatus(TestResultStatus.WARNING, TestResultStatus.INFO, TestResultStatus.PASSED));
+
 		assertEquals(TestResultStatus.INFO, TestResultStatus.aggregateStatus(TestResultStatus.INFO, TestResultStatus.PASSED));
+
 		assertEquals(TestResultStatus.PASSED_MANUAL,
 				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL, TestResultStatus.PASSED));
+
 		assertEquals(TestResultStatus.UNDEFINED,
 				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL, TestResultStatus.UNDEFINED));
+
 		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus(TestResultStatus.UNDEFINED));
+
 		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus((TestResultStatus[]) null));
+
+		assertEquals(TestResultStatus.INTERNAL_ERROR,
+				TestResultStatus.aggregateStatus(TestResultStatus.FAILED, TestResultStatus.INTERNAL_ERROR));
+
+		assertEquals(TestResultStatus.INTERNAL_ERROR,
+				TestResultStatus.aggregateStatus(TestResultStatus.UNDEFINED, TestResultStatus.INTERNAL_ERROR));
+
+		assertEquals(TestResultStatus.INTERNAL_ERROR,
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL,
+						TestResultStatus.UNDEFINED, TestResultStatus.INTERNAL_ERROR));
 	}
 }
