@@ -18,28 +18,16 @@ package de.interactive_instruments.etf.testdriver;
 import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 
 /**
- * A task intended for tests.
+ * Fired when a ResultListener finishes a Test Task.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface TestTask extends Task<TestTaskResultDto> {
-
+@FunctionalInterface
+public interface TestTaskEndListener {
 	/**
-	 * Run the task
+	 * Test Task finished
 	 *
-	 * @throws Exception any exception that occures during the test run
+	 * @param testTaskResultDto Test Task Result
 	 */
-	void run() throws Exception;
-
-	/**
-	 * Set the persistor object
-	 *
-	 * @throws IllegalStateException if already set
-	 * @param persistor persistor object
-	 */
-	void setResulPersistor(final TestTaskResultPersistor persistor) throws IllegalStateException;
-
-	TaskProgress getProgress();
-
-	TestRunLogger getLogger();
+	void testTaskFinished(TestTaskResultDto testTaskResultDto);
 }

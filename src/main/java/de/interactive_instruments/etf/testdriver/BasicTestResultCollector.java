@@ -19,6 +19,7 @@ import java.util.Map;
 
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
+import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 
 /**
  * Basic Test Result Collector interface
@@ -164,4 +165,11 @@ public interface BasicTestResultCollector extends Releasable {
 	 * @return model type as integer (1-5) or -1 for undefined
 	 */
 	int currentModelType();
+
+	/**
+	 * Register a listener, which is called when a Test Task is finished.
+	 *
+	 * @param listener TestTaskEndListener
+	 */
+	void registerTestTaskEndListener(final TestTaskEndListener listener);
 }

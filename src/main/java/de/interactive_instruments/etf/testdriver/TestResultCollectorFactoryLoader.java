@@ -48,7 +48,8 @@ class TestResultCollectorFactoryLoader {
 			} catch (NoSuchElementException e) {
 				ExcUtils.suppress(e);
 			}
-			throw new RuntimeException("Can not load Result Collector Factory " + collectorFactoryClassname);
+			throw new RuntimeException("Can not load Result Collector Factory " +
+					collectorFactoryClassname != null ? collectorFactoryClassname : "");
 		}
 
 		static final TestResultCollectorFactory INSTANCE = findResultCollectorFactory();
