@@ -59,7 +59,7 @@ public class TestResultStatusTest {
 		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus((TestResultStatus[]) null));
 
 		assertEquals(TestResultStatus.INTERNAL_ERROR,
-				TestResultStatus.aggregateStatus(TestResultStatus.FAILED, TestResultStatus.INTERNAL_ERROR));
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.INTERNAL_ERROR, TestResultStatus.PASSED));
 
 		assertEquals(TestResultStatus.INTERNAL_ERROR,
 				TestResultStatus.aggregateStatus(TestResultStatus.UNDEFINED, TestResultStatus.INTERNAL_ERROR));
@@ -67,5 +67,9 @@ public class TestResultStatusTest {
 		assertEquals(TestResultStatus.INTERNAL_ERROR,
 				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL,
 						TestResultStatus.UNDEFINED, TestResultStatus.INTERNAL_ERROR));
+
+		assertEquals(TestResultStatus.FAILED,
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED_MANUAL,
+						TestResultStatus.FAILED, TestResultStatus.INTERNAL_ERROR));
 	}
 }
