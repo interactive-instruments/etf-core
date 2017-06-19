@@ -152,6 +152,8 @@ public enum TestResultStatus {
 			case 88:
 				// Ignore INTERNAL_ERROR 8 - * (except FAILED)
 			case 00:
+			case 03:
+				// Ignore PASSED 0 - NOT_APPLICABLE
 			case 20:
 			case 22:
 			case 23:
@@ -160,13 +162,12 @@ public enum TestResultStatus {
 			case 26:
 			case 27:
 				// Ignore SKIPPED 2 - * (except FAILED, INTERNAL_ERROR)
-			case 30:
 			case 33:
 			case 34:
 			case 35:
 			case 36:
 			case 37:
-				// Ignore NOT_APPLICABLE 3 - * (except FAILED, INTERNAL_ERROR, SKIPPED)
+				// Ignore NOT_APPLICABLE 3 - * (except PASSED, FAILED, INTERNAL_ERROR, SKIPPED)
 			case 40:
 			case 44:
 			case 46:
