@@ -19,7 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
+import de.interactive_instruments.etf.model.ExpressionType;
 
+/**
+ * A Test Object Type describes a {@link TestObjectDto} and may possess
+ * information how the type can be detected.
+ *
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
+ */
 public class TestObjectTypeDto extends MetaDataItemDto {
 
 	private List<TestObjectTypeDto> subTypes;
@@ -30,16 +37,28 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 	// Optional list of supported mimetypes
 	private List<String> mimeTypes;
 
-	// Optional detection expression (as Xpath)
+	// Optional detection expression
 	private String detectionExpression;
 
-	// Optional expression for extracting the Test Object label (as Xpath)
+	// Optional detection expression type
+	private ExpressionType detectionExpressionType;
+
+	// Optional expression for extracting the Test Object label
 	private String labelExpression;
 
-	// Optional expression for extracting the Test Object description (as Xpath)
+	// Optional expression for extracting the Test Object label type
+	private ExpressionType labelExpressionType;
+
+	// Optional expression for extracting the Test Object description
 	private String descriptionExpression;
 
-	// Optional naming convention for the associated Test Objects as regex
+	// Optional expression for extracting the Test Object description type
+	private ExpressionType descriptionExpressionType;
+
+	// Optional naming convention, which is used to
+	// check if the label of a Test Object matches this regular expression.
+	// This might be useful for labeling test data deliveries according
+	// to a prescribed scheme.
 	private String namingConvention;
 
 	public TestObjectTypeDto() {}
@@ -47,12 +66,15 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 	private TestObjectTypeDto(final TestObjectTypeDto other) {
 		super(other);
 		this.subTypes = other.subTypes;
-		this.namingConvention = other.namingConvention;
 		this.filenameExtensions = other.filenameExtensions;
 		this.mimeTypes = other.mimeTypes;
 		this.detectionExpression = other.detectionExpression;
+		this.detectionExpressionType = other.detectionExpressionType;
 		this.labelExpression = other.labelExpression;
+		this.labelExpressionType = other.labelExpressionType;
 		this.descriptionExpression = other.descriptionExpression;
+		this.descriptionExpressionType = other.descriptionExpressionType;
+		this.namingConvention = other.namingConvention;
 	}
 
 	public List<TestObjectTypeDto> getSubTypes() {
@@ -94,28 +116,44 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 		this.mimeTypes = mimeTypes;
 	}
 
+	public void setDetectionExpression(final String detectionExpression, final ExpressionType type) {
+		this.detectionExpression = detectionExpression;
+		this.descriptionExpressionType = type;
+	}
+
 	public String getDetectionExpression() {
 		return detectionExpression;
 	}
 
-	public void setDetectionExpression(final String detectionExpression) {
-		this.detectionExpression = detectionExpression;
+	public ExpressionType getDetectionExpressionType() {
+		return detectionExpressionType;
+	}
+
+	public void setLabelExpression(final String labelExpression, final ExpressionType type) {
+		this.labelExpression = labelExpression;
+		this.labelExpressionType = type;
+
 	}
 
 	public String getLabelExpression() {
 		return labelExpression;
 	}
 
-	public void setLabelExpression(final String labelExpression) {
-		this.labelExpression = labelExpression;
+	public ExpressionType getLabelExpressionType() {
+		return labelExpressionType;
+	}
+
+	public void setDescriptionExpression(final String descriptionExpression, final ExpressionType type) {
+		this.descriptionExpression = descriptionExpression;
+		this.descriptionExpressionType = type;
 	}
 
 	public String getDescriptionExpression() {
 		return descriptionExpression;
 	}
 
-	public void setDescriptionExpression(final String descriptionExpression) {
-		this.descriptionExpression = descriptionExpression;
+	public ExpressionType getDescriptionExpressionType() {
+		return descriptionExpressionType;
 	}
 
 	@Override
