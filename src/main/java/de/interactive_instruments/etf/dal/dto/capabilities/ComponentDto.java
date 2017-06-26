@@ -18,6 +18,9 @@ package de.interactive_instruments.etf.dal.dto.capabilities;
 import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 
+/**
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
+ */
 public class ComponentDto extends MetaDataItemDto {
 	protected String vendor;
 	protected String version;

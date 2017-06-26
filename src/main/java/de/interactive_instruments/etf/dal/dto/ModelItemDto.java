@@ -20,21 +20,21 @@ package de.interactive_instruments.etf.dal.dto;
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public abstract class ModelItemDto extends Dto {
-	protected ModelItemDto parent;
+public abstract class ModelItemDto<T extends ModelItemDto> extends Dto {
+	protected T parent;
 
 	public ModelItemDto() {}
 
-	public ModelItemDto(final ModelItemDto other) {
+	public ModelItemDto(final ModelItemDto<T> other) {
 		this.id = other.id;
 		this.parent = other.parent;
 	}
 
-	public ModelItemDto getParent() {
+	public T getParent() {
 		return parent;
 	}
 
-	public void setParent(final ModelItemDto value) {
+	public void setParent(final T value) {
 		this.parent = value;
 	}
 

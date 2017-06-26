@@ -23,7 +23,7 @@ import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplat
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public abstract class MetaDataItemDto extends ModelItemDto {
+public abstract class MetaDataItemDto<T extends ModelItemDto> extends ModelItemDto<T> {
 
 	protected String label;
 	protected LangTranslationTemplateCollectionDto labelTranslationTemplate;

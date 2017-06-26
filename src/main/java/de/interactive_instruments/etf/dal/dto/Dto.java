@@ -63,4 +63,14 @@ public abstract class Dto implements Comparable, EidHolder, Copyable<Dto> {
 			throw new IncompleteDtoException("Required property 'id' not set!");
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		return id.equals(obj);
+	}
 }

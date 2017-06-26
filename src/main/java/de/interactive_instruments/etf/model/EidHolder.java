@@ -33,4 +33,5 @@ public interface EidHolder extends Comparable {
 		throw new IllegalArgumentException("Invalid object type comparison: " +
 				o.getClass().getName() + " can not be compared with an EidHolder.");
 	}
+
 }

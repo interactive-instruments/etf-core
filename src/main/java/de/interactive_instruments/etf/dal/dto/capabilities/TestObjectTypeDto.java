@@ -16,10 +16,12 @@
 package de.interactive_instruments.etf.dal.dto.capabilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 import de.interactive_instruments.etf.model.ExpressionType;
+import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 
 /**
  * A Test Object Type describes a {@link TestObjectDto} and may possess
@@ -27,7 +29,7 @@ import de.interactive_instruments.etf.model.ExpressionType;
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public class TestObjectTypeDto extends MetaDataItemDto {
+public class TestObjectTypeDto extends MetaDataItemDto<TestObjectTypeDto> implements TestObjectType {
 
 	private List<TestObjectTypeDto> subTypes;
 
@@ -106,6 +108,10 @@ public class TestObjectTypeDto extends MetaDataItemDto {
 
 	public void setFilenameExtensions(final List<String> filenameExtensions) {
 		this.filenameExtensions = filenameExtensions;
+	}
+
+	public void setFilenameExtensions(final String... filenameExtensions) {
+		this.filenameExtensions = Arrays.asList(filenameExtensions);
 	}
 
 	public List<String> getMimeTypes() {

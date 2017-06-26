@@ -15,28 +15,44 @@
  */
 package de.interactive_instruments.etf.model.capabilities;
 
+import java.util.List;
+
+import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
-import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidHolder;
+import de.interactive_instruments.etf.model.ExpressionType;
 
 /**
- * TODO remove DTO and use this type
+ * A Test Object Type describes a {@link TestObjectDto} and may possess
+ * information how the type can be detected.
+ *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObjectType extends EidHolder {
 
-	TestObjectTypeDto getDto();
+	String getLabel();
 
-	@Override
-	default EID getId() {
-		return getDto().getId();
-	}
+	String getDescription();
 
-	@Override
-	default int compareTo(final Object o) {
-		if (o instanceof TestObjectType) {
-			return getDto().compareTo(((TestObjectType) o).getDto());
-		}
-		return getDto().compareTo(o);
-	}
+	TestObjectType getParent();
+
+	List<TestObjectTypeDto> getSubTypes();
+
+	String getNamingConvention();
+
+	List<String> getFilenameExtensions();
+
+	List<String> getMimeTypes();
+
+	String getDetectionExpression();
+
+	ExpressionType getDetectionExpressionType();
+
+	String getLabelExpression();
+
+	ExpressionType getLabelExpressionType();
+
+	String getDescriptionExpression();
+
+	ExpressionType getDescriptionExpressionType();
 }

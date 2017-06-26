@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.interactive_instruments.etf.model;
+package de.interactive_instruments.etf.detector;
+
+import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public enum ExpressionType {
-	XPATH
+public class TestObjectTypeNotDetected extends Exception {
+
+	public TestObjectTypeNotDetected(final TestObjectType expected) {
+		super("Expected a Test Object of type '" +
+				expected.getLabel() + "' but could not detect any matching type");
+	}
+
+	public TestObjectTypeNotDetected() {
+		super("Could not detect any matching Test Object Type");
+	}
 }

@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import de.interactive_instruments.SUtils;
 import de.interactive_instruments.etf.model.Parameterizable;
 import de.interactive_instruments.properties.PropertyHolder;
 
@@ -125,7 +126,11 @@ public class Arguments {
 	}
 
 	public boolean isEmpty() {
-		return values.isEmpty();
+		if (!values().isEmpty()) {
+			return values.size() == 1 && SUtils.isNullOrEmpty(
+					values.values().iterator().next().getName());
+		}
+		return true;
 	}
 
 	// TODO tmp
