@@ -33,7 +33,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 
 	protected RepositoryItemDto replacedBy;
 	protected String replacementReason;
-	protected byte[] itemHash;
+	protected String itemHash;
 	protected String version;
 	protected String author;
 	protected Date creationDate;
@@ -71,7 +71,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 	 *     possible object is
 	 *     byte[]
 	 */
-	public byte[] getItemHash() {
+	public String getItemHash() {
 		return itemHash;
 	}
 
@@ -82,7 +82,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 	 *     allowed object is
 	 *     byte[]
 	 */
-	public void setItemHash(byte[] value) {
+	public void setItemHash(final String value) {
 		this.itemHash = value;
 	}
 
@@ -358,15 +358,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 		sb.append(", version=").append(version);
 		sb.append(", creationDate=").append(creationDate);
 		sb.append(", lastUpdateDate=").append(lastUpdateDate);
-		sb.append(", itemHash=");
-		if (itemHash == null)
-			sb.append("null");
-		else {
-			sb.append('[');
-			for (int i = 0; i < itemHash.length; ++i)
-				sb.append(i == 0 ? "" : ", ").append(itemHash[i]);
-			sb.append(']');
-		}
+		sb.append(", itemHash=").append(itemHash);
 		sb.append(", author=").append(author);
 		sb.append(", lastEditor=").append(lastEditor);
 		sb.append('}');
