@@ -15,7 +15,7 @@
  */
 package de.interactive_instruments.etf.dal.dto.result;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -59,10 +59,12 @@ public class TestResultStatusTest {
 		assertEquals(TestResultStatus.UNDEFINED, TestResultStatus.aggregateStatus((TestResultStatus[]) null));
 
 		assertEquals(TestResultStatus.INTERNAL_ERROR,
-				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.INTERNAL_ERROR, TestResultStatus.PASSED));
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.INTERNAL_ERROR,
+						TestResultStatus.PASSED));
 
 		assertEquals(TestResultStatus.FAILED,
-				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.NOT_APPLICABLE, TestResultStatus.FAILED));
+				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.NOT_APPLICABLE,
+						TestResultStatus.FAILED));
 
 		assertEquals(TestResultStatus.PASSED,
 				TestResultStatus.aggregateStatus(TestResultStatus.PASSED, TestResultStatus.NOT_APPLICABLE));
@@ -71,7 +73,8 @@ public class TestResultStatusTest {
 				TestResultStatus.aggregateStatus(TestResultStatus.NOT_APPLICABLE, TestResultStatus.PASSED));
 
 		assertEquals(TestResultStatus.SKIPPED,
-				TestResultStatus.aggregateStatus(TestResultStatus.NOT_APPLICABLE, TestResultStatus.PASSED, TestResultStatus.SKIPPED));
+				TestResultStatus.aggregateStatus(TestResultStatus.NOT_APPLICABLE, TestResultStatus.PASSED,
+						TestResultStatus.SKIPPED));
 
 		assertEquals(TestResultStatus.INTERNAL_ERROR,
 				TestResultStatus.aggregateStatus(TestResultStatus.UNDEFINED, TestResultStatus.INTERNAL_ERROR));

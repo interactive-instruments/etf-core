@@ -15,6 +15,7 @@
  */
 package de.interactive_instruments.etf.detector;
 
+import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 
 /**
@@ -46,4 +47,6 @@ public interface DetectedTestObjectType extends TestObjectType {
 		}
 		return false;
 	}
+
+	TestObjectTypeDto toTestObjectTypeDto();
 }

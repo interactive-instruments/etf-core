@@ -19,7 +19,6 @@ import java.util.Map;
 
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.result.TestResultStatus;
-import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 
 /**
  * Basic Test Result Collector interface
