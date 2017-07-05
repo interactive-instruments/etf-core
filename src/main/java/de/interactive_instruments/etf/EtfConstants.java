@@ -47,6 +47,7 @@ public class EtfConstants {
 	public static final String ETF_REFERENCE_PK = ETF_PK_PREFIX + "reference";
 	public static final String ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK = ETF_PK_PREFIX + "supported.test.object.type.ids";
 	public static final String ETF_TRANSLATION_TEMPLATE_BUNDLE_ID_PK = ETF_PK_PREFIX + "translation.template.bundle.id";
+	public static final String ETF_DEPENDENCY_IDS_PK = ETF_PK_PREFIX + "dependency.ids";
 
 	public static final String ETF_IGNORE_PROPERTIES_PK = ETF_PK_PREFIX + "ignore.properties";
 
@@ -64,6 +65,8 @@ public class EtfConstants {
 					add(ETF_IMPL_STATUS_PK);
 					add(ETF_REFERENCE_PK);
 					add(ETF_SUPPORTED_TESTOBJECT_TYPE_IDS_PK);
+					add(ETF_TRANSLATION_TEMPLATE_BUNDLE_ID_PK);
+					add(ETF_DEPENDENCY_IDS_PK);
 				}
 			});
 
