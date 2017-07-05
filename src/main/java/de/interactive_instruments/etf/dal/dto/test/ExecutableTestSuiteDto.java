@@ -172,26 +172,32 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 	}
 
 	// Todo move to immutable iface
-	private long assertions = -1;
+	private long lowestTestLevelItemSize = -1;
 
-	public long getAssertionsSize() {
-		if (assertions == -1) {
-			assertions = 0;
+	public long getLowestLevelItemSize() {
+		if (lowestTestLevelItemSize == -1) {
+			lowestTestLevelItemSize = 0;
 			if (getTestModules() != null) {
 				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null)
-						.forEach(testModuleDto -> {
-							testModuleDto.getTestCases().stream().filter(testCaseDto -> testCaseDto.getTestSteps() != null)
-									.forEach(testCaseDto -> {
-										testCaseDto.getTestSteps().stream()
+						.forEach(
+								testModuleDto -> testModuleDto.getTestCases().stream()
+										.filter(testCaseDto -> testCaseDto.getTestSteps() != null)
+										.forEach(testCaseDto -> testCaseDto.getTestSteps().stream()
 												.filter(testStepDto -> testStepDto.getTestAssertions() != null)
 												.forEach(testStepDto -> {
-													assertions += testStepDto.getTestAssertions().size();
-												});
-									});
-						});
+													lowestTestLevelItemSize += testStepDto.getTestAssertions().size();
+												})));
+				if (lowestTestLevelItemSize > 0) {
+					return lowestTestLevelItemSize;
+				}
+				getTestModules().stream().filter(testModuleDto -> testModuleDto.getTestCases() != null)
+						.forEach(testModuleDto -> testModuleDto.getTestCases().stream()
+								.filter(testCaseDto -> testCaseDto.getTestSteps() != null).forEach(testCaseDto -> {
+									lowestTestLevelItemSize += testCaseDto.getTestSteps().size();
+								}));
 			}
 		}
-		return assertions;
+		return lowestTestLevelItemSize;
 	}
 
 	public void ensureBasicValidity() throws IncompleteDtoException {
