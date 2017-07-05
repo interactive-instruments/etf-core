@@ -276,7 +276,7 @@ public abstract class RepositoryItemDto extends MetaDataItemDto implements Egaid
 	}
 
 	public void setRemoteResource(final URI remoteResource) {
-		this.remoteResource = remoteResource.toString();
+		this.remoteResource = remoteResource!=null ? remoteResource.toString() : null;
 	}
 
 	public String getLocalPath() {
