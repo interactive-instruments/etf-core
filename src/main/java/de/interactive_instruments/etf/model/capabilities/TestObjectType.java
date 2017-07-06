@@ -38,8 +38,6 @@ public interface TestObjectType extends EidHolder {
 
 	List<TestObjectTypeDto> getSubTypes();
 
-	String getNamingConvention();
-
 	List<String> getFilenameExtensions();
 
 	List<String> getMimeTypes();
