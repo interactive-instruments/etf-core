@@ -15,58 +15,49 @@
  */
 package de.interactive_instruments.etf.detector;
 
-import java.net.URI;
+import java.util.Set;
 
-import de.interactive_instruments.Credentials;
 import de.interactive_instruments.Initializable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.capabilities.Resource;
 
 /**
- * A detector for Test Object Types.
+ * This interface is implemented by detectors that detect the Test Object Types from a resource.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObjectTypeDetector extends Initializable, Releasable, Comparable<TestObjectTypeDetector> {
 
 	/**
-	 * Check directly from the source. Used if only one TestObjectTypeDetector is
-	 * registered and the content does not need to be cached.
+	 * Verify the resource is one of the passed Test Object Types and return the detected type.
+	 * Otherwise return null.
 	 *
 	 * Note: the {@link TestObjectTypeDetectorManager} may define a timeout in future versions.
 	 * A TestObjectTypeDetector should analyse the content within 5 seconds.
 	 *
-	 * @param source source the TestObjectTypeDetector must use for retrieving and analyzing content
-	 * @param credentials optional credentials for authenticating with the source
-	 * @return detected Test Object Type or null if unknown
-	 */
-	DetectedTestObjectType detect(final URI source, final Credentials credentials);
-
-	/**
-	 * Called if multiple TestObjectTypeDetectors are registered.
-	 * The implementing TestObjectTypeDetector shall use the cachedContent
+	 * @param resource resource the TestObjectTypeDetector must use for retrieving and analyzing content
+	 * @param expectedTypes Test Object Type ids to check
 	 *
-	 * Note: the {@link TestObjectTypeDetectorManager} may define a timeout in future versions.
-	 * A TestObjectTypeDetector should analyse the content within 5 seconds.
-	 *
-	 * @param source source the TestObjectTypeDetector can use for additional analysis
-	 * @param credentials optional credentials for authenticating with the source
-	 * @param cachedContent the cached content retrieved from the source
-	 * @return detected Test Object Type or null if unknown
-	 */
-	DetectedTestObjectType detect(final URI source, final Credentials credentials, final byte[] cachedContent);
-
-	/**
-	 * Verify the resource is a specific Test Object Type and return it. Otherwise return null.
-	 *
-	 * @param testObjectTypeId Test Object Type id to check
-	 * @param source source the TestObjectTypeDetector can use for additional analysis
-	 * @param credentials optional credentials for authenticating with the source
 	 * @return detected Test Object Type or null if unknown or other type
 	 */
-	DetectedTestObjectType detectType(final EID testObjectTypeId, final URI source, final Credentials credentials);
+	DetectedTestObjectType detectType(final Resource resource, final Set<EID> expectedTypes);
+
+	/**
+	 * Detect the Test Object Type from a resource
+	 *
+	 * Note: the {@link TestObjectTypeDetectorManager} may define a timeout in future versions.
+	 * A TestObjectTypeDetector should analyse the content within 15 seconds.
+	 *
+	 * @param resource resource the TestObjectTypeDetector must use for retrieving and analyzing content
+	 *
+	 * @return detected Test Object Type or null if unknown or other type
+	 */
+	default DetectedTestObjectType detectType(final Resource resource) {
+		return detectType(resource, null);
+	}
 
 	/**
 	 * If multiple TestObjectTypeDetectors are registered, detectors with a higher priority are

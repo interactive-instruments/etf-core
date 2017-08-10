@@ -17,10 +17,7 @@ package de.interactive_instruments.etf.detector;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ServiceLoader;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import com.github.benmanes.caffeine.cache.Cache;
@@ -29,13 +26,14 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.interactive_instruments.Credentials;
 import de.interactive_instruments.UriUtils;
 import de.interactive_instruments.container.Pair;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.model.DefaultEidMap;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.capabilities.MutableCachedResource;
+import de.interactive_instruments.etf.model.capabilities.Resource;
 import de.interactive_instruments.exceptions.InitializationException;
 import de.interactive_instruments.exceptions.InvalidStateTransitionException;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
@@ -85,10 +83,113 @@ public class TestObjectTypeDetectorManager {
 		private final static EidMap<TestObjectTypeDto> types = initTypes();
 
 		// Cache max 30 detected types, each for 90 minutes
-		private final static Cache<URI, Pair<UriUtils.ModificationCheck, DetectedTestObjectType>> cachedDetectedTestObjectTypes = Caffeine
+		private final static Cache<URI, Pair<MutableCachedResource, DetectedTestObjectType>> cachedDetectedTestObjectTypes = Caffeine
 				.newBuilder().maximumSize(30).expireAfterWrite(90, TimeUnit.MINUTES).build();
+
+		private static DetectedTestObjectType addToCache(final DetectedTestObjectType testObjectType) throws IOException {
+			// only remote resources are cached
+			if (!UriUtils.isFile(testObjectType.getNormalizedResource().getUri())) {
+				final MutableCachedResource resource;
+				if (testObjectType.getNormalizedResource() instanceof MutableCachedResource) {
+					resource = (MutableCachedResource) testObjectType.getNormalizedResource();
+				} else {
+					resource = new MutableCachedResource(testObjectType.getNormalizedResource());
+				}
+				// ensure modification check is created
+				resource.getModificationCheck();
+				cachedDetectedTestObjectTypes.put(resource.getUri(), new Pair<>(resource, testObjectType));
+			}
+			return testObjectType;
+		}
 	}
 
+	/**
+	 * Call detectors and cache the results if the resource is a remote resource
+	 *
+	 * @param cachedResource cached resource the Test Object Type Detector must use
+	 * @return detected type
+	 * @throws IOException internal error
+	 * @throws TestObjectTypeNotDetected if the type was not detected
+	 */
+	private static DetectedTestObjectType callDetectors(final MutableCachedResource cachedResource,
+			final Set<EID> expectedTypes)
+			throws IOException, TestObjectTypeNotDetected {
+		for (final TestObjectTypeDetector detector : InstanceHolder.detectors) {
+			final DetectedTestObjectType type;
+			if (expectedTypes != null) {
+				type = detector.detectType(cachedResource, expectedTypes);
+			} else {
+				type = detector.detectType(cachedResource);
+			}
+			if (type != null) {
+				return InstanceHolder.addToCache(type);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Call detectors and cache the results if the resource is a remote resource
+	 *
+	 * @param cachedResource cached resource the Test Object Type Detector must use
+	 * @return detected type
+	 * @throws IOException internal error
+	 * @throws TestObjectTypeNotDetected if the type was not detected
+	 */
+	private static DetectedTestObjectType callDetectorsExcludingTypes(
+			final MutableCachedResource cachedResource, final Set<EID> excludingTypes)
+			throws IOException, TestObjectTypeNotDetected {
+		for (final TestObjectTypeDetector detector : InstanceHolder.detectors) {
+			final Set<EID> expectedTypes = new HashSet<>(detector.supportedTypes().keySet());
+			expectedTypes.removeAll(excludingTypes);
+			// Wrap the mutable
+			final DetectedTestObjectType type = detector.detectType(cachedResource, expectedTypes);
+			if (type != null) {
+				return InstanceHolder.addToCache(type);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Get the cached type for remote resources
+	 *
+	 * @param resource resource the Test Object Type Detector must use
+	 * @return cached type or null
+	 * @throws IOException internal error accessing the resource
+	 * @throws TestObjectTypeNotDetected if the type was modified but cannot be detected anymore
+	 */
+	private static DetectedTestObjectType getTypeFromCacheWithModificationCheck(
+			final MutableCachedResource resource, final Set<EID> expectedTypes)
+			throws IOException, TestObjectTypeNotDetected {
+		// check cache, retrieve timestamp with head and compare timestamp
+		final Pair<MutableCachedResource, DetectedTestObjectType> resAndtype = InstanceHolder.cachedDetectedTestObjectTypes
+				.getIfPresent(resource.getUri());
+		if (resAndtype != null) {
+			if (resAndtype.getLeft().recacheIfModified()) {
+				// check changed resource
+				return callDetectors(resAndtype.getLeft(), expectedTypes);
+			} else {
+				return resAndtype.getRight();
+			}
+		} else {
+			return null;
+		}
+	}
+
+	private static MutableCachedResource toCachedResource(final Resource resource) {
+		if (resource instanceof MutableCachedResource) {
+			return (MutableCachedResource) resource;
+		}
+		return new MutableCachedResource(resource);
+	}
+
+	/**
+	 * Get Test Object Types by EID (as String) from all registered Test Object Type Detectors.
+	 *
+	 * @param eids EIDs as String
+	 * @return Test Object Type map
+	 */
 	public static EidMap<TestObjectTypeDto> getTypes(final String... eids) {
 		final EidMap<TestObjectTypeDto> map = new DefaultEidMap<>();
 		for (final String eid : eids) {
@@ -102,166 +203,111 @@ public class TestObjectTypeDetectorManager {
 		return map;
 	}
 
+	/**
+	 * Get Test Object Types by EID (as String) from all registered Test Object Type Detectors.
+	 *
+	 * @param eids EIDs as String
+	 * @return Test Object Type map
+	 */
+	public static EidMap<TestObjectTypeDto> getTypes(final Collection<EID> eids) {
+		final EidMap<TestObjectTypeDto> map = new DefaultEidMap<>();
+		for (final EID eid : eids) {
+			final TestObjectTypeDto t = InstanceHolder.types.get(eid);
+			if (t == null) {
+				throw new IllegalArgumentException("Test object Type with " + eid + " not found. "
+						+ "Probably the correct Test Object Type Detector is not installed.");
+			}
+			map.put(t.getId(), t);
+		}
+		return map;
+	}
+
+	/**
+	 * Get all Test Object Types the registered Test Object Type Detectors can detect.
+	 *
+	 * @return all supported test object types
+	 */
 	public static EidMap<TestObjectTypeDto> getSupportedTypes() {
 		return InstanceHolder.types;
 	}
 
 	/**
-	 * Call detectors and cache the results
-	 *
-	 * @param uri URL or file URI
-	 * @param credentials optional credentials
-	 * @param cachedContent already cached content
-	 *
-	 * @return detected type
-	 * @throws IOException internal error
-	 * @throws TestObjectTypeNotDetected if the type was not detected
-	 */
-	private static DetectedTestObjectType callDetectors(final URI uri, final Credentials credentials,
-			final byte[] cachedContent) throws IOException, TestObjectTypeNotDetected {
-		for (final TestObjectTypeDetector detector : InstanceHolder.detectors) {
-			final DetectedTestObjectType t = detector.detect(uri, credentials, cachedContent);
-			if (t != null) {
-				if (!UriUtils.isFile(uri)) {
-					InstanceHolder.cachedDetectedTestObjectTypes.put(uri, new Pair<>(
-							new UriUtils.ModificationCheck(uri, credentials), t));
-				}
-				return t;
-			}
-		}
-		throw new TestObjectTypeNotDetected();
-	}
-
-	/**
-	 * Only used for caching web resources
-
-	 * @param uri URL
-	 * @param credentials optional credentials
-	 *
-	 * @return cached type or null
-	 * @throws IOException internal error accessing the resource
-	 * @throws TestObjectTypeNotDetected if the type was modified but cannot be detected anymore
-	 */
-	private static DetectedTestObjectType getTypeFromCacheWithModificationCheck(final URI uri, final Credentials credentials)
-			throws IOException, TestObjectTypeNotDetected {
-		// check cache, retrieve timestamp with head and compare timestamp
-		final Pair<UriUtils.ModificationCheck, DetectedTestObjectType> detType = InstanceHolder.cachedDetectedTestObjectTypes
-				.getIfPresent(uri);
-		if (detType != null) {
-			final byte[] modifiedBytes = detType.getLeft().getModified();
-			if (modifiedBytes == null) {
-				// not modified
-				return detType.getRight();
-			} else {
-				return callDetectors(uri, credentials, modifiedBytes);
-			}
-		} else {
-			return null;
-		}
-	}
-
-	/**
 	 * Detect a Test Object by analyzing its content.
 	 *
-	 * @param uri source the TestObjectTypeDetector can use for additional analysis
-	 * @param credentials optional credentials for authenticating with the source
-	 * @param cachedContent the cached content retrieved from the source
+	 * @param resource resource the TestObjectTypeDetector must use for retrieving and analyzing content
 	 * @return detected Test Object Type or null if unknown
 	 * @throws IOException internal error accessing the resource
 	 * @throws TestObjectTypeNotDetected type could not be detected
 	 */
-	public static DetectedTestObjectType detect(final URI uri, final Credentials credentials, final byte[] cachedContent)
-			throws IOException, TestObjectTypeNotDetected {
-		final DetectedTestObjectType cached = getTypeFromCacheWithModificationCheck(uri, credentials);
+	public static DetectedTestObjectType detect(final Resource resource) throws IOException, TestObjectTypeNotDetected {
+		final MutableCachedResource cachedResource = toCachedResource(resource);
+		final DetectedTestObjectType cached = getTypeFromCacheWithModificationCheck(cachedResource, null);
 		if (cached != null) {
 			return cached;
 		}
-		if (cachedContent == null || cachedContent.length == 0) {
+		if (!UriUtils.isFile(resource.getUri())
+				&& (cachedResource.getBytes() == null || cachedResource.getContentLength() == 0)) {
 			throw new IOException("The cached response from the Test Object is empty");
 		}
-		return callDetectors(uri, credentials, cachedContent);
-	}
-
-	/**
-	 * Detect a Test Object by analyzing its resource and content
-	 *
-	 * @param uri source the TestObjectTypeDetector can use for additional analysis
-	 * @param credentials optional credentials for authenticating with the source
-	 * @return detected Test Object Type or null if unknown
-	 * @throws IOException internal error accessing the resource
-	 * @throws TestObjectTypeNotDetected type could not be detected
-	 */
-	public static DetectedTestObjectType detect(final URI uri, final Credentials credentials)
-			throws IOException, TestObjectTypeNotDetected {
-		final DetectedTestObjectType cached = getTypeFromCacheWithModificationCheck(uri, credentials);
-		if (cached != null) {
-			return cached;
+		final DetectedTestObjectType detectedType = callDetectors(cachedResource, null);
+		if (detectedType != null) {
+			return detectedType;
+		} else {
+			throw new TestObjectTypeNotDetected();
 		}
-		if (InstanceHolder.detectors.size() == 1) {
-			final DetectedTestObjectType t = InstanceHolder.detectors.get(0).detect(uri, credentials);
-			if (t != null) {
-				if (!UriUtils.isFile(uri)) {
-					InstanceHolder.cachedDetectedTestObjectTypes.put(uri, new Pair<>(
-							new UriUtils.ModificationCheck(uri, credentials), t));
-				}
-				return t;
-			}
-		}
-		// cache content
-		return callDetectors(uri, credentials, UriUtils.toByteArray(uri, credentials));
 	}
 
 	/**
 	 * Returns a {@link DetectedTestObjectType} if the resource exactly matches the Test Object Type
 	 * or a sub type of the detected Test Object Type. Otherwise an exception
 	 *
-	 * @param testObjectTypeId ID of the Test Object Type
-	 * @param uri resource URI
-	 * @param credentials optional credentials for authenticating with the source
+	 * @param resource resource the TestObjectTypeDetector must use for retrieving and analyzing content
+	 * @param expectedTypes Test Object Type ids to check
+	 *
 	 * @return detected Test Object Type
+	 *
 	 * @throws TestObjectTypeNotDetected type could not be detected
-	 * @throws IncompatibleTestObjectType type does not match type or is no subtype
+	 * @throws IncompatibleTestObjectTypeException type does not match type or is no subtype
 	 * @throws IOException internal error accessing the resource
 	 * @throws ObjectWithIdNotFoundException Test Object Type wit ID not found
 	 */
-	public static DetectedTestObjectType expectIsInstanceOf(final EID testObjectTypeId, final URI uri,
-			final Credentials credentials)
-			throws TestObjectTypeNotDetected, IncompatibleTestObjectType, IOException, ObjectWithIdNotFoundException {
-
-		final TestObjectTypeDto required = getSupportedTypes().get(testObjectTypeId);
-		if (required == null) {
-			throw new ObjectWithIdNotFoundException(testObjectTypeId.toString());
+	public static DetectedTestObjectType detect(final Resource resource, final Set<EID> expectedTypes)
+			throws TestObjectTypeNotDetected, IncompatibleTestObjectTypeException, IOException, ObjectWithIdNotFoundException {
+		if (expectedTypes == null || expectedTypes.isEmpty()) {
+			return detect(resource);
 		}
 
-		// Get from cache cache
-		final DetectedTestObjectType cached = getTypeFromCacheWithModificationCheck(uri, credentials);
+		for (final EID expectedTypeId : expectedTypes) {
+			if (!getSupportedTypes().containsKey(expectedTypeId)) {
+				throw new ObjectWithIdNotFoundException(expectedTypeId.toString());
+			}
+		}
+		// Try to find the type in the cache
+		final MutableCachedResource cachedResource = toCachedResource(resource);
+		final DetectedTestObjectType cached = getTypeFromCacheWithModificationCheck(cachedResource, expectedTypes);
 		if (cached != null) {
-			if (cached.isInstanceOf(required)) {
-				return cached;
-			} else {
-				throw new IncompatibleTestObjectType(required, cached);
+			return cached;
+		} else {
+			// Detect non-cached type
+			final DetectedTestObjectType detectedType = callDetectors(cachedResource, expectedTypes);
+			if (detectedType != null) {
+				return detectedType;
 			}
-		}
 
-		// Check single detectors
-		DetectedTestObjectType expected;
-		for (final TestObjectTypeDetector detector : InstanceHolder.detectors) {
-			expected = detector.detectType(testObjectTypeId, uri, credentials);
-			if (expected != null) {
-				if (!UriUtils.isFile(uri)) {
-					InstanceHolder.cachedDetectedTestObjectTypes.put(uri, new Pair<>(
-							new UriUtils.ModificationCheck(uri, credentials), expected));
+			// none of the expected types could be detected, detect the type of the resource with all non-checked types
+			// and check if the found type is a subtype of one of the expected types
+			final DetectedTestObjectType detectedSubType = callDetectorsExcludingTypes(cachedResource, expectedTypes);
+			if (detectedSubType == null) {
+				throw new TestObjectTypeNotDetected();
+			}
+			final Collection<TestObjectTypeDto> expectedResTypes = getTypes(expectedTypes).values();
+			for (final TestObjectTypeDto expectedType : expectedResTypes) {
+				if (detectedSubType.isInstanceOf(expectedType)) {
+					InstanceHolder.addToCache(detectedSubType);
+					return detectedSubType;
 				}
-				return expected;
 			}
+			throw new IncompatibleTestObjectTypeException(expectedResTypes, detectedSubType);
 		}
-
-		// Construct error message
-		final DetectedTestObjectType actual = callDetectors(uri, credentials, UriUtils.toByteArray(uri, credentials));
-		if (actual == null) {
-			throw new TestObjectTypeNotDetected();
-		}
-		throw new IncompatibleTestObjectType(required, actual);
-
 	}
 }

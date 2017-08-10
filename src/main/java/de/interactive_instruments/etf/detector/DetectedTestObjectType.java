@@ -15,26 +15,25 @@
  */
 package de.interactive_instruments.etf.detector;
 
+import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
+import de.interactive_instruments.etf.model.capabilities.Resource;
 import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface DetectedTestObjectType extends TestObjectType {
-	/**
-	 * The label from the detected Test Object
-	 *
-	 * @return label or null
-	 */
-	String getExtractedLabel();
 
 	/**
-	 * The description from the detected Test Object
+	 * Set label and description if not set and normalize
+	 * resources
 	 *
-	 * @return description or null
+	 * @param testObject Test Object to adjust
 	 */
-	String getExtractedDescription();
+	void enrichAndNormalize(final TestObjectDto testObject);
+
+	Resource getNormalizedResource();
 
 	default boolean isInstanceOf(final TestObjectType testObjectType) {
 		if (testObjectType.getId().equals(getId())) {

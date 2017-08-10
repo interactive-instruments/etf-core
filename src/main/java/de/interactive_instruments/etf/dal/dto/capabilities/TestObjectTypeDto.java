@@ -18,7 +18,10 @@ package de.interactive_instruments.etf.dal.dto.capabilities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
+import de.interactive_instruments.UriUtils;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 import de.interactive_instruments.etf.model.ExpressionType;
 import de.interactive_instruments.etf.model.capabilities.TestObjectType;
@@ -57,6 +60,12 @@ public class TestObjectTypeDto extends MetaDataItemDto<TestObjectTypeDto> implem
 	// Optional expression for extracting the Test Object description type
 	private ExpressionType descriptionExpressionType;
 
+	// Optional default query (only used in remote resources yet)
+	private String defaultPathAndQuery;
+
+	// Optional regular expression to detect a type from an URI.
+	private String uriDetectionExpression;
+
 	// Optional naming convention, which is used to
 	// check if the label of a Test Object matches this regular expression.
 	// This might be useful for labeling test data deliveries according
@@ -76,6 +85,8 @@ public class TestObjectTypeDto extends MetaDataItemDto<TestObjectTypeDto> implem
 		this.labelExpressionType = other.labelExpressionType;
 		this.descriptionExpression = other.descriptionExpression;
 		this.descriptionExpressionType = other.descriptionExpressionType;
+		this.defaultPathAndQuery = other.defaultPathAndQuery;
+		this.uriDetectionExpression = other.uriDetectionExpression;
 		this.namingConvention = other.namingConvention;
 	}
 
@@ -139,6 +150,29 @@ public class TestObjectTypeDto extends MetaDataItemDto<TestObjectTypeDto> implem
 		this.labelExpression = labelExpression;
 		this.labelExpressionType = type;
 
+	}
+
+	public void setDefaultPathAndQuery(final String defaultPathAndQuery) {
+		this.defaultPathAndQuery = defaultPathAndQuery;
+	}
+
+	public Map<String, List<String>> getDefaultQuery() {
+		if (defaultPathAndQuery != null) {
+			return UriUtils.getQueryParameters(defaultPathAndQuery);
+		}
+		return null;
+	}
+
+	public String getDefaultAccessPath() {
+		return UriUtils.withoutQueryParameters(defaultPathAndQuery);
+	}
+
+	public void setUriDetectionExpression(final String uriDetectionExpression) {
+		this.uriDetectionExpression = Pattern.compile(uriDetectionExpression).pattern();
+	}
+
+	public String getUriDetectionExpression() {
+		return uriDetectionExpression;
 	}
 
 	public String getLabelExpression() {
