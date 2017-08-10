@@ -78,6 +78,10 @@ public class SecuredResource implements Resource {
 		return false;
 	}
 
+	protected boolean isModificationCheckInitialized() {
+		return check != null;
+	}
+
 	@Override
 	public String getName() {
 		return name;

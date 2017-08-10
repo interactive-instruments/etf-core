@@ -43,9 +43,14 @@ public class MutableCachedResource extends CachedResource {
 	 * @throws IOException if the resource could not be accessed
 	 */
 	public boolean recacheIfModified() throws IOException {
-		final byte[] modified = super.getModificationCheck().getIfModified();
-		if (modified != null) {
-			cache = modified;
+		if (isModificationCheckInitialized()) {
+			final byte[] modified = super.getModificationCheck().getIfModified();
+			if (modified != null) {
+				cache = modified;
+				return true;
+			}
+		} else {
+			super.getModificationCheck();
 			return true;
 		}
 		return false;
@@ -56,7 +61,7 @@ public class MutableCachedResource extends CachedResource {
 		final boolean changed = super.setQueyParameters(kvp);
 		if (changed) {
 			try {
-				cache = super.getBytes();
+				cache = super.bypassCache();
 			} catch (final IOException ign) {
 				cache = null;
 			}
