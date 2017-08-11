@@ -15,6 +15,11 @@
  */
 package de.interactive_instruments.etf.model;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Interface for objects that possess an ETF ID
  *
@@ -34,4 +39,10 @@ public interface EidHolder extends Comparable {
 				o.getClass().getName() + " can not be compared with an EidHolder.");
 	}
 
+
+	static Set<EID> getAllIds(final Collection<? extends EidHolder> holders) {
+		final Set<EID>  eids = new TreeSet<>();
+		holders.forEach(e -> eids.add(e.getId()));
+		return eids;
+	}
 }
