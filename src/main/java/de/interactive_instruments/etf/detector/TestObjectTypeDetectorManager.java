@@ -83,24 +83,30 @@ public class TestObjectTypeDetectorManager {
 		private final static EidMap<TestObjectTypeDto> types = initTypes();
 
 		// Cache max 30 detected types, each for 90 minutes
-		private final static Cache<URI, Pair<MutableCachedResource, DetectedTestObjectType>> cachedDetectedTestObjectTypes = Caffeine
+		private final static Cache<URI, CachedDetectedTestObjectTypeDecorator> cachedDetectedTestObjectTypes = Caffeine
 				.newBuilder().maximumSize(30).expireAfterWrite(90, TimeUnit.MINUTES).build();
 
 		private static DetectedTestObjectType addToCache(final DetectedTestObjectType testObjectType) throws IOException {
 			// only remote resources are cached
 			if (!UriUtils.isFile(testObjectType.getNormalizedResource().getUri())) {
-				final MutableCachedResource resource;
+				final MutableCachedResource cachedResource;
 				if (testObjectType.getNormalizedResource() instanceof MutableCachedResource) {
-					resource = (MutableCachedResource) testObjectType.getNormalizedResource();
+					cachedResource = (MutableCachedResource) testObjectType.getNormalizedResource();
 				} else {
-					resource = new MutableCachedResource(testObjectType.getNormalizedResource());
+					cachedResource = new MutableCachedResource(testObjectType.getNormalizedResource());
 				}
 				// ensure modification check is created
-				resource.getModificationCheck();
-				cachedDetectedTestObjectTypes.put(resource.getUri(), new Pair<>(resource, testObjectType));
+				cachedResource.getModificationCheck();
+				cachedDetectedTestObjectTypes.put(UriUtils.sortQueryParameters(cachedResource.getUri()),
+						new CachedDetectedTestObjectTypeDecorator(testObjectType, cachedResource));
 			}
 			return testObjectType;
 		}
+
+		private static CachedDetectedTestObjectTypeDecorator getFromCache(final URI uri) {
+			return InstanceHolder.cachedDetectedTestObjectTypes.getIfPresent(UriUtils.sortQueryParameters(uri));
+		}
+
 	}
 
 	/**
@@ -163,14 +169,14 @@ public class TestObjectTypeDetectorManager {
 			final MutableCachedResource resource, final Set<EID> expectedTypes)
 			throws IOException, TestObjectTypeNotDetected {
 		// check cache, retrieve timestamp with head and compare timestamp
-		final Pair<MutableCachedResource, DetectedTestObjectType> resAndtype = InstanceHolder.cachedDetectedTestObjectTypes
-				.getIfPresent(resource.getUri());
-		if (resAndtype != null) {
-			if (resAndtype.getLeft().recacheIfModified()) {
-				// check changed resource
-				return callDetectors(resAndtype.getLeft(), expectedTypes);
+		final CachedDetectedTestObjectTypeDecorator cachedDetectedType = InstanceHolder.getFromCache(resource.getUri());
+		if (cachedDetectedType != null) {
+			if (cachedDetectedType.getNormalizedResource().recacheIfModified()) {
+				// resource changed, recheck resource
+				cachedDetectedType.getNormalizedResource().release();
+				return callDetectors(cachedDetectedType.getNormalizedResource(), expectedTypes);
 			} else {
-				return resAndtype.getRight();
+				return cachedDetectedType;
 			}
 		} else {
 			return null;

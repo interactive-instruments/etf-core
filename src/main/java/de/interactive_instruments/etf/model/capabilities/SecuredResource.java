@@ -129,4 +129,9 @@ public class SecuredResource implements Resource {
 		}
 		return check;
 	}
+
+	@Override
+	public void release() {
+		check = null;
+	}
 }

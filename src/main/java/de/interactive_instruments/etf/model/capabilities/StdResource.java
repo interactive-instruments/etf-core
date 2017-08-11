@@ -118,4 +118,9 @@ public class StdResource implements Resource {
 		}
 		return check;
 	}
+
+	@Override
+	public void release() {
+		check = null;
+	}
 }

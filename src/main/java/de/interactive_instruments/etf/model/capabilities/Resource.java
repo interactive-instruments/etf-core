@@ -19,12 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
+import de.interactive_instruments.Releasable;
 import de.interactive_instruments.UriModificationCheck;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface Resource {
+public interface Resource extends Releasable {
 
 	String getName();
 

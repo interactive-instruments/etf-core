@@ -79,6 +79,7 @@ public class CachedResource extends SecuredResource implements Releasable {
 
 	@Override
 	public void release() {
+		super.release();
 		cache = null;
 	}
 }
