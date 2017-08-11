@@ -39,9 +39,8 @@ public interface EidHolder extends Comparable {
 				o.getClass().getName() + " can not be compared with an EidHolder.");
 	}
 
-
 	static Set<EID> getAllIds(final Collection<? extends EidHolder> holders) {
-		final Set<EID>  eids = new TreeSet<>();
+		final Set<EID> eids = new TreeSet<>();
 		holders.forEach(e -> eids.add(e.getId()));
 		return eids;
 	}
