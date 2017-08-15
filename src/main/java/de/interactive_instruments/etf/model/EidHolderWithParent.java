@@ -16,31 +16,34 @@
 package de.interactive_instruments.etf.model;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Interface for objects that possess an ETF ID
- *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface EidHolder extends Comparable {
-	EID getId();
+public interface EidHolderWithParent<T extends EidHolderWithParent> extends ModelItemWithParent<T>, EidHolder {
 
-	@Override
-	default int compareTo(final Object o) {
-		if (o instanceof EidHolder) {
-			return ((EidHolder) o).getId().compareTo(this.getId());
-		} else if (o instanceof String) {
-			return ((String) o).compareTo(this.getId().getId());
+	/**
+	 * Return the ID of this tree node item and the IDs of all parent nodes
+	 *
+	 * @return set of EIDs
+	 */
+	default Set<EID> getIdAndParentIds() {
+		final Set<EID> ids = new TreeSet<>();
+		ids.add(Objects.requireNonNull(getId(), "EID is null"));
+		EidHolderWithParent<T> parent = getParent();
+		while (parent != null) {
+			ids.add(getId());
+			parent = parent.getParent();
 		}
-		throw new IllegalArgumentException("Invalid object type comparison: " +
-				o.getClass().getName() + " can not be compared with an EidHolder.");
+		return ids;
 	}
 
-	static Set<EID> getAllIds(final Collection<? extends EidHolder> holders) {
-		final Set<EID> eids = new TreeSet<>();
-		holders.forEach(e -> eids.add(e.getId()));
-		return eids;
+	static <T extends EidHolderWithParent> Set<EID> getAllIdsAndParentIds(final Collection<T> eidHolderTreeNodes) {
+		final Set<EID> ids = new TreeSet<>();
+		eidHolderTreeNodes.forEach(holder -> ids.addAll(holder.getIdAndParentIds()));
+		return ids;
 	}
 }

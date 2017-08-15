@@ -35,17 +35,5 @@ public interface DetectedTestObjectType extends TestObjectType {
 
 	Resource getNormalizedResource();
 
-	default boolean isInstanceOf(final TestObjectType testObjectType) {
-		if (testObjectType.getId().equals(getId())) {
-			return true;
-		}
-		for (TestObjectType parent = getParent(); parent != null; parent = parent.getParent()) {
-			if (testObjectType.getId().equals(parent.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	TestObjectTypeDto toTestObjectTypeDto();
 }

@@ -15,11 +15,13 @@
  */
 package de.interactive_instruments.etf.model.capabilities;
 
+import java.util.Collection;
 import java.util.List;
 
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.model.EidHolder;
+import de.interactive_instruments.etf.model.EidHolderWithParent;
 import de.interactive_instruments.etf.model.ExpressionType;
 
 /**
@@ -28,7 +30,7 @@ import de.interactive_instruments.etf.model.ExpressionType;
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface TestObjectType extends EidHolder {
+public interface TestObjectType extends EidHolder, EidHolderWithParent<TestObjectType> {
 
 	String getLabel();
 
@@ -53,4 +55,40 @@ public interface TestObjectType extends EidHolder {
 	String getDescriptionExpression();
 
 	ExpressionType getDescriptionExpressionType();
+
+	/**
+	 * Check if a Test Object Type equals the passed Test Object Type or is a subtype of it
+	 *
+	 * @param testObjectType Test Object Type
+	 * @return true if Test Object Type equals or is a subtype of it
+	 */
+	default boolean isInstanceOf(final TestObjectType testObjectType) {
+		if (testObjectType.getId().equals(getId())) {
+			return true;
+		}
+		for (TestObjectType parent = getParent(); parent != null; parent = parent.getParent()) {
+			if (testObjectType.getId().equals(parent.getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if the provided Test Object Type collection contains the Test Object Types
+	 * or it is a subtype of it.
+	 *
+	 * @param testObjectTypes list of Test Object Types
+	 * @return true if list contains the Test Object Type or the Test Object Type is a subtype of one
+	 * of the types, false otherwise
+	 */
+	default boolean isInstanceOf(final Collection<TestObjectType> testObjectTypes) {
+		for (final TestObjectType testObjectType : testObjectTypes) {
+			if (testObjectType.isInstanceOf(this)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
 }

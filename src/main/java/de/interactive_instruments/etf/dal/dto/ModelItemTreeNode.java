@@ -18,19 +18,20 @@ package de.interactive_instruments.etf.dal.dto;
 import java.util.List;
 
 import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.etf.model.ModelItemWithParent;
 
 /**
+ * Todo: move to model package
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface ModelItemTreeNode<T> {
-
-	ModelItemDto getParent();
+public interface ModelItemTreeNode<T> extends ModelItemWithParent<ModelItemDto> {
 
 	List<? extends T> getChildren();
 
 	EidMap<? extends T> getChildrenAsMap();
 
+	// Todo: remove from interface (when moved to model package)
 	void addChild(final T child);
 
 	void setChildren(final List<? extends T> children);

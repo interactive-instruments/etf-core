@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.interactive_instruments.etf.model.capabilities;
-
-import de.interactive_instruments.Initializable;
-import de.interactive_instruments.etf.model.EidHolder;
+package de.interactive_instruments.etf.model;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface TestObject extends EidHolder, Initializable {
+public interface ModelItemWithParent<T> {
 
+	T getParent();
 }
