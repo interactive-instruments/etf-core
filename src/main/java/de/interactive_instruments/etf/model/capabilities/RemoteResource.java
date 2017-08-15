@@ -16,18 +16,23 @@
 package de.interactive_instruments.etf.model.capabilities;
 
 import java.io.IOException;
+import java.io.InputStream;
+
+import de.interactive_instruments.UriModificationCheck;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface CachedResource extends Resource {
+public interface RemoteResource extends Resource {
 
-	byte[] getFromCache();
+	InputStream openStream(int timeout) throws IOException;
 
-	byte[] recache() throws IOException;
+	byte[] getBytes(int timeout) throws IOException;
 
-	boolean recacheIfModified() throws IOException;
+	UriModificationCheck getModificationCheck() throws IOException;
+
+	boolean isModificationCheckInitialized();
 
 	@Override
-	CachedResource createCopy();
+	RemoteResource createCopy();
 }

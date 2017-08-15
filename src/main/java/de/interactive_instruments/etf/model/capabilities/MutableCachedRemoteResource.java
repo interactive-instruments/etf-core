@@ -16,56 +16,37 @@
 package de.interactive_instruments.etf.model.capabilities;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Map;
 
-import de.interactive_instruments.Credentials;
+import de.interactive_instruments.exceptions.ExcUtils;
 
 /**
- *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public class MutableCachedResource extends CachedResource {
+public class MutableCachedRemoteResource extends CachedRemoteResource implements MutableRemoteResource {
 
-	public MutableCachedResource(final String name, final Credentials credentials, final URI uri) {
-		super(name, credentials, uri);
+	MutableCachedRemoteResource(final RemoteResource resource) {
+		super(!(resource instanceof MutableRemoteResource) ? new MutableSecuredRemoteResource(resource) : resource);
 	}
 
-	public MutableCachedResource(final Resource other) {
+	private MutableCachedRemoteResource(final CachedRemoteResource other) {
 		super(other);
 	}
 
-	/**
-	 * If the resource was modified the cache is updated and true is returned,
-	 * otherwise false is returned
-	 *
-	 * @return true if cache was modified
-	 * @throws IOException if the resource could not be accessed
-	 */
-	public boolean recacheIfModified() throws IOException {
-		if (isModificationCheckInitialized()) {
-			final byte[] modified = super.getModificationCheck().getIfModified();
-			if (modified != null) {
-				cache = modified;
-				return true;
-			}
-		} else {
-			super.getModificationCheck();
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public boolean setQueyParameters(final Map<String, String> kvp) {
-		final boolean changed = super.setQueyParameters(kvp);
+		final boolean changed = ((MutableRemoteResource) wrapped).setQueyParameters(kvp);
 		if (changed) {
 			try {
-				cache = super.bypassCache();
+				recache();
 			} catch (final IOException ign) {
-				cache = null;
+				ExcUtils.suppress(ign);
 			}
 		}
 		return changed;
+	}
+
+	@Override
+	public MutableCachedRemoteResource createCopy() {
+		return new MutableCachedRemoteResource(this);
 	}
 }

@@ -20,38 +20,37 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 
-import de.interactive_instruments.Credentials;
 import de.interactive_instruments.UriModificationCheck;
 import de.interactive_instruments.UriUtils;
 
 /**
- * Immutable DefaultResource which does not expose the credentials
- *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public class SecuredResource implements Resource {
+public class StdRemoteResource implements RemoteResource {
 
 	private final String name;
 	// Not exposed
-	private final Credentials credentials;
-	// Deny changing the domain name
 	private URI uri;
 	private UriModificationCheck check;
 
-	public SecuredResource(final String name, final Credentials credentials, final URI uri) {
+	public StdRemoteResource(final String name, final URI uri) {
 		this.name = name;
-		this.credentials = credentials;
 		this.uri = UriUtils.sortQueryParameters(uri);
 	}
 
-	public SecuredResource(final Resource other) {
-		this.name = other.getName();
-		this.uri = other.getUri();
-		if (other instanceof SecuredResource) {
-			credentials = ((SecuredResource) other).credentials;
-		} else {
-			credentials = null;
-		}
+	public StdRemoteResource(final String name, final String uri) {
+		this.name = name;
+		this.uri = URI.create(UriUtils.sortQueryParameters(uri));
+	}
+
+	public StdRemoteResource(final Resource other) {
+		this(other.getName(), other.getUri());
+		// do not copy check
+	}
+
+	public StdRemoteResource(final StdRemoteResource other) {
+		this.name = other.name;
+		this.uri = other.uri;
 		// do not copy check
 	}
 
@@ -61,14 +60,14 @@ public class SecuredResource implements Resource {
 	 * @param kvp Key value pair map
 	 * @return true if URI changed, false otherwise
 	 */
-	protected boolean setQueyParameters(final Map<String, String> kvp) {
+	boolean setQueyParameters(final Map<String, String> kvp) {
 		final URI newUri = URI.create(UriUtils.setQueryParameters(uri.toString(),
-				kvp, false));
+				kvp, true));
 		if (!newUri.equals(uri)) {
 			uri = newUri;
 			if (check != null) {
 				try {
-					check = new UriModificationCheck(uri, credentials);
+					check = new UriModificationCheck(uri, null);
 				} catch (IOException e) {
 					check = null;
 				}
@@ -76,10 +75,6 @@ public class SecuredResource implements Resource {
 			return true;
 		}
 		return false;
-	}
-
-	protected boolean isModificationCheckInitialized() {
-		return check != null;
 	}
 
 	@Override
@@ -94,44 +89,53 @@ public class SecuredResource implements Resource {
 
 	@Override
 	public long getContentLength() throws IOException {
-		return UriUtils.getContentLength(uri, credentials);
+		return UriUtils.getContentLength(uri, null);
 	}
 
 	@Override
 	public InputStream openStream() throws IOException {
-		return UriUtils.openStream(uri, credentials);
+		return UriUtils.openStream(uri, null);
 	}
 
 	@Override
 	public InputStream openStream(final int timeout) throws IOException {
-		return UriUtils.openStream(uri, credentials, timeout);
+		return UriUtils.openStream(uri, null, timeout);
 	}
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		return UriUtils.toByteArray(uri, credentials);
+		return UriUtils.toByteArray(uri, null);
 	}
 
 	@Override
 	public byte[] getBytes(final int timeout) throws IOException {
-		return UriUtils.toByteArray(uri, credentials, timeout);
+		return UriUtils.toByteArray(uri, null, timeout);
 	}
 
 	@Override
 	public boolean exists() {
-		return UriUtils.exists(uri, credentials);
+		return UriUtils.exists(uri, null);
 	}
 
 	@Override
 	public UriModificationCheck getModificationCheck() throws IOException {
 		if (check == null) {
-			check = new UriModificationCheck(uri, credentials);
+			check = new UriModificationCheck(uri, null);
 		}
 		return check;
+	}
+
+	public boolean isModificationCheckInitialized() {
+		return check != null;
 	}
 
 	@Override
 	public void release() {
 		check = null;
+	}
+
+	@Override
+	public StdRemoteResource createCopy() {
+		return new StdRemoteResource(this);
 	}
 }

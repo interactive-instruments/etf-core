@@ -15,19 +15,38 @@
  */
 package de.interactive_instruments.etf.model.capabilities;
 
-import java.io.IOException;
+import java.net.URI;
+import java.util.Map;
+
+import de.interactive_instruments.UriUtils;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface CachedResource extends Resource {
+public class MutableSecuredRemoteResource extends SecuredRemoteResource implements MutableRemoteResource {
 
-	byte[] getFromCache();
+	MutableSecuredRemoteResource(final Resource other) {
+		super(other);
+	}
 
-	byte[] recache() throws IOException;
-
-	boolean recacheIfModified() throws IOException;
+	/**
+	 * Returns true if the parameter changed
+	 *
+	 * @param kvp Key value pair map
+	 * @return true if URI changed, false otherwise
+	 */
+	public boolean setQueyParameters(final Map<String, String> kvp) {
+		final URI newUri = URI.create(UriUtils.setQueryParameters(uri.toString(),
+				kvp, false));
+		if (!newUri.equals(this.uri)) {
+			uri = newUri;
+			return true;
+		}
+		return false;
+	}
 
 	@Override
-	CachedResource createCopy();
+	public MutableSecuredRemoteResource createCopy() {
+		return new MutableSecuredRemoteResource(this);
+	}
 }

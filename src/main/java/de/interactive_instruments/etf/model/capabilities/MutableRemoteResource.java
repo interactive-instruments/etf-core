@@ -15,19 +15,11 @@
  */
 package de.interactive_instruments.etf.model.capabilities;
 
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface CachedResource extends Resource {
-
-	byte[] getFromCache();
-
-	byte[] recache() throws IOException;
-
-	boolean recacheIfModified() throws IOException;
-
-	@Override
-	CachedResource createCopy();
+public interface MutableRemoteResource extends RemoteResource {
+	boolean setQueyParameters(final Map<String, String> kvp);
 }
