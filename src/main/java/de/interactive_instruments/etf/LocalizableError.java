@@ -25,7 +25,7 @@ import de.interactive_instruments.SUtils;
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public abstract class LocalizableError extends Throwable {
+public abstract class LocalizableError extends Exception {
 
 	protected final String id;
 	protected final Map<String, Object> arguments;
