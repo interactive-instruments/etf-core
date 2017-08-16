@@ -23,9 +23,12 @@ import java.util.TreeMap;
 import de.interactive_instruments.SUtils;
 
 /**
+ *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public abstract class LocalizableError extends Exception {
+public abstract class LocalizableError extends Error {
+	// Extending Throwable does not work with Spring, extending
+	// Exception does not work with SoapUIs Groovy script engine.
 
 	protected final String id;
 	protected final Map<String, Object> arguments;
