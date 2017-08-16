@@ -18,14 +18,35 @@ package de.interactive_instruments.etf.model.capabilities;
 import java.io.IOException;
 
 /**
+ * A resource with an internal cache for faster access.
+ *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface CachedResource extends Resource {
 
-	byte[] getFromCache();
+	/**
+	 * Invokes {@link CachedResource#recache()} if cache is empty.
+	 *
+	 * @return cached bytes
+	 * @throws IOException if {@link CachedResource#recache()} fails
+	 */
+	byte[] getFromCache() throws IOException;
 
+	/**
+	 * Rebuild cache.
+	 *
+	 * @return new fetched bytes
+	 * @throws IOException if fetching failed
+	 */
 	byte[] recache() throws IOException;
 
+	/**
+	 * Invokes {@link CachedResource#recache()} if the resource has changed
+	 * since the last call of this method.
+	 *
+	 * @return true if resource changed, false otherwise
+	 * @throws IOException if {@link CachedResource#recache()} fails
+	 */
 	boolean recacheIfModified() throws IOException;
 
 	@Override

@@ -36,7 +36,12 @@ public class CachedRemoteResource implements CachedResource, RemoteResource {
 	CachedRemoteResource(final RemoteResource resource) {
 		wrapped = resource.createCopy();
 		if (resource instanceof CachedResource) {
-			this.cache = ((CachedResource) resource).getFromCache();
+			try {
+				this.cache = ((CachedResource) resource).getFromCache();
+			} catch (IOException ign) {
+				// Ignore here, will be thrown when getFromCache() is called
+				ExcUtils.suppress(ign);
+			}
 		}
 	}
 
@@ -45,17 +50,13 @@ public class CachedRemoteResource implements CachedResource, RemoteResource {
 		this.wrapped = other.wrapped;
 	}
 
-	public byte[] getFromCache() {
+	public byte[] getFromCache() throws IOException {
 		return getFromCache(timeoutForRecache);
 	}
 
-	public byte[] getFromCache(final int timeout) {
+	public byte[] getFromCache(final int timeout) throws IOException {
 		if (cache == null) {
-			try {
-				recache(timeout);
-			} catch (IOException ign) {
-				ExcUtils.suppress(ign);
-			}
+			recache(timeout);
 		}
 		return cache;
 	}

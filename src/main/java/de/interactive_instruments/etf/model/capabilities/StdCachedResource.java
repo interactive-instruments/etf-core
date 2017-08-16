@@ -33,7 +33,12 @@ public class StdCachedResource implements CachedResource {
 	public StdCachedResource(final Resource resource) {
 		wrapped = resource.createCopy();
 		if (resource instanceof CachedResource) {
-			this.cache = ((CachedResource) resource).getFromCache();
+			try {
+				this.cache = ((CachedResource) resource).getFromCache();
+			} catch (IOException ign) {
+				// Ignore here, will be thrown when getFromCache() is called
+				ExcUtils.suppress(ign);
+			}
 		}
 	}
 
