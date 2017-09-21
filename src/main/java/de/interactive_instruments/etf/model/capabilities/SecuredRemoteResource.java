@@ -52,7 +52,8 @@ public class SecuredRemoteResource implements RemoteResource {
 		this.uri = UriUtils.sortQueryParameters(other.getUri());
 		if (other instanceof SecuredRemoteResource) {
 			credentials = ((SecuredRemoteResource) other).credentials;
-		} else if (other instanceof CachedRemoteResource && ((CachedRemoteResource) other).wrapped instanceof SecuredRemoteResource) {
+		} else if (other instanceof CachedRemoteResource
+				&& ((CachedRemoteResource) other).wrapped instanceof SecuredRemoteResource) {
 			credentials = ((SecuredRemoteResource) ((CachedRemoteResource) other).wrapped).credentials;
 		} else {
 			credentials = null;

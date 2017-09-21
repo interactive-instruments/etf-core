@@ -155,4 +155,5 @@ public class CachedRemoteResource implements CachedResource, RemoteResource {
 	public CachedRemoteResource createCopy() {
 		return new CachedRemoteResource(this);
 	}
+
 }

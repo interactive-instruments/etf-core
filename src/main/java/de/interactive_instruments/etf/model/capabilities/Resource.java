@@ -76,21 +76,21 @@ public interface Resource extends Releasable, Copyable<Resource> {
 	}
 
 	static CachedRemoteResource toCached(final RemoteResource resource) {
-		if(resource instanceof CachedRemoteResource) {
+		if (resource instanceof CachedRemoteResource) {
 			return (CachedRemoteResource) resource;
 		}
 		return new CachedRemoteResource(resource);
 	}
 
 	static MutableCachedRemoteResource toCached(final MutableRemoteResource resource) {
-		if(resource instanceof MutableCachedRemoteResource) {
+		if (resource instanceof MutableCachedRemoteResource) {
 			return (MutableCachedRemoteResource) resource;
 		}
 		return new MutableCachedRemoteResource(resource);
 	}
 
 	static CachedLocalResource toCached(final LocalResource resource) {
-		if(resource instanceof CachedLocalResource) {
+		if (resource instanceof CachedLocalResource) {
 			return (CachedLocalResource) resource;
 		}
 		return new CachedLocalResource(resource);
