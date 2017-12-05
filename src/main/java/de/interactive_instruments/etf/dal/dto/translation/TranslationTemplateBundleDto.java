@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
+import de.interactive_instruments.etf.dal.dto.ModelItemDto;
 
 /**
  * TranslationTemplateBundleDto represents a bundle of
@@ -32,7 +33,7 @@ import de.interactive_instruments.etf.dal.dto.Dto;
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public class TranslationTemplateBundleDto extends Dto {
+public class TranslationTemplateBundleDto extends ModelItemDto<TranslationTemplateBundleDto> {
 
 	/**
 	 * Maps a named {@link LangTranslationTemplateCollectionDto#name} to a
@@ -51,6 +52,7 @@ public class TranslationTemplateBundleDto extends Dto {
 		this.id = other.id;
 		this.langTranslationTemplates = other.langTranslationTemplates;
 		this.source = other.source;
+		this.parent = other.parent;
 	}
 
 	/**
@@ -82,7 +84,17 @@ public class TranslationTemplateBundleDto extends Dto {
 	 * @return LangTranslationTemplateCollectionDto
 	 */
 	public LangTranslationTemplateCollectionDto getTranslationTemplateCollection(final String name) {
-		return langTranslationTemplates != null ? langTranslationTemplates.get(name) : null;
+		if(langTranslationTemplates!=null) {
+			final LangTranslationTemplateCollectionDto collection =
+					langTranslationTemplates.get(name);
+			if(collection!=null) {
+				return collection;
+			}
+			if(parent!=null) {
+				return parent.getTranslationTemplateCollection(name);
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -96,6 +108,9 @@ public class TranslationTemplateBundleDto extends Dto {
 		final LangTranslationTemplateCollectionDto langTranslationTemplateCollection = getTranslationTemplateCollection(name);
 		if (langTranslationTemplateCollection != null) {
 			return langTranslationTemplateCollection.getByLanguage(language);
+		}
+		if(parent!=null) {
+			return parent.getTranslationTemplate(name, language);
 		}
 		return null;
 	}
