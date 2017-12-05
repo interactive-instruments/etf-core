@@ -84,13 +84,12 @@ public class TranslationTemplateBundleDto extends ModelItemDto<TranslationTempla
 	 * @return LangTranslationTemplateCollectionDto
 	 */
 	public LangTranslationTemplateCollectionDto getTranslationTemplateCollection(final String name) {
-		if(langTranslationTemplates!=null) {
-			final LangTranslationTemplateCollectionDto collection =
-					langTranslationTemplates.get(name);
-			if(collection!=null) {
+		if (langTranslationTemplates != null) {
+			final LangTranslationTemplateCollectionDto collection = langTranslationTemplates.get(name);
+			if (collection != null) {
 				return collection;
 			}
-			if(parent!=null) {
+			if (parent != null) {
 				return parent.getTranslationTemplateCollection(name);
 			}
 		}
@@ -109,7 +108,7 @@ public class TranslationTemplateBundleDto extends ModelItemDto<TranslationTempla
 		if (langTranslationTemplateCollection != null) {
 			return langTranslationTemplateCollection.getByLanguage(language);
 		}
-		if(parent!=null) {
+		if (parent != null) {
 			return parent.getTranslationTemplate(name, language);
 		}
 		return null;
