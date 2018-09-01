@@ -32,7 +32,7 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
  * A Test Run bundles multiple Test Tasks (@see TestTask). A Test Run object can be started by
  * submitting it to the TaskPoolRegistry (see {@link TaskPoolRegistry#submitTask(Task)}).
  *
- * <img src="TestRun.svg" alt="Class UML"/>
+ * <img src="TestRun.svg" alt="Class UML">
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */

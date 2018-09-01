@@ -24,7 +24,7 @@ package de.interactive_instruments.etf.testdriver;
  * clients that implement this interface will be informed about state
  * changes in Test Tasks objects ({@link TestTask}).
  *
- * <img src="TaskStateEventListener.svg" alt="Class UML"/>
+ * <img src="TaskStateEventListener.svg" alt="Class UML">
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */

@@ -26,7 +26,7 @@ package de.interactive_instruments.etf.testdriver;
  * clients that implement this interface will be informed about state
  * changes in Test Run objects (see {@link TestRun}).
  *
- * <img src="TestRunEventListener.svg" alt="Class UML"/>
+ * <img src="TestRunEventListener.svg" alt="Class UML">
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */

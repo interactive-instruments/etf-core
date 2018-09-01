@@ -37,7 +37,7 @@ import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
  * The TaskProgressInterface is used by a client to monitor the progress of
  * the Thread without blocking it.
  *
- * <br><img src="TaskPoolRegistry.svg" alt="Class UML"/>
+ * <br><img src="TaskPoolRegistry.svg" alt="Class UML">
  *
  * @param <R> generic future result type
  *
