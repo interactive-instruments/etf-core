@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 European Union, interactive instruments GmbH
+ * Copyright 2017-2018 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,6 +28,11 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
 
 /**
  * Test Run
+ *
+ * A Test Run bundles multiple Test Tasks (@see TestTask). A Test Run object can be started by
+ * submitting it to the TaskPoolRegistry (see {@link TaskPoolRegistry#submitTask(Task)}).
+ *
+ * <img src="TestRun.svg" alt="Class UML"/>
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
