@@ -32,16 +32,18 @@ import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
  *
  * A client can call the pool and create a new task which implements the
  * TaskProgressInterface. The pool will return a Future to the Client, that might be
- * used for calling the result (Future get() will block and waits for the task to complete).
+ * used for calling the result ({@link Future#get()} will block and waits for the task to complete).
  *
  * The TaskProgressInterface is used by a client to monitor the progress of
  * the Thread without blocking it.
  *
- * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
+ * <br><img src="TaskPoolRegistry.svg" alt="Class UML"/>
  *
- * @param <R> the the future result type
+ * @param <R> generic future result type
  *
  * @see Task
+ *
+ * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TaskPoolRegistry<R, T extends Task<R>> {
 
@@ -52,11 +54,41 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 
 	private final ConcurrentMap<EID, Future<R>> cancelMap = new ConcurrentHashMap<>();
 
-	public TaskPoolRegistry(final int poolSize, final int maxPoolSize) {
-
-		final ArrayBlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(maxPoolSize);
-		this.threadPool = new ThreadPoolExecutor(poolSize, maxPoolSize,
+	/**
+	 * Creates a new Task Pool Registry which queues and executes all Tasks
+	 *
+	 * If the queue is full, and the number of threads is greater than or
+	 * equal to maxPoolSize, the task is rejected with an {@link RejectedExecutionException}
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param corePoolSize the number of threads to keep in the pool, even if they are idle for 30 seconds
+	 * @param maxPoolSize the maximum number of threads to allow in the pool
+	 * @param maxQueueSize the maximum number of queued threads
+	 */
+	public TaskPoolRegistry(final int corePoolSize, final int maxPoolSize, final int maxQueueSize) {
+		final ArrayBlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(maxQueueSize);
+		this.threadPool = new ThreadPoolExecutor(corePoolSize, maxPoolSize,
 				keepAliveTime, TimeUnit.SECONDS, taskQueue);
+	}
+
+	/**
+	 * Deprecated, use {@link #TaskPoolRegistry(int, int, int)} to set the max queue size explicitly.
+	 *
+	 * If the internal queue is full, and the number of threads is greater than or
+	 * equal to maxPoolSize, the task is rejected with an {@link RejectedExecutionException}
+	 *
+	 * Note: since version 1.1.0, the internal queue size is three times the maxPool size. Before
+	 * the queue size was equal to the maxPool size
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param corePoolSize the number of threads to keep in the pool, even if they are idle for 30 seconds
+	 * @param maxPoolSize the maximum number of threads to allow in the pool
+	 */
+	@Deprecated
+	public TaskPoolRegistry(final int corePoolSize, final int maxPoolSize) {
+		this(corePoolSize, maxPoolSize, 3 * maxPoolSize);
 	}
 
 	/**
@@ -111,7 +143,7 @@ public class TaskPoolRegistry<R, T extends Task<R>> {
 	}
 
 	/**
-	 * Starts the task by submitting it to task to the pool.
+	 * Starts the task by submitting the task to the pool.
 	 * The progress of the task is then accessible by calling getTaskProgress()
 	 * @param task executable task
 	 * @return Future which might be used to get the result of the task
