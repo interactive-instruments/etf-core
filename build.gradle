@@ -7,14 +7,15 @@
 buildscript {
     repositories {
         maven {
-            url "http://services.interactive-instruments.de/etfdev-af/plugins-releases-local"
+            url "https://services.interactive-instruments.de/etfdev-af/plugins-releases-local"
             credentials {
+                // Our repository requires authenticating
                 username 'ii-bda'
-                password '6ozhS683'
+                password 'AP7mb4WA6F1ckdZkaE8Qx8GSowt'
             }}
     }
     dependencies {
-        classpath group: 'de.interactive_instruments.bda', name: 'etf-bda', version:'1.0.25'
+        classpath group: 'de.interactive_instruments.bda', name: 'etf-bda', version: '[1.0.28,1.0.99]'
     }
     dependencies {
         ant.unjar src: configurations.classpath.files.find {it.path.contains('etf')}, dest: 'build/gradle'
@@ -27,9 +28,13 @@ apply from: 'build/gradle/ii-bda.gradle'
 group = 'de.interactive_instruments.etf'
 description = 'ETF Core'
 
+configurations {
+    umlDoclet
+}
+
 dependencies {
 
-    compileOnly group: 'de.interactive_instruments', name: 'ii-commons-util', version:'2.0.0'+project.snapshotSuffix
+    compileOnly group: 'de.interactive_instruments', name: 'ii-commons-util', version:'3.0.0'+project.snapshotSuffix
 
     compileOnly group: 'commons-collections', name: 'commons-collections', version: etf_commonsCollectionsVersion
 
@@ -37,11 +42,13 @@ dependencies {
 
     compileOnly group: 'org.slf4j', name: 'slf4j-api', version: etf_slf4jApiVersion
 
-    testCompile group: 'de.interactive_instruments', name: 'ii-commons-util', version:'2.0.0'+project.snapshotSuffix
-    testCompile group: 'junit', name: 'junit', version: etf_junitTestVersion
-
     compile group: 'xerces', name: 'xercesImpl', version: etf_xercesVersion
     compile group: 'xml-apis', name: 'xml-apis', version: etf_xmlApisVersion
+
+    testCompile group: 'de.interactive_instruments', name: 'ii-commons-util', version:'3.0.0'+project.snapshotSuffix
+    testCompile group: 'junit', name: 'junit', version: etf_junitTestVersion
+
+    umlDoclet "nl.talsmasoftware:umldoclet:1.0.18"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -50,6 +57,13 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 javadoc {
+    source = sourceSets.main.allJava
+    options.docletpath = configurations.umlDoclet.files.asType(List)
+    options.doclet = "nl.talsmasoftware.umldoclet.UMLDoclet"
+    options.addStringOption "umlImageFormat", "SVG"
+    options.addStringOption "umlIncludeHyperlinks", "true"
+    options.addStringOption "umlIncludeMethodReturntypes", "true"
+    options.addStringOption "umlBasePath", "docs/javadoc"
     destinationDir = file("$projectDir/docs/javadoc")
 }
 
