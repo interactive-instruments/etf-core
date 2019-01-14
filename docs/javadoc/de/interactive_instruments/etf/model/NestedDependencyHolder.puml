@@ -1,6 +1,0 @@
-@startuml
-
-    interface NestedDependencyHolder<T> [[NestedDependencyHolder.html]] {
-    }
-
-@enduml

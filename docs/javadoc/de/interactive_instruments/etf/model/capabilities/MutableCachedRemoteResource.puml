@@ -1,8 +1,0 @@
-@startuml
-
-    class MutableCachedRemoteResource [[MutableCachedRemoteResource.html]] {
-        +setQueyParameters(Map<String, String>): boolean
-        +createCopy(): MutableCachedRemoteResource
-    }
-
-@enduml

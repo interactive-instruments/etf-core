@@ -1,8 +1,0 @@
-@startuml
-
-    interface EidHolderWithParent<T> [[EidHolderWithParent.html]] {
-        +getIdAndParentIds(): Set<EID>
-        {static} +getAllIdsAndParentIds(Collection<T>): Set<EID>
-    }
-
-@enduml

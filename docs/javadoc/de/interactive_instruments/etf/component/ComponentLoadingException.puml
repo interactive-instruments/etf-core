@@ -1,9 +1,0 @@
-@startuml
-
-    class ComponentLoadingException [[ComponentLoadingException.html]] {
-        +ComponentLoadingException(Path, Exception)
-        +ComponentLoadingException(Path, Throwable)
-        +ComponentLoadingException(String)
-    }
-
-@enduml

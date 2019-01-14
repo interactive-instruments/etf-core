@@ -1,7 +1,0 @@
-@startuml
-
-    interface TaskState [[TaskState.html]] {
-        {abstract} +getState(): TaskState.STATE
-    }
-
-@enduml

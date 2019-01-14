@@ -1,7 +1,0 @@
-@startuml
-
-    class ComponentNotLoadedException [[ComponentNotLoadedException.html]] {
-        +ComponentNotLoadedException(String)
-    }
-
-@enduml

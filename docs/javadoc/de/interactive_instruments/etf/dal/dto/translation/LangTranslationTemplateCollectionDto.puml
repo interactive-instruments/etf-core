@@ -1,9 +1,0 @@
-@startuml
-
-    class LangTranslationTemplateCollectionDto [[LangTranslationTemplateCollectionDto.html]] {
-        +getName(): String
-        +getByLanguage(String): TranslationTemplateDto
-        +getLanguages(): Set<String>
-    }
-
-@enduml

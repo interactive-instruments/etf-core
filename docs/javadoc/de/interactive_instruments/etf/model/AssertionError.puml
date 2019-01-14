@@ -1,6 +1,0 @@
-@startuml
-
-    class AssertionError [[AssertionError.html]] {
-    }
-
-@enduml

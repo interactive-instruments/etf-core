@@ -1,7 +1,0 @@
-@startuml
-
-    interface PreparedDtoCollection<T> [[PreparedDtoCollection.html]] {
-        +asCollection(): Collection<T>
-    }
-
-@enduml

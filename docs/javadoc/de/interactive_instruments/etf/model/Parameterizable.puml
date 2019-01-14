@@ -1,9 +1,0 @@
-@startuml
-
-    interface Parameterizable [[Parameterizable.html]] {
-        {abstract} +getParamTypeName(): String
-        {abstract} +getParameters(): Collection<Parameterizable.Parameter>
-        {abstract} +getParameter(String): Parameterizable.Parameter
-    }
-
-@enduml

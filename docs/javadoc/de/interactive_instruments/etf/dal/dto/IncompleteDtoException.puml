@@ -1,8 +1,0 @@
-@startuml
-
-    class IncompleteDtoException [[IncompleteDtoException.html]] {
-        +IncompleteDtoException(String)
-        +IncompleteDtoException(String, Throwable)
-    }
-
-@enduml

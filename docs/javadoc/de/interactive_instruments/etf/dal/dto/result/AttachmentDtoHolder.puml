@@ -1,6 +1,0 @@
-@startuml
-
-    interface AttachmentDtoHolder [[AttachmentDtoHolder.html]] {
-    }
-
-@enduml

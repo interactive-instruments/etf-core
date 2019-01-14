@@ -1,9 +1,0 @@
-@startuml
-
-    class IncompatibleTestObjectTypeException [[IncompatibleTestObjectTypeException.html]] {
-        +IncompatibleTestObjectTypeException(TestObjectType, DetectedTestObjectType)
-        +IncompatibleTestObjectTypeException(Collection<?>, DetectedTestObjectType)
-        +getDetectedTestObjectType(): TestObjectType
-    }
-
-@enduml

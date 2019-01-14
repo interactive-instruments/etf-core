@@ -1,7 +1,0 @@
-@startuml
-
-    interface FlatDependencyHolder<T> [[FlatDependencyHolder.html]] {
-        {abstract} +getDependencies(): Collection<T>
-    }
-
-@enduml

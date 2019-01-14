@@ -1,7 +1,0 @@
-@startuml
-
-    interface MutableRemoteResource [[MutableRemoteResource.html]] {
-        {abstract} +setQueyParameters(Map<String, String>): boolean
-    }
-
-@enduml

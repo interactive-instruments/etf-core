@@ -1,6 +1,0 @@
-@startuml
-
-    interface TestObject [[TestObject.html]] {
-    }
-
-@enduml

@@ -1,6 +1,0 @@
-@startuml
-
-    class TestObjectTypeDetectionNotUnambiguousException [[TestObjectTypeDetectionNotUnambiguousException.html]] {
-    }
-
-@enduml

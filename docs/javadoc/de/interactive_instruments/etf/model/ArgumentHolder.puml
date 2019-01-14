@@ -1,7 +1,0 @@
-@startuml
-
-    interface ArgumentHolder [[ArgumentHolder.html]] {
-        {abstract} +getArgumentForParameters(String): MutablePropertyHolder
-    }
-
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-
-    class ExecutableTestSuiteLoadingException [[ExecutableTestSuiteLoadingException.html]] {
-        +ExecutableTestSuiteLoadingException(String)
-        +ExecutableTestSuiteLoadingException(ExecutableTestSuiteDto)
-        +ExecutableTestSuiteLoadingException(ExecutableTestSuiteDto, Throwable)
-    }
-
-@enduml

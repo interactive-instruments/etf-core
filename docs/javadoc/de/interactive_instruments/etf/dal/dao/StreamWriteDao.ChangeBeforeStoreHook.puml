@@ -1,7 +1,0 @@
-@startuml
-
-    interface StreamWriteDao.ChangeBeforeStoreHook<T> [[StreamWriteDao.ChangeBeforeStoreHook.html]] {
-        {abstract} +doChangeBeforeStore(T): T
-    }
-
-@enduml

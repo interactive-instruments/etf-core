@@ -1,8 +1,0 @@
-@startuml
-
-    class TestTaskInitializationException [[TestTaskInitializationException.html]] {
-        +TestTaskInitializationException(Throwable)
-        +TestTaskInitializationException(String, Throwable)
-    }
-
-@enduml

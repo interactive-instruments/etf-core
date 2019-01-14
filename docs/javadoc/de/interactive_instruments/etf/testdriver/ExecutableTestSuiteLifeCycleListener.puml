@@ -1,7 +1,0 @@
-@startuml
-
-    interface ExecutableTestSuiteLifeCycleListener [[ExecutableTestSuiteLifeCycleListener.html]] {
-        {abstract} +lifeCycleChange(Object, ExecutableTestSuiteLifeCycleListener.EventType, EidHolderMap<ExecutableTestSuiteDto>): void
-    }
-
-@enduml

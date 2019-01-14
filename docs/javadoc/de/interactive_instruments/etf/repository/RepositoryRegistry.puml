@@ -1,7 +1,0 @@
-@startuml
-
-    class RepositoryRegistry [[RepositoryRegistry.html]] {
-        {static} +getInstance(): RepositoryRegistry
-    }
-
-@enduml
