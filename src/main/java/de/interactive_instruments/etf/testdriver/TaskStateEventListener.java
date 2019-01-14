@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -20,9 +20,7 @@
 package de.interactive_instruments.etf.testdriver;
 
 /**
- * A Listener interface for realising the Observer pattern. Registered
- * clients that implement this interface will be informed about state
- * changes in Test Tasks objects ({@link TestTask}).
+ * A Listener interface for realising the Observer pattern. Registered clients that implement this interface will be informed about state changes in Test Tasks objects ({@link TestTask}).
  *
  * <img src="TaskStateEventListener.svg" alt="Class UML">
  *
@@ -30,13 +28,16 @@ package de.interactive_instruments.etf.testdriver;
  */
 public interface TaskStateEventListener {
 
-	/**
-	 * Sends the changed state to an observing object
-	 *
-	 * @param t task
-	 * @param actualState actual task state
-	 * @param oldState old task state
-	 */
-	void taskStateChangedEvent(
-			TestTask t, TaskState.STATE actualState, TaskState.STATE oldState);
+    /**
+     * Sends the changed state to an observing object
+     *
+     * @param t
+     *            task
+     * @param actualState
+     *            actual task state
+     * @param oldState
+     *            old task state
+     */
+    void taskStateChangedEvent(
+            TestTask t, TaskState.STATE actualState, TaskState.STATE oldState);
 }

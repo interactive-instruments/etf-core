@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,31 +28,33 @@ import java.io.IOException;
  */
 public interface CachedResource extends Resource {
 
-	/**
-	 * Invokes {@link CachedResource#recache()} if cache is empty.
-	 *
-	 * @return cached bytes
-	 * @throws IOException if {@link CachedResource#recache()} fails
-	 */
-	byte[] getFromCache() throws IOException;
+    /**
+     * Invokes {@link CachedResource#recache()} if cache is empty.
+     *
+     * @return cached bytes
+     * @throws IOException
+     *             if {@link CachedResource#recache()} fails
+     */
+    byte[] getFromCache() throws IOException;
 
-	/**
-	 * Rebuild cache.
-	 *
-	 * @return new fetched bytes
-	 * @throws IOException if fetching failed
-	 */
-	byte[] recache() throws IOException;
+    /**
+     * Rebuild cache.
+     *
+     * @return new fetched bytes
+     * @throws IOException
+     *             if fetching failed
+     */
+    byte[] recache() throws IOException;
 
-	/**
-	 * Invokes {@link CachedResource#recache()} if the resource has changed
-	 * since the last call of this method.
-	 *
-	 * @return true if resource changed, false otherwise
-	 * @throws IOException if {@link CachedResource#recache()} fails
-	 */
-	boolean recacheIfModified() throws IOException;
+    /**
+     * Invokes {@link CachedResource#recache()} if the resource has changed since the last call of this method.
+     *
+     * @return true if resource changed, false otherwise
+     * @throws IOException
+     *             if {@link CachedResource#recache()} fails
+     */
+    boolean recacheIfModified() throws IOException;
 
-	@Override
-	CachedResource createCopy();
+    @Override
+    CachedResource createCopy();
 }

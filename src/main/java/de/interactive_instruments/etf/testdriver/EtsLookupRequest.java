@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -26,15 +26,14 @@ import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.etf.model.EidSet;
 
 /**
- * Responsible TestDrivers add known Executable Test Suites
- * and their dependencies.
+ * Responsible TestDrivers add known Executable Test Suites and their dependencies.
  *
  * Realizes the chain of responsibility pattern.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EtsLookupRequest {
-	Set<EID> getUnknownEtsIds();
+    Set<EID> getUnknownEtsIds();
 
-	void addKnownEts(final EidSet<ExecutableTestSuiteDto> knownEts);
+    void addKnownEts(final EidSet<ExecutableTestSuiteDto> knownEts);
 }

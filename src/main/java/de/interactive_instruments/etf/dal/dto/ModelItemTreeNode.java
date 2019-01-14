@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -31,12 +31,12 @@ import de.interactive_instruments.etf.model.ModelItemWithParent;
  */
 public interface ModelItemTreeNode<T> extends ModelItemWithParent<ModelItemDto> {
 
-	List<? extends T> getChildren();
+    List<? extends T> getChildren();
 
-	EidMap<? extends T> getChildrenAsMap();
+    EidMap<? extends T> getChildrenAsMap();
 
-	// Todo: remove from interface (when moved to model package)
-	void addChild(final T child);
+    // Todo: remove from interface (when moved to model package)
+    void addChild(final T child);
 
-	void setChildren(final List<? extends T> children);
+    void setChildren(final List<? extends T> children);
 }

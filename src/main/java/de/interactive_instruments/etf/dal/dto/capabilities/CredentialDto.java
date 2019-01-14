@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -27,45 +27,45 @@ import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
  */
 public class CredentialDto extends RepositoryItemDto {
 
-	private ModelItemDto applicableTo;
-	private String applicableUri;
-	private byte[] cipher;
+    private ModelItemDto applicableTo;
+    private String applicableUri;
+    private byte[] cipher;
 
-	public CredentialDto() {}
+    public CredentialDto() {}
 
-	private CredentialDto(final CredentialDto other) {
-		super(other);
-		this.applicableTo = other.applicableTo;
-		this.applicableUri = other.applicableUri;
-		this.cipher = other.cipher;
-	}
+    private CredentialDto(final CredentialDto other) {
+        super(other);
+        this.applicableTo = other.applicableTo;
+        this.applicableUri = other.applicableUri;
+        this.cipher = other.cipher;
+    }
 
-	public ModelItemDto getApplicableTo() {
-		return applicableTo;
-	}
+    public ModelItemDto getApplicableTo() {
+        return applicableTo;
+    }
 
-	public void setApplicableTo(final ModelItemDto applicableTo) {
-		this.applicableTo = applicableTo;
-	}
+    public void setApplicableTo(final ModelItemDto applicableTo) {
+        this.applicableTo = applicableTo;
+    }
 
-	public String getApplicableUri() {
-		return applicableUri;
-	}
+    public String getApplicableUri() {
+        return applicableUri;
+    }
 
-	public void setApplicableUri(final String applicableUri) {
-		this.applicableUri = applicableUri;
-	}
+    public void setApplicableUri(final String applicableUri) {
+        this.applicableUri = applicableUri;
+    }
 
-	public byte[] getCipher() {
-		return cipher;
-	}
+    public byte[] getCipher() {
+        return cipher;
+    }
 
-	public void setCipher(final byte[] cipher) {
-		this.cipher = cipher;
-	}
+    public void setCipher(final byte[] cipher) {
+        this.cipher = cipher;
+    }
 
-	@Override
-	public CredentialDto createCopy() {
-		return new CredentialDto(this);
-	}
+    @Override
+    public CredentialDto createCopy() {
+        return new CredentialDto(this);
+    }
 }

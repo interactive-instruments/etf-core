@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -23,49 +23,49 @@ import java.util.List;
 
 public class TestStepDto extends TestModelItemDto {
 
-	private String statementForExecution;
-	private TestItemTypeDto testStepType;
+    private String statementForExecution;
+    private TestItemTypeDto testStepType;
 
-	public TestStepDto() {
+    public TestStepDto() {
 
-	}
+    }
 
-	private TestStepDto(final TestStepDto other) {
-		super(other);
-		this.statementForExecution = other.statementForExecution;
-		this.testStepType = other.testStepType;
-	}
+    private TestStepDto(final TestStepDto other) {
+        super(other);
+        this.statementForExecution = other.statementForExecution;
+        this.testStepType = other.testStepType;
+    }
 
-	public String getStatementForExecution() {
-		return statementForExecution;
-	}
+    public String getStatementForExecution() {
+        return statementForExecution;
+    }
 
-	public void setStatementForExecution(final String statementForExecution) {
-		this.statementForExecution = statementForExecution;
-	}
+    public void setStatementForExecution(final String statementForExecution) {
+        this.statementForExecution = statementForExecution;
+    }
 
-	public TestItemTypeDto getType() {
-		return testStepType;
-	}
+    public TestItemTypeDto getType() {
+        return testStepType;
+    }
 
-	public void setType(final TestItemTypeDto testStepType) {
-		this.testStepType = testStepType;
-	}
+    public void setType(final TestItemTypeDto testStepType) {
+        this.testStepType = testStepType;
+    }
 
-	public List<TestAssertionDto> getTestAssertions() {
-		return (List<TestAssertionDto>) getChildren();
-	}
+    public List<TestAssertionDto> getTestAssertions() {
+        return (List<TestAssertionDto>) getChildren();
+    }
 
-	public void setTestAssertions(final List<TestAssertionDto> testAssertions) {
-		setChildren(testAssertions);
-	}
+    public void setTestAssertions(final List<TestAssertionDto> testAssertions) {
+        setChildren(testAssertions);
+    }
 
-	public void addTestAssertion(final TestAssertionDto testAssertion) {
-		addChild(testAssertion);
-	}
+    public void addTestAssertion(final TestAssertionDto testAssertion) {
+        addChild(testAssertion);
+    }
 
-	@Override
-	public TestStepDto createCopy() {
-		return new TestStepDto(this);
-	}
+    @Override
+    public TestStepDto createCopy() {
+        return new TestStepDto(this);
+    }
 }

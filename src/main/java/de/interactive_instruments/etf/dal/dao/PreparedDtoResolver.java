@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -33,54 +33,68 @@ import de.interactive_instruments.exceptions.StorageException;
  */
 public interface PreparedDtoResolver<T extends Dto> {
 
-	/**
-	 * Return a PreparedDto to query a DTO
-	 *
-	 * @param id Dto ID
-	 *
-	 * @return prepared Dto
-	 * @throws StorageException internal Store exception
-	 * @throws ObjectWithIdNotFoundException Invalid ID provided
-	 */
-	default PreparedDto<T> getById(final EID id) throws StorageException, ObjectWithIdNotFoundException {
-		return getById(id, null);
-	}
+    /**
+     * Return a PreparedDto to query a DTO
+     *
+     * @param id
+     *            Dto ID
+     *
+     * @return prepared Dto
+     * @throws StorageException
+     *             internal Store exception
+     * @throws ObjectWithIdNotFoundException
+     *             Invalid ID provided
+     */
+    default PreparedDto<T> getById(final EID id) throws StorageException, ObjectWithIdNotFoundException {
+        return getById(id, null);
+    }
 
-	/**
-	 * Return a PreparedDto to query a filtered DTO
-	 *
-	 * @param id Dto ID
-	 * @param filter Filter
-	 *
-	 * @return prepared Dto
-	 * @throws StorageException internal Store exception
-	 * @throws ObjectWithIdNotFoundException Invalid ID provided
-	 */
-	PreparedDto<T> getById(final EID id, final Filter filter) throws StorageException, ObjectWithIdNotFoundException;
+    /**
+     * Return a PreparedDto to query a filtered DTO
+     *
+     * @param id
+     *            Dto ID
+     * @param filter
+     *            Filter
+     *
+     * @return prepared Dto
+     * @throws StorageException
+     *             internal Store exception
+     * @throws ObjectWithIdNotFoundException
+     *             Invalid ID provided
+     */
+    PreparedDto<T> getById(final EID id, final Filter filter) throws StorageException, ObjectWithIdNotFoundException;
 
-	/**
-	 * Return a PreparedDtoCollection to query a collection of DTOs
-	 *
-	 * @param id Dto ID
-	 *
-	 * @return prepared Dto collection
-	 * @throws StorageException internal Store exception
-	 * @throws ObjectWithIdNotFoundException Invalid ID provided
-	 */
-	default PreparedDtoCollection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException {
-		return getByIds(id, null);
-	}
+    /**
+     * Return a PreparedDtoCollection to query a collection of DTOs
+     *
+     * @param id
+     *            Dto ID
+     *
+     * @return prepared Dto collection
+     * @throws StorageException
+     *             internal Store exception
+     * @throws ObjectWithIdNotFoundException
+     *             Invalid ID provided
+     */
+    default PreparedDtoCollection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException {
+        return getByIds(id, null);
+    }
 
-	/**
-	 * Return a PreparedDtoCollection to query a filtered collection of DTOs
-	 *
-	 * @param id Dto ID
-	 * @param filter Filter
-	 *
-	 * @return prepared Dto collection
-	 * @throws StorageException internal Store exception
-	 * @throws ObjectWithIdNotFoundException Invalid ID provided
-	 */
-	PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter)
-			throws StorageException, ObjectWithIdNotFoundException;
+    /**
+     * Return a PreparedDtoCollection to query a filtered collection of DTOs
+     *
+     * @param id
+     *            Dto ID
+     * @param filter
+     *            Filter
+     *
+     * @return prepared Dto collection
+     * @throws StorageException
+     *             internal Store exception
+     * @throws ObjectWithIdNotFoundException
+     *             Invalid ID provided
+     */
+    PreparedDtoCollection<T> getByIds(final Set<EID> id, final Filter filter)
+            throws StorageException, ObjectWithIdNotFoundException;
 }

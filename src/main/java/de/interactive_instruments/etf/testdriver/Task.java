@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -38,40 +38,40 @@ import de.interactive_instruments.etf.model.EID;
  */
 public interface Task<T> extends Callable<T>, TaskState, Releasable, Cancelable, Initializable {
 
-	/**
-	 * ETF {@link EID}
-	 *
-	 * @return ID
-	 */
-	EID getId();
+    /**
+     * ETF {@link EID}
+     *
+     * @return ID
+     */
+    EID getId();
 
-	/**
-	 * Get the result even if the task did not finish!
-	 * Use {@link #waitForResult()} to block the calling thread until the Task finished.
-	 *
-	 * @return result
-	 */
-	T getResult();
+    /**
+     * Get the result even if the task did not finish! Use {@link #waitForResult()} to block the calling thread until the Task finished.
+     *
+     * @return result
+     */
+    T getResult();
 
-	/**
-	 * Used by the TaskPoolRegistry to set the Future after
-	 * submitting the task.
-	 *
-	 * @param future Future callback
-	 *
-	 * @throws IllegalStateException if the future is already set
-	 */
-	void setFuture(final Future<T> future) throws IllegalStateException;
+    /**
+     * Used by the TaskPoolRegistry to set the Future after submitting the task.
+     *
+     * @param future
+     *            Future callback
+     *
+     * @throws IllegalStateException
+     *             if the future is already set
+     */
+    void setFuture(final Future<T> future) throws IllegalStateException;
 
-	/**
-	 * Wait for result
-	 *
-	 * @return T result
-	 *
-	 * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied,
-	 * and the thread is interrupted, either before or during the activity.
-	 * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task
-	 * that aborted by throwing an exception.
-	 */
-	T waitForResult() throws InterruptedException, ExecutionException;
+    /**
+     * Wait for result
+     *
+     * @return T result
+     *
+     * @throws InterruptedException
+     *             Thrown when a thread is waiting, sleeping, or otherwise occupied, and the thread is interrupted, either before or during the activity.
+     * @throws ExecutionException
+     *             Exception thrown when attempting to retrieve the result of a task that aborted by throwing an exception.
+     */
+    T waitForResult() throws InterruptedException, ExecutionException;
 }

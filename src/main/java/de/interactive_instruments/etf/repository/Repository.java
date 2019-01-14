@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -35,62 +35,76 @@ import de.interactive_instruments.model.std.RetrievableItem;
  */
 public interface Repository extends RetrievableItem, Configurable, Releasable {
 
-	// repository URI configuration key
-	String REPOSITORY_URI_PK = "ii.repository.uri";
+    // repository URI configuration key
+    String REPOSITORY_URI_PK = "ii.repository.uri";
 
-	// repository Password configuration key
-	String REPOSITORY_AUTH_PWD_PK = "ii.repository.pwd";
+    // repository Password configuration key
+    String REPOSITORY_AUTH_PWD_PK = "ii.repository.pwd";
 
-	// repository User configuration key
-	String REPOSITORY_AUTH_USER_PK = "ii.repository.user";
+    // repository User configuration key
+    String REPOSITORY_AUTH_USER_PK = "ii.repository.user";
 
-	/**
-	 * Gets a repository item from the repository by its label and version.
-	 *
-	 * @param label item label
-	 * @param version version of the item
-	 * @return found repository item
-	 * @throws ObjectWithIdNotFoundException if item does not exist in repository
-	 * @throws StorageException if repository is not initialized or a fetching error occurred
-	 */
-	RepositoryItem getItemByLabel(String label, ImmutableVersion version)
-			throws ObjectWithIdNotFoundException, StorageException;
+    /**
+     * Gets a repository item from the repository by its label and version.
+     *
+     * @param label
+     *            item label
+     * @param version
+     *            version of the item
+     * @return found repository item
+     * @throws ObjectWithIdNotFoundException
+     *             if item does not exist in repository
+     * @throws StorageException
+     *             if repository is not initialized or a fetching error occurred
+     */
+    RepositoryItem getItemByLabel(String label, ImmutableVersion version)
+            throws ObjectWithIdNotFoundException, StorageException;
 
-	/**
-	 * Gets the latest repository item from the repository by its label.
-	 *
-	 * @param label item label
-	 * @return found repository item
-	 * @throws ObjectWithIdNotFoundException if item does not exist in repository
-	 * @throws StorageException if repository is not initialized or a fetching error occurred
-	 */
-	RepositoryItem getLatestItemByLabel(String label) throws ObjectWithIdNotFoundException, StorageException;
+    /**
+     * Gets the latest repository item from the repository by its label.
+     *
+     * @param label
+     *            item label
+     * @return found repository item
+     * @throws ObjectWithIdNotFoundException
+     *             if item does not exist in repository
+     * @throws StorageException
+     *             if repository is not initialized or a fetching error occurred
+     */
+    RepositoryItem getLatestItemByLabel(String label) throws ObjectWithIdNotFoundException, StorageException;
 
-	/**
-	 * Checks if an item with a newer version exists in the repository.
-	 *
-	 * @param label item label
-	 * @param version version of the item
-	 * @return true if an item with a newer version exists; false otherwise
-	 * @throws ObjectWithIdNotFoundException if item does not exist in repository
-	 * @throws StorageException if repository is not initialized or a fetching error occurred
-	 */
-	boolean hasNewerItemVersion(String label, ImmutableVersion version) throws ObjectWithIdNotFoundException, StorageException;
+    /**
+     * Checks if an item with a newer version exists in the repository.
+     *
+     * @param label
+     *            item label
+     * @param version
+     *            version of the item
+     * @return true if an item with a newer version exists; false otherwise
+     * @throws ObjectWithIdNotFoundException
+     *             if item does not exist in repository
+     * @throws StorageException
+     *             if repository is not initialized or a fetching error occurred
+     */
+    boolean hasNewerItemVersion(String label, ImmutableVersion version) throws ObjectWithIdNotFoundException, StorageException;
 
-	/**
-	 * Gets all items from the repository by their label in all versions.
-	 *
-	 * @param label item label
-	 * @return found repository item
-	 * @throws StorageException if repository is not initialized or a fetching error occurred
-	 */
-	List<RepositoryItem> getItemsForLabel(String label) throws StorageException;
+    /**
+     * Gets all items from the repository by their label in all versions.
+     *
+     * @param label
+     *            item label
+     * @return found repository item
+     * @throws StorageException
+     *             if repository is not initialized or a fetching error occurred
+     */
+    List<RepositoryItem> getItemsForLabel(String label) throws StorageException;
 
-	/**
-	 * Gets all items from the repository.
-	 *
-	 * @return list of all items in the repository.
-	 * @throws StorageException if repository is not initialized or a fetching error occurred
-	 */
-	List<RepositoryItem> getItems() throws StorageException;
+    /**
+     * Gets all items from the repository.
+     *
+     * @return list of all items in the repository.
+     * @throws StorageException
+     *             if repository is not initialized or a fetching error occurred
+     */
+    List<RepositoryItem> getItems() throws StorageException;
 }

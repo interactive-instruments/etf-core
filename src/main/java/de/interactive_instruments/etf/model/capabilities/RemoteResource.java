@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,14 +29,14 @@ import de.interactive_instruments.UriModificationCheck;
  */
 public interface RemoteResource extends Resource {
 
-	InputStream openStream(int timeout) throws IOException;
+    InputStream openStream(int timeout) throws IOException;
 
-	byte[] getBytes(int timeout) throws IOException;
+    byte[] getBytes(int timeout) throws IOException;
 
-	UriModificationCheck getModificationCheck() throws IOException;
+    UriModificationCheck getModificationCheck() throws IOException;
 
-	boolean isModificationCheckInitialized();
+    boolean isModificationCheckInitialized();
 
-	@Override
-	RemoteResource createCopy();
+    @Override
+    RemoteResource createCopy();
 }

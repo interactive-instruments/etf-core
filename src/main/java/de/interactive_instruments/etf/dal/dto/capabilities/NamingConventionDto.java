@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -22,34 +22,31 @@ package de.interactive_instruments.etf.dal.dto.capabilities;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 
 /**
- * Optional naming convention, which is used to check if the label of
- * a Test Object matches this regular expression.
- * This might be useful for labeling test data deliveries according
- * to a prescribed scheme.
+ * Optional naming convention, which is used to check if the label of a Test Object matches this regular expression. This might be useful for labeling test data deliveries according to a prescribed scheme.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class NamingConventionDto extends MetaDataItemDto {
 
-	private String regex;
+    private String regex;
 
-	public NamingConventionDto() {}
+    public NamingConventionDto() {}
 
-	public NamingConventionDto(final NamingConventionDto other) {
-		super(other);
-		this.regex = other.regex;
-	}
+    public NamingConventionDto(final NamingConventionDto other) {
+        super(other);
+        this.regex = other.regex;
+    }
 
-	public String getRegex() {
-		return regex;
-	}
+    public String getRegex() {
+        return regex;
+    }
 
-	public void setRegex(final String regex) {
-		this.regex = regex;
-	}
+    public void setRegex(final String regex) {
+        this.regex = regex;
+    }
 
-	@Override
-	public NamingConventionDto createCopy() {
-		return new NamingConventionDto(this);
-	}
+    @Override
+    public NamingConventionDto createCopy() {
+        return new NamingConventionDto(this);
+    }
 }

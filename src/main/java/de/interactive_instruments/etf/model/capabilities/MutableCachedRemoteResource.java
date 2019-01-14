@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,28 +29,28 @@ import de.interactive_instruments.exceptions.ExcUtils;
  */
 public class MutableCachedRemoteResource extends CachedRemoteResource implements MutableRemoteResource {
 
-	MutableCachedRemoteResource(final RemoteResource resource) {
-		super(!(resource instanceof MutableRemoteResource) ? new MutableSecuredRemoteResource(resource) : resource);
-	}
+    MutableCachedRemoteResource(final RemoteResource resource) {
+        super(!(resource instanceof MutableRemoteResource) ? new MutableSecuredRemoteResource(resource) : resource);
+    }
 
-	private MutableCachedRemoteResource(final CachedRemoteResource other) {
-		super(other);
-	}
+    private MutableCachedRemoteResource(final CachedRemoteResource other) {
+        super(other);
+    }
 
-	public boolean setQueyParameters(final Map<String, String> kvp) {
-		final boolean changed = ((MutableRemoteResource) wrapped).setQueyParameters(kvp);
-		if (changed) {
-			try {
-				recache();
-			} catch (final IOException ign) {
-				ExcUtils.suppress(ign);
-			}
-		}
-		return changed;
-	}
+    public boolean setQueyParameters(final Map<String, String> kvp) {
+        final boolean changed = ((MutableRemoteResource) wrapped).setQueyParameters(kvp);
+        if (changed) {
+            try {
+                recache();
+            } catch (final IOException ign) {
+                ExcUtils.suppress(ign);
+            }
+        }
+        return changed;
+    }
 
-	@Override
-	public MutableCachedRemoteResource createCopy() {
-		return new MutableCachedRemoteResource(this);
-	}
+    @Override
+    public MutableCachedRemoteResource createCopy() {
+        return new MutableCachedRemoteResource(this);
+    }
 }

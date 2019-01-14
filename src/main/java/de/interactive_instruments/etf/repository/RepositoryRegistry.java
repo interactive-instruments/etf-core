@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,21 +28,21 @@ import de.interactive_instruments.model.std.ManagedItemRegistry;
  */
 public class RepositoryRegistry extends ManagedItemRegistry<Repository> {
 
-	private static final class InstanceHolder {
-		static final RepositoryRegistry INSTANCE = new RepositoryRegistry();
-	}
+    private static final class InstanceHolder {
+        static final RepositoryRegistry INSTANCE = new RepositoryRegistry();
+    }
 
-	/**
-	 * Singleton
-	 *
-	 * @return the one and only instance
-	 */
-	public static RepositoryRegistry getInstance() {
-		return InstanceHolder.INSTANCE;
-	}
+    /**
+     * Singleton
+     *
+     * @return the one and only instance
+     */
+    public static RepositoryRegistry getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
 
-	/**
-	 * Private c'tor
-	 */
-	private RepositoryRegistry() {}
+    /**
+     * Private c'tor
+     */
+    private RepositoryRegistry() {}
 }

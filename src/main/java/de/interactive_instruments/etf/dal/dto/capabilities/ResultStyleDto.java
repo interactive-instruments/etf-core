@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -24,26 +24,26 @@ import java.net.URI;
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 
 public class ResultStyleDto extends RepositoryItemDto {
-	protected URI resource;
+    protected URI resource;
 
-	public ResultStyleDto() {}
+    public ResultStyleDto() {}
 
-	private ResultStyleDto(final ResultStyleDto other) {
-		super(other);
-		this.resource = other.resource;
-	}
+    private ResultStyleDto(final ResultStyleDto other) {
+        super(other);
+        this.resource = other.resource;
+    }
 
-	public URI getResource() {
-		return resource;
-	}
+    public URI getResource() {
+        return resource;
+    }
 
-	public void setResource(URI resource) {
-		this.resource = resource;
-	}
+    public void setResource(URI resource) {
+        this.resource = resource;
+    }
 
-	@Override
-	public ResultStyleDto createCopy() {
-		return new ResultStyleDto(this);
-	}
+    @Override
+    public ResultStyleDto createCopy() {
+        return new ResultStyleDto(this);
+    }
 
 }

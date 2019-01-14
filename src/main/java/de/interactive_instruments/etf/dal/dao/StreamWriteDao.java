@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,36 +29,42 @@ import de.interactive_instruments.exceptions.StorageException;
  */
 public interface StreamWriteDao<T extends Dto> extends WriteDao<T> {
 
-	@FunctionalInterface
-	interface ChangeBeforeStoreHook<T extends Dto> {
-		/**
-		 * Called before stored by a StreamWriteDao
-		 *
-		 * @param dto read and loaded Dto from InputStream
-		 * @return changed Dto
-		 */
-		T doChangeBeforeStore(final T dto);
-	}
+    @FunctionalInterface
+    interface ChangeBeforeStoreHook<T extends Dto> {
+        /**
+         * Called before stored by a StreamWriteDao
+         *
+         * @param dto
+         *            read and loaded Dto from InputStream
+         * @return changed Dto
+         */
+        T doChangeBeforeStore(final T dto);
+    }
 
-	/**
-	 * Reads, validates and adds a Type from an input stream
-	 *
-	 * @return created Dto
-	 * @param input input stream
-	 * @throws StorageException if an internal error occurs
-	 */
-	default T add(final InputStream input) throws StorageException {
-		return add(input, null);
-	}
+    /**
+     * Reads, validates and adds a Type from an input stream
+     *
+     * @return created Dto
+     * @param input
+     *            input stream
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    default T add(final InputStream input) throws StorageException {
+        return add(input, null);
+    }
 
-	/**
-	 * Reads, validates and adds a Type from an input stream
-	 *
-	 * @return created Dto
-	 * @param input input stream
-	 * @param hook a hook object that is called just before the Dto is persisted
-	 * @throws StorageException if an internal error occurs
-	 */
-	T add(final InputStream input, final ChangeBeforeStoreHook<T> hook) throws StorageException;
+    /**
+     * Reads, validates and adds a Type from an input stream
+     *
+     * @return created Dto
+     * @param input
+     *            input stream
+     * @param hook
+     *            a hook object that is called just before the Dto is persisted
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    T add(final InputStream input, final ChangeBeforeStoreHook<T> hook) throws StorageException;
 
 }

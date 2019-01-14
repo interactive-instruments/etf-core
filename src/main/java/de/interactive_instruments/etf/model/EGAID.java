@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,41 +25,39 @@ import de.interactive_instruments.ImmutableVersion;
 import de.interactive_instruments.Versionable;
 
 /**
- * The ETF Group and Artifact ID class is intended to provide
- * identifiers for a group of objects with different versions
- * in the ETF environment.
+ * The ETF Group and Artifact ID class is intended to provide identifiers for a group of objects with different versions in the ETF environment.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EGAID extends Versionable, Comparable {
 
-	Pattern EGAID = Pattern.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
-	Pattern EGAID_WP = Pattern.compile("([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
-	Pattern EGAID_REF = Pattern
-			.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)(:([0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?|latest))?");
+    Pattern EGAID = Pattern.compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
+    Pattern EGAID_WP = Pattern.compile("([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)");
+    Pattern EGAID_REF = Pattern
+            .compile("egaid\\.([a-z][a-z1-9\\-.]*)\\.([a-z][a-z1-9\\-]*)(:([0-9]+\\.[0-9]+\\.[0-9]+(-SNAPSHOT)?|latest))?");
 
-	String getArtifactId();
+    String getArtifactId();
 
-	String getGroupId();
+    String getGroupId();
 
-	String getEgaId();
+    String getEgaId();
 
-	default String getEgaIdRef() {
-		final ImmutableVersion v = this.getVersion();
-		if (v != null) {
-			return getEgaId() + ":" + v;
-		}
-		return getEgaId();
-	}
+    default String getEgaIdRef() {
+        final ImmutableVersion v = this.getVersion();
+        if (v != null) {
+            return getEgaId() + ":" + v;
+        }
+        return getEgaId();
+    }
 
-	@Override
-	default int compareTo(final Object o) {
-		if (o instanceof EGAID) {
-			return ((EGAID) o).getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
-		} else if (o instanceof EgaidHolder) {
-			final EGAID h = ((EgaidHolder) o).getEgaId();
-			return h.getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
-		}
-		return -1;
-	}
+    @Override
+    default int compareTo(final Object o) {
+        if (o instanceof EGAID) {
+            return ((EGAID) o).getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
+        } else if (o instanceof EgaidHolder) {
+            final EGAID h = ((EgaidHolder) o).getEgaId();
+            return h.getEgaIdRef().compareToIgnoreCase(getEgaIdRef());
+        }
+        return -1;
+    }
 }

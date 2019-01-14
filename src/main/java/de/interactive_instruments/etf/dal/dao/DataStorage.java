@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -34,58 +34,67 @@ import de.interactive_instruments.exceptions.StorageException;
  */
 public interface DataStorage extends Configurable, Releasable {
 
-	/**
-	 * Reset the data storage
-	 *
-	 * @throws StorageException if an internal error occurs
-	 */
-	void reset() throws StorageException;
+    /**
+     * Reset the data storage
+     *
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    void reset() throws StorageException;
 
-	/**
-	 * Create a data storage backup and returns the backup name
-	 *
-	 * @return the backup name
-	 * @throws StorageException if an internal error occurs
-	 */
-	String createBackup() throws StorageException;
+    /**
+     * Create a data storage backup and returns the backup name
+     *
+     * @return the backup name
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    String createBackup() throws StorageException;
 
-	/**
-	 * List all available backup names
-	 *
-	 * @return list of available backups
-	 */
-	List<String> getBackupList();
+    /**
+     * List all available backup names
+     *
+     * @return list of available backups
+     */
+    List<String> getBackupList();
 
-	/**
-	 * Restore a data storage backup by its backup name
-	 *
-	 * @param backupName name of the backup
-	 * @throws StorageException if an internal error occurs
-	 */
-	void restoreBackup(final String backupName) throws StorageException;
+    /**
+     * Restore a data storage backup by its backup name
+     *
+     * @param backupName
+     *            name of the backup
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    void restoreBackup(final String backupName) throws StorageException;
 
-	/**
-	 * Returns the Data Access Object mappings for each Dto
-	 *
-	 * @param <T> Dto type
-	 * @return Data Access Object mappings for each Dto
-	 */
-	<T extends Dto> Map<Class<T>, Dao<T>> getDaoMappings();
+    /**
+     * Returns the Data Access Object mappings for each Dto
+     *
+     * @param <T>
+     *            Dto type
+     * @return Data Access Object mappings for each Dto
+     */
+    <T extends Dto> Map<Class<T>, Dao<T>> getDaoMappings();
 
-	/**
-	 * Retuns a Data Access Object which serves the class or null
-	 *
-	 * @param dtoType Dto type
-	 * @param <T> Dto type
-	 * @return Dto type class
-	 */
-	default <T extends Dto> Dao<T> getDao(final Class<T> dtoType) {
-		return (Dao<T>) getDaoMappings().get(dtoType);
-	}
+    /**
+     * Retuns a Data Access Object which serves the class or null
+     *
+     * @param dtoType
+     *            Dto type
+     * @param <T>
+     *            Dto type
+     * @return Dto type class
+     */
+    default <T extends Dto> Dao<T> getDao(final Class<T> dtoType) {
+        return (Dao<T>) getDaoMappings().get(dtoType);
+    }
 
-	/**
-	 * Clean unused items and optimize data storage
-	 * @throws StorageException if an internal error occurs
-	 */
-	void cleanAndOptimize() throws StorageException;
+    /**
+     * Clean unused items and optimize data storage
+     *
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    void cleanAndOptimize() throws StorageException;
 }

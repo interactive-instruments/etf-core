@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -30,28 +30,28 @@ import de.interactive_instruments.SUtils;
  */
 class TestDriverManagerLoader {
 
-	public static final String ETF_TESTDRIVER_MANAGER = "etf.testdriver.manager";
+    public static final String ETF_TESTDRIVER_MANAGER = "etf.testdriver.manager";
 
-	private static final class InstanceHolder {
-		static final TestDriverManager findTestDriverManager() {
-			final ServiceLoader<TestDriverManager> managers = ServiceLoader.load(TestDriverManager.class);
-			final String managerClassname = System.getProperty(ETF_TESTDRIVER_MANAGER);
-			if (SUtils.isNullOrEmpty(managerClassname)) {
-				return managers.iterator().next();
-			} else {
-				for (final TestDriverManager manager : managers) {
-					if (managerClassname.equals(manager.getClass().getName())) {
-						return manager;
-					}
-				}
-			}
-			throw new RuntimeException("Can not load Test Driver Manager " + managerClassname);
-		}
+    private static final class InstanceHolder {
+        static final TestDriverManager findTestDriverManager() {
+            final ServiceLoader<TestDriverManager> managers = ServiceLoader.load(TestDriverManager.class);
+            final String managerClassname = System.getProperty(ETF_TESTDRIVER_MANAGER);
+            if (SUtils.isNullOrEmpty(managerClassname)) {
+                return managers.iterator().next();
+            } else {
+                for (final TestDriverManager manager : managers) {
+                    if (managerClassname.equals(manager.getClass().getName())) {
+                        return manager;
+                    }
+                }
+            }
+            throw new RuntimeException("Can not load Test Driver Manager " + managerClassname);
+        }
 
-		static final TestDriverManager INSTANCE = findTestDriverManager();
-	}
+        static final TestDriverManager INSTANCE = findTestDriverManager();
+    }
 
-	public static TestDriverManager instance() {
-		return TestDriverManagerLoader.InstanceHolder.INSTANCE;
-	}
+    public static TestDriverManager instance() {
+        return TestDriverManagerLoader.InstanceHolder.INSTANCE;
+    }
 }

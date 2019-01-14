@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -32,33 +32,36 @@ import de.interactive_instruments.Releasable;
  */
 public interface RemoteRepositoryItem extends RepositoryItem, Releasable {
 
-	/**
-	 * Gets the remote item and deploys it on the local system.
-	 *
-	 * @param path remote path
-	 * @return path on the local system.
-	 * @throws IOException if download fails
-	 */
-	IFile makeAvailable(final Path path) throws IOException;
+    /**
+     * Gets the remote item and deploys it on the local system.
+     *
+     * @param path
+     *            remote path
+     * @return path on the local system.
+     * @throws IOException
+     *             if download fails
+     */
+    IFile makeAvailable(final Path path) throws IOException;
 
-	/**
-	 * Get the fetched path on the local system.
-	 *
-	 * @return path on local system; null if isAvailable() returns false;
-	 */
-	IFile getLocal();
+    /**
+     * Get the fetched path on the local system.
+     *
+     * @return path on local system; null if isAvailable() returns false;
+     */
+    IFile getLocal();
 
-	/**
-	 * Checks if the item is available on the local system.
-	 *
-	 * @return true if item is available on local system; false otherwise
-	 */
-	boolean isAvailable();
+    /**
+     * Checks if the item is available on the local system.
+     *
+     * @return true if item is available on local system; false otherwise
+     */
+    boolean isAvailable();
 
-	/**
-	 * Removes the item from the local system.
-	 *
-	 * @throws IOException if removing fails
-	 */
-	void remove() throws IOException;
+    /**
+     * Removes the item from the local system.
+     *
+     * @throws IOException
+     *             if removing fails
+     */
+    void remove() throws IOException;
 }

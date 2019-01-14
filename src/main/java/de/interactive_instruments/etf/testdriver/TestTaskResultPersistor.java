@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,47 +25,49 @@ import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
 import de.interactive_instruments.exceptions.StorageException;
 
 /**
- * The TestTaskResultPersistor provides a abstract layer for persisting
- * the results of a Test Task.
+ * The TestTaskResultPersistor provides a abstract layer for persisting the results of a Test Task.
  *
- * There are three ways to persist a result:
- * - collect results with a {@link TestResultCollector} object
- * - save a file that already is in the ETF Test Task result XML format
- * - Persist a Test Task result object
+ * There are three ways to persist a result: - collect results with a {@link TestResultCollector} object - save a file that already is in the ETF Test Task result XML format - Persist a Test Task result object
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestTaskResultPersistor {
 
-	/**
-	 * Get a {@link TestResultCollector} object for persisting the results
-	 *
-	 * @return a TestResultCollector object for persisting the result
-	 */
-	TestResultCollector getResultCollector();
+    /**
+     * Get a {@link TestResultCollector} object for persisting the results
+     *
+     * @return a TestResultCollector object for persisting the result
+     */
+    TestResultCollector getResultCollector();
 
-	/**
-	 * Stream the result of Test Task
-	 *
-	 * @param resultStream the XML result stream
-	 * @throws IllegalStateException if result has already bean persisted
-	 * @throws StorageException if result can not be persisted
-	 */
-	void streamResult(final InputStream resultStream) throws IllegalStateException, StorageException;
+    /**
+     * Stream the result of Test Task
+     *
+     * @param resultStream
+     *            the XML result stream
+     * @throws IllegalStateException
+     *             if result has already bean persisted
+     * @throws StorageException
+     *             if result can not be persisted
+     */
+    void streamResult(final InputStream resultStream) throws IllegalStateException, StorageException;
 
-	/**
-	 * Set the result of Test Task
-	 *
-	 * @param testTaskResultDto the result Test Task Result
-	 * @throws IllegalStateException if result has already bean persisted
-	 * @throws StorageException if result can not be persisted
-	 */
-	void setResult(final TestTaskResultDto testTaskResultDto) throws IllegalStateException, StorageException;
+    /**
+     * Set the result of Test Task
+     *
+     * @param testTaskResultDto
+     *            the result Test Task Result
+     * @throws IllegalStateException
+     *             if result has already bean persisted
+     * @throws StorageException
+     *             if result can not be persisted
+     */
+    void setResult(final TestTaskResultDto testTaskResultDto) throws IllegalStateException, StorageException;
 
-	/**
-	 * Check if result has already benn persisted
-	 *
-	 * @return true if result has already bean persisted, false otherwise
-	 */
-	boolean resultPersisted();
+    /**
+     * Check if result has already benn persisted
+     *
+     * @return true if result has already bean persisted, false otherwise
+     */
+    boolean resultPersisted();
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -31,54 +31,54 @@ import de.interactive_instruments.SUtils;
  */
 public interface EidSet<V extends EidHolder> extends Set<V>, Copyable<EidSet<V>> {
 
-	EidSet<V> unmodifiable();
+    EidSet<V> unmodifiable();
 
-	EidMap<V> toMap();
+    EidMap<V> toMap();
 
-	List<V> toList();
+    List<V> toList();
 
-	default boolean contains(final Object o) {
-		if (o instanceof String) {
-			return internalContains(new SUtils.StrEqContainer(o));
-		}
-		return internalContains(o);
-	}
+    default boolean contains(final Object o) {
+        if (o instanceof String) {
+            return internalContains(new SUtils.StrEqContainer(o));
+        }
+        return internalContains(o);
+    }
 
-	boolean internalContains(Object o);
+    boolean internalContains(Object o);
 
-	default boolean remove(final Object o) {
-		if (o instanceof String) {
-			return internalRemove(new SUtils.StrEqContainer(o));
-		}
-		return internalRemove(o);
-	}
+    default boolean remove(final Object o) {
+        if (o instanceof String) {
+            return internalRemove(new SUtils.StrEqContainer(o));
+        }
+        return internalRemove(o);
+    }
 
-	boolean internalRemove(Object o);
+    boolean internalRemove(Object o);
 
-	default boolean containsAll(final Collection<?> c) {
-		if (c != null && c.iterator().next() instanceof String) {
-			return internalContainsAll(SUtils.StrEqContainer.createSet(c));
-		}
-		return internalContainsAll(c);
-	}
+    default boolean containsAll(final Collection<?> c) {
+        if (c != null && c.iterator().next() instanceof String) {
+            return internalContainsAll(SUtils.StrEqContainer.createSet(c));
+        }
+        return internalContainsAll(c);
+    }
 
-	boolean internalContainsAll(Collection<?> c);
+    boolean internalContainsAll(Collection<?> c);
 
-	default boolean retainAll(final Collection<?> c) {
-		if (c != null && c.iterator().next() instanceof String) {
-			return internalRetainAll(SUtils.StrEqContainer.createSet(c));
-		}
-		return internalRetainAll(c);
-	}
+    default boolean retainAll(final Collection<?> c) {
+        if (c != null && c.iterator().next() instanceof String) {
+            return internalRetainAll(SUtils.StrEqContainer.createSet(c));
+        }
+        return internalRetainAll(c);
+    }
 
-	boolean internalRetainAll(Collection<?> c);
+    boolean internalRetainAll(Collection<?> c);
 
-	default boolean removeAll(final Collection<?> c) {
-		if (c != null && c.iterator().next() instanceof String) {
-			return internalRemoveAll(SUtils.StrEqContainer.createSet(c));
-		}
-		return internalRemoveAll(c);
-	}
+    default boolean removeAll(final Collection<?> c) {
+        if (c != null && c.iterator().next() instanceof String) {
+            return internalRemoveAll(SUtils.StrEqContainer.createSet(c));
+        }
+        return internalRemoveAll(c);
+    }
 
-	boolean internalRemoveAll(Collection<?> c);
+    boolean internalRemoveAll(Collection<?> c);
 }

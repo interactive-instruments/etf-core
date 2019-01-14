@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,22 +28,25 @@ import de.interactive_instruments.etf.dal.dto.result.TestTaskResultDto;
  */
 public interface TestTask extends Task<TestTaskResultDto> {
 
-	/**
-	 * Run the task
-	 *
-	 * @throws Exception any exception that occures during the test run
-	 */
-	void run() throws Exception;
+    /**
+     * Run the task
+     *
+     * @throws Exception
+     *             any exception that occures during the test run
+     */
+    void run() throws Exception;
 
-	/**
-	 * Set the persistor object
-	 *
-	 * @throws IllegalStateException if already set
-	 * @param persistor persistor object
-	 */
-	void setResulPersistor(final TestTaskResultPersistor persistor) throws IllegalStateException;
+    /**
+     * Set the persistor object
+     *
+     * @throws IllegalStateException
+     *             if already set
+     * @param persistor
+     *            persistor object
+     */
+    void setResulPersistor(final TestTaskResultPersistor persistor) throws IllegalStateException;
 
-	TaskProgress getProgress();
+    TaskProgress getProgress();
 
-	TestRunLogger getLogger();
+    TestRunLogger getLogger();
 }

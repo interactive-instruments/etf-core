@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,61 +29,61 @@ import java.net.URISyntaxException;
  */
 public class ResourceDto {
 
-	private CredentialDto credential;
-	private String name;
-	private String uri;
+    private CredentialDto credential;
+    private String name;
+    private String uri;
 
-	public ResourceDto() {
+    public ResourceDto() {
 
-	}
+    }
 
-	public ResourceDto(final String name, final String uri) throws URISyntaxException {
-		this.name = name;
-		setUri(uri);
-	}
+    public ResourceDto(final String name, final String uri) throws URISyntaxException {
+        this.name = name;
+        setUri(uri);
+    }
 
-	public ResourceDto(final String name, final URI uri) {
-		this.name = name;
-		setUri(uri);
-	}
+    public ResourceDto(final String name, final URI uri) {
+        this.name = name;
+        setUri(uri);
+    }
 
-	public ResourceDto(final String name, final String uri, final CredentialDto credential) throws URISyntaxException {
-		this.credential = credential;
-		this.name = name;
-		setUri(uri);
-	}
+    public ResourceDto(final String name, final String uri, final CredentialDto credential) throws URISyntaxException {
+        this.credential = credential;
+        this.name = name;
+        setUri(uri);
+    }
 
-	public ResourceDto(final String name, final URI uri, final CredentialDto credential) {
-		this.credential = credential;
-		this.name = name;
-		setUri(uri);
-	}
+    public ResourceDto(final String name, final URI uri, final CredentialDto credential) {
+        this.credential = credential;
+        this.name = name;
+        setUri(uri);
+    }
 
-	public CredentialDto getCredential() {
-		return credential;
-	}
+    public CredentialDto getCredential() {
+        return credential;
+    }
 
-	public void setCredential(final CredentialDto credential) {
-		this.credential = credential;
-	}
+    public void setCredential(final CredentialDto credential) {
+        this.credential = credential;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(final String name) {
-		this.name = name;
-	}
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-	public URI getUri() {
-		return URI.create(uri);
-	}
+    public URI getUri() {
+        return URI.create(uri);
+    }
 
-	public void setUri(final URI uri) {
-		this.uri = uri.toString();
-	}
+    public void setUri(final URI uri) {
+        this.uri = uri.toString();
+    }
 
-	public void setUri(final String uri) throws URISyntaxException {
-		this.uri = new URI(uri).toString();
-	}
+    public void setUri(final String uri) throws URISyntaxException {
+        this.uri = new URI(uri).toString();
+    }
 }

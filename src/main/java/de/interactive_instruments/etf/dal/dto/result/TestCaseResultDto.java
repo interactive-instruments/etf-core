@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,38 +25,38 @@ import de.interactive_instruments.etf.dal.dto.Arguments;
 
 public class TestCaseResultDto extends ResultModelItemDto {
 
-	// Optional arguments for parameterizable test cases
-	private Arguments arguments;
+    // Optional arguments for parameterizable test cases
+    private Arguments arguments;
 
-	public TestCaseResultDto() {}
+    public TestCaseResultDto() {}
 
-	private TestCaseResultDto(final TestCaseResultDto other) {
-		super(other);
-		this.arguments = other.arguments;
-	}
+    private TestCaseResultDto(final TestCaseResultDto other) {
+        super(other);
+        this.arguments = other.arguments;
+    }
 
-	public List<TestStepResultDto> getTestStepResults() {
-		return (List<TestStepResultDto>) getChildren();
-	}
+    public List<TestStepResultDto> getTestStepResults() {
+        return (List<TestStepResultDto>) getChildren();
+    }
 
-	public void setTestStepResults(final List<TestStepResultDto> testStepResults) {
-		setChildren(testStepResults);
-	}
+    public void setTestStepResults(final List<TestStepResultDto> testStepResults) {
+        setChildren(testStepResults);
+    }
 
-	public void addTestStepResult(final TestStepResultDto testStepResult) {
-		addChild(testStepResult);
-	}
+    public void addTestStepResult(final TestStepResultDto testStepResult) {
+        addChild(testStepResult);
+    }
 
-	public Arguments getArguments() {
-		return arguments;
-	}
+    public Arguments getArguments() {
+        return arguments;
+    }
 
-	public void setArguments(final Arguments argumentsDto) {
-		this.arguments = argumentsDto;
-	}
+    public void setArguments(final Arguments argumentsDto) {
+        this.arguments = argumentsDto;
+    }
 
-	@Override
-	public TestCaseResultDto createCopy() {
-		return new TestCaseResultDto(this);
-	}
+    @Override
+    public TestCaseResultDto createCopy() {
+        return new TestCaseResultDto(this);
+    }
 }

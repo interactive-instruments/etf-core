@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -32,71 +32,73 @@ import de.interactive_instruments.IFile;
  */
 public class LocalResource implements Resource {
 
-	private final String name;
-	protected final IFile file;
+    private final String name;
+    protected final IFile file;
 
-	public LocalResource(final String name, final IFile file) {
-		this.name = name;
-		this.file = file;
-	}
+    public LocalResource(final String name, final IFile file) {
+        this.name = name;
+        this.file = file;
+    }
 
-	public LocalResource(LocalResource resource) {
-		this.name = resource.name;
-		this.file = resource.file;
-	}
+    public LocalResource(LocalResource resource) {
+        this.name = resource.name;
+        this.file = resource.file;
+    }
 
-	/**
-	 * Package ctor for the {@link Resource#create(String, URI)} method
-	 *
-	 * @param name Resource name
-	 * @param uri file URI
-	 */
-	LocalResource(final String name, final URI uri) {
-		this.name = name;
-		this.file = new IFile(uri, name);
-	}
+    /**
+     * Package ctor for the {@link Resource#create(String, URI)} method
+     *
+     * @param name
+     *            Resource name
+     * @param uri
+     *            file URI
+     */
+    LocalResource(final String name, final URI uri) {
+        this.name = name;
+        this.file = new IFile(uri, name);
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public URI getUri() {
-		return file.toURI();
-	}
+    @Override
+    public URI getUri() {
+        return file.toURI();
+    }
 
-	public IFile getFile() {
-		return file;
-	}
+    public IFile getFile() {
+        return file;
+    }
 
-	@Override
-	public long getContentLength() throws IOException {
-		return file.length();
-	}
+    @Override
+    public long getContentLength() throws IOException {
+        return file.length();
+    }
 
-	@Override
-	public InputStream openStream() throws IOException {
-		return file.getInputStream();
-	}
+    @Override
+    public InputStream openStream() throws IOException {
+        return file.getInputStream();
+    }
 
-	@Override
-	public byte[] getBytes() throws IOException {
-		return IOUtils.toByteArray(openStream());
-	}
+    @Override
+    public byte[] getBytes() throws IOException {
+        return IOUtils.toByteArray(openStream());
+    }
 
-	@Override
-	public boolean exists() {
-		return file.exists();
-	}
+    @Override
+    public boolean exists() {
+        return file.exists();
+    }
 
-	@Override
-	public void release() {
-		// nothing to do
-	}
+    @Override
+    public void release() {
+        // nothing to do
+    }
 
-	@Override
-	public LocalResource createCopy() {
-		return new LocalResource(this);
-	}
+    @Override
+    public LocalResource createCopy() {
+        return new LocalResource(this);
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -22,28 +22,25 @@ package de.interactive_instruments.etf.model;
 import java.util.UUID;
 
 /**
- * The ETF ID class is intended to provide identifiers in the ETF environment and
- * maps a String to an internal presentation and an UUID representation
+ * The ETF ID class is intended to provide identifiers in the ETF environment and maps a String to an internal presentation and an UUID representation
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface EID extends Comparable {
 
-	/**
-	 * Returns the ID as String representation
-	 *
-	 * The returned id will always be equal the string representation of the object
-	 * from which the ID has been created, see {@link EidFactory}.
-	 *
-	 * @return string representation
-	 */
-	String getId();
+    /**
+     * Returns the ID as String representation
+     *
+     * The returned id will always be equal the string representation of the object from which the ID has been created, see {@link EidFactory}.
+     *
+     * @return string representation
+     */
+    String getId();
 
-	/**
-	 * Returns the ID in UUID representation
-	 * (which may be a generated UUID hash from the internal ID)
-	 *
-	 * @return UUID representation
-	 */
-	UUID toUuid();
+    /**
+     * Returns the ID in UUID representation (which may be a generated UUID hash from the internal ID)
+     *
+     * @return UUID representation
+     */
+    UUID toUuid();
 }
