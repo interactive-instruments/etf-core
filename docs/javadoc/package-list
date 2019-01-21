@@ -1,5 +1,6 @@
 de.interactive_instruments.etf
 de.interactive_instruments.etf.component
+de.interactive_instruments.etf.component.loaders
 de.interactive_instruments.etf.dal.dao
 de.interactive_instruments.etf.dal.dao.exceptions
 de.interactive_instruments.etf.dal.dto

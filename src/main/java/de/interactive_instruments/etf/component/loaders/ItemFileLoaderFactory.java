@@ -57,7 +57,9 @@ public interface ItemFileLoaderFactory {
     /**
      * Priority of this factory
      *
-     * @return
+     * Smaller values mean a higher priority.
+     *
+     * @return priority
      */
     default int getPriority() {
         return 700;
@@ -68,7 +70,7 @@ public interface ItemFileLoaderFactory {
      *
      * @param path
      *            path to check
-     * @return
+     * @return true if this factory could handle this path, false otherwise
      */
     boolean couldHandle(final Path path);
 

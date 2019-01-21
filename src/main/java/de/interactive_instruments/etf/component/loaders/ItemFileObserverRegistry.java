@@ -29,7 +29,21 @@ import java.util.List;
  */
 public interface ItemFileObserverRegistry {
 
+    /**
+     * Register factories
+     *
+     * @param path
+     *            path to observe
+     * @param factories
+     *            factories to register
+     */
     void register(final Path path, final List<? extends ItemFileLoaderFactory> factories);
 
+    /**
+     * Deregister factories
+     *
+     * @param factories
+     *            factories to deregister
+     */
     void deregister(final List<? extends ItemFileLoaderFactory> factories);
 }

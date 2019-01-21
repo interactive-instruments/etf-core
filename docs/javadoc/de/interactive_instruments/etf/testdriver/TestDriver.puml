@@ -2,10 +2,9 @@
 
     interface TestDriver [[TestDriver.html]] {
         {abstract} +getInfo(): ComponentInfo
-        {abstract} +setLifeCycleMediator(ExecutableTestSuiteLifeCycleListenerMediator): void
+        {abstract} +setLoadingContext(LoadingContext): void
         {abstract} +getExecutableTestSuites(): Collection<ExecutableTestSuiteDto>
         {abstract} +getTestObjectTypes(): Collection<TestObjectTypeDto>
-        {abstract} +lookupExecutableTestSuites(EtsLookupRequest): void
         {abstract} +createTestTask(TestTaskDto): TestTask
     }
 
