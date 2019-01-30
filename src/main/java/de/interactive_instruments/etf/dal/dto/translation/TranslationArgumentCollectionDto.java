@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,81 +25,80 @@ import java.util.Map;
 import de.interactive_instruments.etf.dal.dto.Dto;
 
 /**
- * Collection of token/value pairs that are used to replace tokens
- * in TranslationTemplates
+ * Collection of token/value pairs that are used to replace tokens in TranslationTemplates
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class TranslationArgumentCollectionDto extends Dto {
 
-	private String translationTemplateName;
+    private String translationTemplateName;
 
-	private Map<String, Argument> arguments;
+    private Map<String, Argument> arguments;
 
-	public TranslationArgumentCollectionDto() {}
+    public TranslationArgumentCollectionDto() {}
 
-	private TranslationArgumentCollectionDto(final TranslationArgumentCollectionDto other) {
-		this.translationTemplateName = other.translationTemplateName;
-		this.arguments = other.arguments;
-	}
+    private TranslationArgumentCollectionDto(final TranslationArgumentCollectionDto other) {
+        this.translationTemplateName = other.translationTemplateName;
+        this.arguments = other.arguments;
+    }
 
-	public static class Argument {
-		String token;
-		String value;
+    public static class Argument {
+        String token;
+        String value;
 
-		public Argument() {
+        public Argument() {
 
-		}
+        }
 
-		public Argument(final String token, final String value) {
-			this.token = token;
-			this.value = value;
-		}
+        public Argument(final String token, final String value) {
+            this.token = token;
+            this.value = value;
+        }
 
-		public String getToken() {
-			return token;
-		}
+        public String getToken() {
+            return token;
+        }
 
-		public String getValue() {
-			return value;
-		}
-	}
+        public String getValue() {
+            return value;
+        }
+    }
 
-	public Map<String, Argument> getTokenValues() {
-		return arguments;
-	}
+    public Map<String, Argument> getTokenValues() {
+        return arguments;
+    }
 
-	public void addTokenValue(final String token, String value) {
-		if (arguments == null) {
-			arguments = new HashMap<>();
-		}
-		arguments.put(token, new Argument(token, value));
-	}
+    public void addTokenValue(final String token, String value) {
+        if (arguments == null) {
+            arguments = new HashMap<>();
+        }
+        arguments.put(token, new Argument(token, value));
+    }
 
-	/**
-	 * Name of the Translation Template for which the token replacements are applied
-	 *
-	 * @return String reference name
-	 */
-	public String getRefTemplateName() {
-		return translationTemplateName;
-	}
+    /**
+     * Name of the Translation Template for which the token replacements are applied
+     *
+     * @return String reference name
+     */
+    public String getRefTemplateName() {
+        return translationTemplateName;
+    }
 
-	public void setRefTemplateName(final String translationTemplateName) {
-		this.translationTemplateName = translationTemplateName;
-	}
+    public void setRefTemplateName(final String translationTemplateName) {
+        this.translationTemplateName = translationTemplateName;
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("TranslationArgumentCollectionDto{");
-		sb.append("translationTemplateName='").append(translationTemplateName).append('\'');
-		sb.append(", arguments=").append(arguments);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TranslationArgumentCollectionDto{");
+        sb.append("translationTemplateName='").append(translationTemplateName).append('\'');
+        sb.append(", arguments=").append(arguments);
+        sb.append('}');
+        return sb.toString();
+    }
 
-	@Override
-	public TranslationArgumentCollectionDto createCopy() {
-		return new TranslationArgumentCollectionDto(this);
-	}
+    @Override
+    public TranslationArgumentCollectionDto createCopy() {
+        return new TranslationArgumentCollectionDto(this);
+    }
 }

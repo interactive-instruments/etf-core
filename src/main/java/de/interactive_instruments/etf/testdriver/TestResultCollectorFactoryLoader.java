@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -32,34 +32,34 @@ import de.interactive_instruments.exceptions.ExcUtils;
  */
 class TestResultCollectorFactoryLoader {
 
-	public static final String ETF_TESTDRIVER_RESULT_COLLECTOR_FACTORY = "etf.testdriver.resultcollectorfactory";
+    public static final String ETF_TESTDRIVER_RESULT_COLLECTOR_FACTORY = "etf.testdriver.resultcollectorfactory";
 
-	private static final class InstanceHolder {
-		static final TestResultCollectorFactory findResultCollectorFactory() {
-			final ServiceLoader<TestResultCollectorFactory> collectorFactories = ServiceLoader
-					.load(TestResultCollectorFactory.class);
-			final String collectorFactoryClassname = System.getProperty(ETF_TESTDRIVER_RESULT_COLLECTOR_FACTORY);
-			try {
-				if (SUtils.isNullOrEmpty(collectorFactoryClassname)) {
-					return collectorFactories.iterator().next();
-				} else {
-					for (final TestResultCollectorFactory collectorFactory : collectorFactories) {
-						if (collectorFactoryClassname.equals(collectorFactory.getClass().getName())) {
-							return collectorFactory;
-						}
-					}
-				}
-			} catch (NoSuchElementException e) {
-				ExcUtils.suppress(e);
-			}
-			throw new RuntimeException("Can not load Result Collector Factory " +
-					collectorFactoryClassname != null ? collectorFactoryClassname : "");
-		}
+    private static final class InstanceHolder {
+        static final TestResultCollectorFactory findResultCollectorFactory() {
+            final ServiceLoader<TestResultCollectorFactory> collectorFactories = ServiceLoader
+                    .load(TestResultCollectorFactory.class);
+            final String collectorFactoryClassname = System.getProperty(ETF_TESTDRIVER_RESULT_COLLECTOR_FACTORY);
+            try {
+                if (SUtils.isNullOrEmpty(collectorFactoryClassname)) {
+                    return collectorFactories.iterator().next();
+                } else {
+                    for (final TestResultCollectorFactory collectorFactory : collectorFactories) {
+                        if (collectorFactoryClassname.equals(collectorFactory.getClass().getName())) {
+                            return collectorFactory;
+                        }
+                    }
+                }
+            } catch (NoSuchElementException e) {
+                ExcUtils.suppress(e);
+            }
+            throw new RuntimeException("Can not load Result Collector Factory " +
+                    collectorFactoryClassname != null ? collectorFactoryClassname : "");
+        }
 
-		static final TestResultCollectorFactory INSTANCE = findResultCollectorFactory();
-	}
+        static final TestResultCollectorFactory INSTANCE = findResultCollectorFactory();
+    }
 
-	public static TestResultCollectorFactory instance() {
-		return TestResultCollectorFactoryLoader.InstanceHolder.INSTANCE;
-	}
+    public static TestResultCollectorFactory instance() {
+        return TestResultCollectorFactoryLoader.InstanceHolder.INSTANCE;
+    }
 }

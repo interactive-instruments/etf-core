@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -27,53 +27,53 @@ import de.interactive_instruments.etf.dal.dto.translation.TranslationArgumentCol
 
 public class TestAssertionResultDto extends ResultModelItemDto {
 
-	// Optional arguments for parameterizable test assertions
-	private Arguments arguments;
+    // Optional arguments for parameterizable test assertions
+    private Arguments arguments;
 
-	private List<TranslationArgumentCollectionDto> messages;
+    private List<TranslationArgumentCollectionDto> messages;
 
-	public TestAssertionResultDto() {}
+    public TestAssertionResultDto() {}
 
-	TestAssertionResultDto(final TestAssertionResultDto other) {
-		super(other);
-		this.arguments = other.arguments;
-		this.messages = other.messages;
-	}
+    TestAssertionResultDto(final TestAssertionResultDto other) {
+        super(other);
+        this.arguments = other.arguments;
+        this.messages = other.messages;
+    }
 
-	public Arguments getArguments() {
-		return arguments;
-	}
+    public Arguments getArguments() {
+        return arguments;
+    }
 
-	public void setArguments(final Arguments argumentsDto) {
-		this.arguments = argumentsDto;
-	}
+    public void setArguments(final Arguments argumentsDto) {
+        this.arguments = argumentsDto;
+    }
 
-	public List<TranslationArgumentCollectionDto> getMessages() {
-		return messages;
-	}
+    public List<TranslationArgumentCollectionDto> getMessages() {
+        return messages;
+    }
 
-	public void setMessages(final List<TranslationArgumentCollectionDto> messages) {
-		this.messages = messages;
-	}
+    public void setMessages(final List<TranslationArgumentCollectionDto> messages) {
+        this.messages = messages;
+    }
 
-	public void addMessage(final TranslationArgumentCollectionDto message) {
-		if (this.messages == null) {
-			this.messages = new ArrayList<>();
-		}
-		this.messages.add(message);
-	}
+    public void addMessage(final TranslationArgumentCollectionDto message) {
+        if (this.messages == null) {
+            this.messages = new ArrayList<>();
+        }
+        this.messages.add(message);
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("TestAssertionResultDto{");
-		sb.append("arguments=").append(arguments);
-		sb.append(", messages=").append(messages);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TestAssertionResultDto{");
+        sb.append("arguments=").append(arguments);
+        sb.append(", messages=").append(messages);
+        sb.append('}');
+        return sb.toString();
+    }
 
-	@Override
-	public TestAssertionResultDto createCopy() {
-		return new TestAssertionResultDto(this);
-	}
+    @Override
+    public TestAssertionResultDto createCopy() {
+        return new TestAssertionResultDto(this);
+    }
 }

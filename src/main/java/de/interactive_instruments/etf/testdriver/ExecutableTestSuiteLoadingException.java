@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -26,17 +26,17 @@ import de.interactive_instruments.exceptions.InitializationException;
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public class ExecutableTestSuiteLoadingException extends InitializationException {
-	public ExecutableTestSuiteLoadingException(final String mesg) {
-		super(mesg);
-	}
+    public ExecutableTestSuiteLoadingException(final String mesg) {
+        super(mesg);
+    }
 
-	public ExecutableTestSuiteLoadingException(final ExecutableTestSuiteDto executableTestSuiteDto) {
-		super("Executable Test Suite \"" + executableTestSuiteDto.getDescriptiveLabel() +
-				"\" could not be loaded: " + executableTestSuiteDto.getLocalPath());
-	}
+    public ExecutableTestSuiteLoadingException(final ExecutableTestSuiteDto executableTestSuiteDto) {
+        super("Executable Test Suite \"" + executableTestSuiteDto.getDescriptiveLabel() +
+                "\" could not be loaded: " + executableTestSuiteDto.getLocalPath());
+    }
 
-	public ExecutableTestSuiteLoadingException(final ExecutableTestSuiteDto executableTestSuiteDto, Throwable e) {
-		super("Executable Test Suite \"" + executableTestSuiteDto.getDescriptiveLabel() +
-				"\" could not be loaded: " + executableTestSuiteDto.getLocalPath(), e);
-	}
+    public ExecutableTestSuiteLoadingException(final ExecutableTestSuiteDto executableTestSuiteDto, Throwable e) {
+        super("Executable Test Suite \"" + executableTestSuiteDto.getDescriptiveLabel() +
+                "\" could not be loaded: " + executableTestSuiteDto.getLocalPath(), e);
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,70 +29,69 @@ import de.interactive_instruments.etf.model.EidHolderWithParent;
 import de.interactive_instruments.etf.model.ExpressionType;
 
 /**
- * A Test Object Type describes a {@link TestObjectDto} and may possess
- * information how the type can be detected.
+ * A Test Object Type describes a {@link TestObjectDto} and may possess information how the type can be detected.
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestObjectType extends EidHolder, EidHolderWithParent<TestObjectType> {
 
-	String getLabel();
+    String getLabel();
 
-	String getDescription();
+    String getDescription();
 
-	TestObjectType getParent();
+    TestObjectType getParent();
 
-	List<TestObjectTypeDto> getSubTypes();
+    List<TestObjectTypeDto> getSubTypes();
 
-	List<String> getFilenameExtensions();
+    List<String> getFilenameExtensions();
 
-	List<String> getMimeTypes();
+    List<String> getMimeTypes();
 
-	String getDetectionExpression();
+    String getDetectionExpression();
 
-	ExpressionType getDetectionExpressionType();
+    ExpressionType getDetectionExpressionType();
 
-	String getLabelExpression();
+    String getLabelExpression();
 
-	ExpressionType getLabelExpressionType();
+    ExpressionType getLabelExpressionType();
 
-	String getDescriptionExpression();
+    String getDescriptionExpression();
 
-	ExpressionType getDescriptionExpressionType();
+    ExpressionType getDescriptionExpressionType();
 
-	/**
-	 * Check if a Test Object Type equals the passed Test Object Type or is a subtype of it
-	 *
-	 * @param testObjectType Test Object Type
-	 * @return true if Test Object Type equals or is a subtype of it
-	 */
-	default boolean isInstanceOf(final TestObjectType testObjectType) {
-		if (testObjectType.getId().equals(getId())) {
-			return true;
-		}
-		for (TestObjectType parent = getParent(); parent != null; parent = parent.getParent()) {
-			if (testObjectType.getId().equals(parent.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Check if a Test Object Type equals the passed Test Object Type or is a subtype of it
+     *
+     * @param testObjectType
+     *            Test Object Type
+     * @return true if Test Object Type equals or is a subtype of it
+     */
+    default boolean isInstanceOf(final TestObjectType testObjectType) {
+        if (testObjectType.getId().equals(getId())) {
+            return true;
+        }
+        for (TestObjectType parent = getParent(); parent != null; parent = parent.getParent()) {
+            if (testObjectType.getId().equals(parent.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Returns true if the provided Test Object Type collection contains the Test Object Types
-	 * or it is a subtype of it.
-	 *
-	 * @param testObjectTypes list of Test Object Types
-	 * @return true if list contains the Test Object Type or the Test Object Type is a subtype of one
-	 * of the types, false otherwise
-	 */
-	default boolean isInstanceOf(final Collection<TestObjectType> testObjectTypes) {
-		for (final TestObjectType testObjectType : testObjectTypes) {
-			if (testObjectType.isInstanceOf(this)) {
-				return true;
-			}
-		}
-		return false;
+    /**
+     * Returns true if the provided Test Object Type collection contains the Test Object Types or it is a subtype of it.
+     *
+     * @param testObjectTypes
+     *            list of Test Object Types
+     * @return true if list contains the Test Object Type or the Test Object Type is a subtype of one of the types, false otherwise
+     */
+    default boolean isInstanceOf(final Collection<TestObjectType> testObjectTypes) {
+        for (final TestObjectType testObjectType : testObjectTypes) {
+            if (testObjectType.isInstanceOf(this)) {
+                return true;
+            }
+        }
+        return false;
 
-	}
+    }
 }

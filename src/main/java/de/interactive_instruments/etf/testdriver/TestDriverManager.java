@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -35,39 +35,44 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
  */
 public interface TestDriverManager extends Configurable, Releasable {
 
-	/**
-	 * Create a new Test Run
-	 *
-	 * @param testRunDto Test Run Dto
-	 * @param collectorFactory TestResultCollectorFactory
-	 * @return executable TestRun object
-	 * @throws TestRunInitializationException if the initialization failed
-	 */
-	TestRun createTestRun(final TestRunDto testRunDto, final TestResultCollectorFactory collectorFactory)
-			throws TestRunInitializationException;
+    /**
+     * Create a new Test Run
+     *
+     * @param testRunDto
+     *            Test Run Dto
+     * @param collectorFactory
+     *            TestResultCollectorFactory
+     * @return executable TestRun object
+     * @throws TestRunInitializationException
+     *             if the initialization failed
+     */
+    TestRun createTestRun(final TestRunDto testRunDto, final TestResultCollectorFactory collectorFactory)
+            throws TestRunInitializationException;
 
-	/**
-	 * Create a new Test Run, use default TestResultCollectorFactory
-	 *
-	 * @param testRunDto Test Run Dto
-	 * @return executable TestRun object
-	 * @throws TestRunInitializationException if the initialization failed
-	 */
-	default TestRun createTestRun(final TestRunDto testRunDto) throws TestRunInitializationException {
-		return createTestRun(testRunDto, TestResultCollectorFactory.getDefault());
-	}
+    /**
+     * Create a new Test Run, use default TestResultCollectorFactory
+     *
+     * @param testRunDto
+     *            Test Run Dto
+     * @return executable TestRun object
+     * @throws TestRunInitializationException
+     *             if the initialization failed
+     */
+    default TestRun createTestRun(final TestRunDto testRunDto) throws TestRunInitializationException {
+        return createTestRun(testRunDto, TestResultCollectorFactory.getDefault());
+    }
 
-	List<ComponentInfo> getTestDriverInfo();
+    List<ComponentInfo> getTestDriverInfo();
 
-	void loadAll() throws ComponentLoadingException, ConfigurationException;
+    void loadAll() throws ComponentLoadingException, ConfigurationException;
 
-	void load(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
+    void load(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
 
-	void unload(final EID testDriverId) throws ObjectWithIdNotFoundException;
+    void unload(final EID testDriverId) throws ObjectWithIdNotFoundException;
 
-	void reload(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
+    void reload(final EID testDriverId) throws ObjectWithIdNotFoundException, ComponentLoadingException, ConfigurationException;
 
-	static TestDriverManager getDefault() {
-		return TestDriverManagerLoader.instance();
-	}
+    static TestDriverManager getDefault() {
+        return TestDriverManagerLoader.instance();
+    }
 }

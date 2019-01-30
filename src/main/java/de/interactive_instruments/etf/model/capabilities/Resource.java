@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -33,88 +33,88 @@ import de.interactive_instruments.UriUtils;
  */
 public interface Resource extends Releasable, Copyable<Resource> {
 
-	String getName();
+    String getName();
 
-	URI getUri();
+    URI getUri();
 
-	long getContentLength() throws IOException;
+    long getContentLength() throws IOException;
 
-	InputStream openStream() throws IOException;
+    InputStream openStream() throws IOException;
 
-	byte[] getBytes() throws IOException;
+    byte[] getBytes() throws IOException;
 
-	boolean exists();
+    boolean exists();
 
-	static Resource create(final String name, final URI uri, final Credentials credentials) {
-		if (UriUtils.isFile(uri)) {
-			return new LocalResource(name, uri);
-		} else {
-			return new SecuredRemoteResource(name, credentials, uri);
-		}
-	}
+    static Resource create(final String name, final URI uri, final Credentials credentials) {
+        if (UriUtils.isFile(uri)) {
+            return new LocalResource(name, uri);
+        } else {
+            return new SecuredRemoteResource(name, credentials, uri);
+        }
+    }
 
-	static Resource create(final String name, final URI uri) {
-		if (UriUtils.isFile(uri)) {
-			return new LocalResource(name, uri);
-		} else {
-			return new StdRemoteResource(name, uri);
-		}
-	}
+    static Resource create(final String name, final URI uri) {
+        if (UriUtils.isFile(uri)) {
+            return new LocalResource(name, uri);
+        } else {
+            return new StdRemoteResource(name, uri);
+        }
+    }
 
-	static CachedResource toCached(final Resource resource) {
-		if (resource instanceof CachedResource) {
-			return (CachedResource) resource;
-		} else if (resource instanceof MutableRemoteResource) {
-			return toCached((MutableRemoteResource) resource);
-		} else if (resource instanceof RemoteResource) {
-			return toCached((RemoteResource) resource);
-		} else if (resource instanceof LocalResource) {
-			return toCached((LocalResource) resource);
-		} else {
-			return new StdCachedResource(resource);
-		}
-	}
+    static CachedResource toCached(final Resource resource) {
+        if (resource instanceof CachedResource) {
+            return (CachedResource) resource;
+        } else if (resource instanceof MutableRemoteResource) {
+            return toCached((MutableRemoteResource) resource);
+        } else if (resource instanceof RemoteResource) {
+            return toCached((RemoteResource) resource);
+        } else if (resource instanceof LocalResource) {
+            return toCached((LocalResource) resource);
+        } else {
+            return new StdCachedResource(resource);
+        }
+    }
 
-	static CachedRemoteResource toCached(final RemoteResource resource) {
-		if (resource instanceof CachedRemoteResource) {
-			return (CachedRemoteResource) resource;
-		}
-		return new CachedRemoteResource(resource);
-	}
+    static CachedRemoteResource toCached(final RemoteResource resource) {
+        if (resource instanceof CachedRemoteResource) {
+            return (CachedRemoteResource) resource;
+        }
+        return new CachedRemoteResource(resource);
+    }
 
-	static MutableCachedRemoteResource toCached(final MutableRemoteResource resource) {
-		if (resource instanceof MutableCachedRemoteResource) {
-			return (MutableCachedRemoteResource) resource;
-		}
-		return new MutableCachedRemoteResource(resource);
-	}
+    static MutableCachedRemoteResource toCached(final MutableRemoteResource resource) {
+        if (resource instanceof MutableCachedRemoteResource) {
+            return (MutableCachedRemoteResource) resource;
+        }
+        return new MutableCachedRemoteResource(resource);
+    }
 
-	static CachedLocalResource toCached(final LocalResource resource) {
-		if (resource instanceof CachedLocalResource) {
-			return (CachedLocalResource) resource;
-		}
-		return new CachedLocalResource(resource);
-	}
+    static CachedLocalResource toCached(final LocalResource resource) {
+        if (resource instanceof CachedLocalResource) {
+            return (CachedLocalResource) resource;
+        }
+        return new CachedLocalResource(resource);
+    }
 
-	static MutableRemoteResource toMutable(final RemoteResource resource) {
-		if (resource instanceof MutableRemoteResource) {
-			return (MutableRemoteResource) resource;
-		} else if (resource instanceof CachedResource) {
-			return new MutableCachedRemoteResource(new MutableSecuredRemoteResource(resource));
-		} else {
-			return new MutableSecuredRemoteResource(resource);
-		}
-	}
+    static MutableRemoteResource toMutable(final RemoteResource resource) {
+        if (resource instanceof MutableRemoteResource) {
+            return (MutableRemoteResource) resource;
+        } else if (resource instanceof CachedResource) {
+            return new MutableCachedRemoteResource(new MutableSecuredRemoteResource(resource));
+        } else {
+            return new MutableSecuredRemoteResource(resource);
+        }
+    }
 
-	static Resource toImmutable(final Resource resource) {
-		if (resource instanceof MutableCachedRemoteResource) {
-			return new CachedRemoteResource((MutableCachedRemoteResource) resource);
-		} else if (resource instanceof MutableSecuredRemoteResource) {
-			return new SecuredRemoteResource(resource);
-		} else if (resource instanceof MutableRemoteResource) {
-			throw new IllegalArgumentException("Resource type unknown");
-		} else {
-			return resource;
-		}
-	}
+    static Resource toImmutable(final Resource resource) {
+        if (resource instanceof MutableCachedRemoteResource) {
+            return new CachedRemoteResource((MutableCachedRemoteResource) resource);
+        } else if (resource instanceof MutableSecuredRemoteResource) {
+            return new SecuredRemoteResource(resource);
+        } else if (resource instanceof MutableRemoteResource) {
+            throw new IllegalArgumentException("Resource type unknown");
+        } else {
+            return resource;
+        }
+    }
 }

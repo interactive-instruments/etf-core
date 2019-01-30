@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -26,40 +26,40 @@ import java.util.Date;
  */
 public interface TaskProgress extends TaskState {
 
-	/**
-	 * Number of known steps that have to be processed
-	 *
-	 * @return remaining steps
-	 */
-	long getMaxSteps();
+    /**
+     * Number of known steps that have to be processed
+     *
+     * @return remaining steps
+     */
+    long getMaxSteps();
 
-	/**
-	 * Number of completed steps
-	 *
-	 * @return completed steps
-	 */
-	long getCurrentStepsCompleted();
+    /**
+     * Number of completed steps
+     *
+     * @return completed steps
+     */
+    long getCurrentStepsCompleted();
 
-	/**
-	 * Number of completed steps in percent
-	 *
-	 * @return progress as double
-	 */
-	default double getPercentStepsCompleted() {
-		return ((double) getCurrentStepsCompleted() / getMaxSteps()) * 100;
-	}
+    /**
+     * Number of completed steps in percent
+     *
+     * @return progress as double
+     */
+    default double getPercentStepsCompleted() {
+        return ((double) getCurrentStepsCompleted() / getMaxSteps()) * 100;
+    }
 
-	/**
-	 * Returns the date of the start of the task
-	 *
-	 * @return stat timestamp
-	 */
-	Date getStartTimestamp();
+    /**
+     * Returns the date of the start of the task
+     *
+     * @return stat timestamp
+     */
+    Date getStartTimestamp();
 
-	/**
-	 * Read access to the current log path
-	 *
-	 * @return Log Reader object
-	 */
-	TestRunLogReader getLogReader();
+    /**
+     * Read access to the current log path
+     *
+     * @return Log Reader object
+     */
+    TestRunLogReader getLogReader();
 }

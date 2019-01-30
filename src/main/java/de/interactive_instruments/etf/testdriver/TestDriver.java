@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -31,9 +31,7 @@ import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 /**
  * Test Driver
  *
- * Encapsulates a test engine, manages test engine specific Executable Test Suites
- * and defines the main entry point for executing Test Suites against an
- * Test Object.
+ * Encapsulates a test engine, manages test engine specific Executable Test Suites and defines the main entry point for executing Test Suites against an Test Object.
  *
  * <img src="TestDriver.svg" alt="Class UML">
  *
@@ -41,51 +39,53 @@ import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
  */
 public interface TestDriver extends Configurable, Releasable {
 
-	/**
-	 * Returns the Test Driver's component information
-	 *
-	 * @return Test Driver component information
-	 */
-	ComponentInfo getInfo();
+    /**
+     * Returns the Test Driver's component information
+     *
+     * @return Test Driver component information
+     */
+    ComponentInfo getInfo();
 
-	/**
-	 * Used by the Test Driver to report Executable Test Suite life cycle changes
-	 * and to observe changes in other Test Drivers that are loaded in parallel.
-	 *
-	 * The mechanism is used to synchronize Ets cross-Test Driver dependencies. Must be called
-	 * before {@link #init()}
-	 *
-	 * @param mediator Mediator object
-	 */
-	void setLifeCycleMediator(final ExecutableTestSuiteLifeCycleListenerMediator mediator);
+    /**
+     * Used by the Test Driver to report Executable Test Suite life cycle changes and to observe changes in other Test Drivers that are loaded in parallel.
+     *
+     * The mechanism is used to synchronize Ets cross-Test Driver dependencies. Must be called before {@link #init()}
+     *
+     * @param mediator
+     *            Mediator object
+     */
+    void setLifeCycleMediator(final ExecutableTestSuiteLifeCycleListenerMediator mediator);
 
-	/**
-	 * Returns a collection of all Executable Test Suits
-	 *
-	 * @return collection of Executable Test Suits
-	 */
-	Collection<ExecutableTestSuiteDto> getExecutableTestSuites();
+    /**
+     * Returns a collection of all Executable Test Suits
+     *
+     * @return collection of Executable Test Suits
+     */
+    Collection<ExecutableTestSuiteDto> getExecutableTestSuites();
 
-	/**
-	 * Returns a collection of supported Test Object Types
-	 *
-	 * @return collection of Test Object Types
-	 */
-	Collection<TestObjectTypeDto> getTestObjectTypes();
+    /**
+     * Returns a collection of supported Test Object Types
+     *
+     * @return collection of Test Object Types
+     */
+    Collection<TestObjectTypeDto> getTestObjectTypes();
 
-	/**
-	 * Requests information about unknown ETS from the Test Driver
-	 *
-	 * @param etsLookupRequest ETS holding object
-	 */
-	void lookupExecutableTestSuites(final EtsLookupRequest etsLookupRequest);
+    /**
+     * Requests information about unknown ETS from the Test Driver
+     *
+     * @param etsLookupRequest
+     *            ETS holding object
+     */
+    void lookupExecutableTestSuites(final EtsLookupRequest etsLookupRequest);
 
-	/**
-	 * Creates a new Test Task
-	 *
-	 * @param testTaskDto Test Task Dto
-	 * @return {@link TestTask} a Test Task object that can be submitted to a {@link TaskPoolRegistry}
-	 * @throws TestTaskInitializationException if the Test Task initialization failed
-	 */
-	TestTask createTestTask(final TestTaskDto testTaskDto) throws TestTaskInitializationException;
+    /**
+     * Creates a new Test Task
+     *
+     * @param testTaskDto
+     *            Test Task Dto
+     * @return {@link TestTask} a Test Task object that can be submitted to a {@link TaskPoolRegistry}
+     * @throws TestTaskInitializationException
+     *             if the Test Task initialization failed
+     */
+    TestTask createTestTask(final TestTaskDto testTaskDto) throws TestTaskInitializationException;
 }

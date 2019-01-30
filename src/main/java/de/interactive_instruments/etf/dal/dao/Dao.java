@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -36,78 +36,81 @@ import de.interactive_instruments.exceptions.StorageException;
  */
 public interface Dao<T extends Dto> extends PreparedDtoResolver<T>, Configurable, Initializable, Releasable {
 
-	/**
-	 * Implementation id of the dao
-	 *
-	 * @return id of the Dao
-	 */
-	String getId();
+    /**
+     * Implementation id of the dao
+     *
+     * @return id of the Dao
+     */
+    String getId();
 
-	/**
-	 * The dto type this dao serves
-	 *
-	 * @return class of the dto type
-	 */
-	Class<T> getDtoType();
+    /**
+     * The dto type this dao serves
+     *
+     * @return class of the dto type
+     */
+    Class<T> getDtoType();
 
-	/**
-	 * Returns a collection of Dtos as PrepatedDtoCollection
-	 *
-	 * Items that are an instance of {@link Disableable} and are disabled,
-	 * are not listed directly in the collection but may be pulled in as references.
-	 *
-	 * @param filter criteria
-	 *
-	 * @return a PrepatedDtoCollection
-	 *
-	 * @throws StorageException if an internal error occurs
-	 */
-	PreparedDtoCollection<T> getAll(final Filter filter) throws StorageException;
+    /**
+     * Returns a collection of Dtos as PrepatedDtoCollection
+     *
+     * Items that are an instance of {@link Disableable} and are disabled, are not listed directly in the collection but may be pulled in as references.
+     *
+     * @param filter
+     *            criteria
+     *
+     * @return a PrepatedDtoCollection
+     *
+     * @throws StorageException
+     *             if an internal error occurs
+     */
+    PreparedDtoCollection<T> getAll(final Filter filter) throws StorageException;
 
-	/**
-	 * Check if Dto with ID exists
-	 *
-	 * @param id Dto ID
-	 * @return true if Dto with ID exists
-	 */
-	boolean exists(final EID id);
+    /**
+     * Check if Dto with ID exists
+     *
+     * @param id
+     *            Dto ID
+     * @return true if Dto with ID exists
+     */
+    boolean exists(final EID id);
 
-	/**
-	 * Check if Dto with ID exists and is disabled
-	 *
-	 * If the item is no instance of {@link Disableable}, false is always returned.
-	 *
-	 * @param id Dto ID
-	 *
-	 * @return true if Dto with ID exists and is disabled, false otherwise
-	 */
-	boolean isDisabled(final EID id);
+    /**
+     * Check if Dto with ID exists and is disabled
+     *
+     * If the item is no instance of {@link Disableable}, false is always returned.
+     *
+     * @param id
+     *            Dto ID
+     *
+     * @return true if Dto with ID exists and is disabled, false otherwise
+     */
+    boolean isDisabled(final EID id);
 
-	/**
-	 * An item is available if it exists ({@link #exists(EID)})
-	 * and is not disabled {@link #isDisabled(EID)}.
-	 *
-	 * @param id Dto ID
-	 * @return true if existent and not disabled
-	 */
-	default boolean available(final EID id) {
-		return exists(id) && !isDisabled(id);
-	}
+    /**
+     * An item is available if it exists ({@link #exists(EID)}) and is not disabled {@link #isDisabled(EID)}.
+     *
+     * @param id
+     *            Dto ID
+     * @return true if existent and not disabled
+     */
+    default boolean available(final EID id) {
+        return exists(id) && !isDisabled(id);
+    }
 
-	/**
-	 * Returns supported OutputFormats which can be used in
-	 * {@link PreparedDto } or {@link PreparedDtoCollection } for streaming to
-	 *
-	 * @return EidMap of Output Formats
-	 */
-	EidMap<OutputFormat> getOutputFormats();
+    /**
+     * Returns supported OutputFormats which can be used in {@link PreparedDto } or {@link PreparedDtoCollection } for streaming to
+     *
+     * @return EidMap of Output Formats
+     */
+    EidMap<OutputFormat> getOutputFormats();
 
-	/**
-	 * Last modification (update/insert) date
-	 * @return last modification date as long
-	 */
-	long getLastModificationDate();
+    /**
+     * Last modification (update/insert) date
+     *
+     * @return last modification date as long
+     */
+    long getLastModificationDate();
 
-	// Todo
-	// FilterBuilder getFilterBuilder();
+    // Todo
+    // FilterBuilder getFilterBuilder();
 }

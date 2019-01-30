@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -27,16 +27,19 @@ import de.interactive_instruments.etf.model.EidHolderMap;
  */
 public interface ExecutableTestSuiteLifeCycleListener {
 
-	enum EventType {
-		CREATED, REMOVED
-	}
+    enum EventType {
+        CREATED, REMOVED
+    }
 
-	/**
-	 * Informs the listener about a life cycle change
-	 *
-	 * @param caller the calling object
-	 * @param eventType {@link EventType}
-	 * @param ets Changed {@link ExecutableTestSuiteDto}
-	 */
-	void lifeCycleChange(final Object caller, final EventType eventType, final EidHolderMap<ExecutableTestSuiteDto> ets);
+    /**
+     * Informs the listener about a life cycle change
+     *
+     * @param caller
+     *            the calling object
+     * @param eventType
+     *            {@link EventType}
+     * @param ets
+     *            Changed {@link ExecutableTestSuiteDto}
+     */
+    void lifeCycleChange(final Object caller, final EventType eventType, final EidHolderMap<ExecutableTestSuiteDto> ets);
 }

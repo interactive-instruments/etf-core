@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -27,27 +27,27 @@ import java.util.Set;
  */
 public interface Parameterizable {
 
-	interface Parameter {
+    interface Parameter {
 
-		String getName();
+        String getName();
 
-		String getDefaultValue();
+        String getDefaultValue();
 
-		String getDescription();
+        String getDescription();
 
-		String getAllowedValues();
+        String getAllowedValues();
 
-		String getType();
+        String getType();
 
-		boolean isRequired();
+        boolean isRequired();
 
-		Set<String> getExcludingParameter();
-	}
+        Set<String> getExcludingParameter();
+    }
 
-	String getParamTypeName();
+    String getParamTypeName();
 
-	Collection<Parameter> getParameters();
+    Collection<Parameter> getParameters();
 
-	Parameter getParameter(String name);
+    Parameter getParameter(String name);
 
 }

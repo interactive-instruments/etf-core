@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,16 +28,17 @@ import de.interactive_instruments.etf.dal.dto.Dto;
  */
 public interface WriteDaoListener<T extends Dto> {
 
-	enum EventType {
-		ADD, UPDATE, DELETE
-	}
+    enum EventType {
+        ADD, UPDATE, DELETE
+    }
 
-	/**
-	 * Informs the listener about a write operation that has been performed
-	 * on a DTO.
-	 *
-	 * @param event {@link EventType}
-	 * @param dto {@link Dto}
-	 */
-	void writeOperationPerformed(final EventType event, final PreparedDto<T> dto);
+    /**
+     * Informs the listener about a write operation that has been performed on a DTO.
+     *
+     * @param event
+     *            {@link EventType}
+     * @param dto
+     *            {@link Dto}
+     */
+    void writeOperationPerformed(final EventType event, final PreparedDto<T> dto);
 }

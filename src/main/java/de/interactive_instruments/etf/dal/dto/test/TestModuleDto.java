@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -23,26 +23,26 @@ import java.util.List;
 
 public class TestModuleDto extends TestModelItemDto {
 
-	public TestModuleDto() {}
+    public TestModuleDto() {}
 
-	private TestModuleDto(final TestModuleDto other) {
-		super(other);
-	}
+    private TestModuleDto(final TestModuleDto other) {
+        super(other);
+    }
 
-	public List<TestCaseDto> getTestCases() {
-		return (List<TestCaseDto>) getChildren();
-	}
+    public List<TestCaseDto> getTestCases() {
+        return (List<TestCaseDto>) getChildren();
+    }
 
-	public void setTestCases(final List<TestCaseDto> testCases) {
-		setChildren(testCases);
-	}
+    public void setTestCases(final List<TestCaseDto> testCases) {
+        setChildren(testCases);
+    }
 
-	public void addTestCase(final TestCaseDto testCase) {
-		addChild(testCase);
-	}
+    public void addTestCase(final TestCaseDto testCase) {
+        addChild(testCase);
+    }
 
-	@Override
-	public TestModuleDto createCopy() {
-		return new TestModuleDto(this);
-	}
+    @Override
+    public TestModuleDto createCopy() {
+        return new TestModuleDto(this);
+    }
 }

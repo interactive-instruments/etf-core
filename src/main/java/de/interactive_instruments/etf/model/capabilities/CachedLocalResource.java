@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -27,49 +27,49 @@ import java.net.URI;
  */
 public class CachedLocalResource extends LocalResource implements CachedResource {
 
-	private byte[] cache;
-	private long timestamp;
+    private byte[] cache;
+    private long timestamp;
 
-	CachedLocalResource(final String name, final URI uri) {
-		super(name, uri);
-		timestamp = file.lastModified();
-	}
+    CachedLocalResource(final String name, final URI uri) {
+        super(name, uri);
+        timestamp = file.lastModified();
+    }
 
-	CachedLocalResource(final Resource resource) {
-		super(resource.getName(), resource.getUri());
-	}
+    CachedLocalResource(final Resource resource) {
+        super(resource.getName(), resource.getUri());
+    }
 
-	private CachedLocalResource(final CachedLocalResource other) {
-		super(other);
-		this.cache = other.cache;
-		this.timestamp = other.timestamp;
-	}
+    private CachedLocalResource(final CachedLocalResource other) {
+        super(other);
+        this.cache = other.cache;
+        this.timestamp = other.timestamp;
+    }
 
-	@Override
-	public byte[] getFromCache() {
-		return cache;
-	}
+    @Override
+    public byte[] getFromCache() {
+        return cache;
+    }
 
-	@Override
-	public byte[] recache() throws IOException {
-		cache = super.getBytes();
-		return cache;
-	}
+    @Override
+    public byte[] recache() throws IOException {
+        cache = super.getBytes();
+        return cache;
+    }
 
-	@Override
-	public boolean recacheIfModified() throws IOException {
-		if (cache == null) {
-			recache();
-		}
-		if (timestamp != file.lastModified()) {
-			timestamp = file.lastModified();
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean recacheIfModified() throws IOException {
+        if (cache == null) {
+            recache();
+        }
+        if (timestamp != file.lastModified()) {
+            timestamp = file.lastModified();
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public CachedLocalResource createCopy() {
-		return new CachedLocalResource(this);
-	}
+    @Override
+    public CachedLocalResource createCopy() {
+        return new CachedLocalResource(this);
+    }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -24,43 +24,43 @@ import java.util.List;
 import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 
 public class StatisticalReportTableDto extends MetaDataItemDto {
-	protected StatisticalReportTableTypeDto type;
-	protected List<Entry> entries;
+    protected StatisticalReportTableTypeDto type;
+    protected List<Entry> entries;
 
-	public static class Entry {
-		final Object[] entry;
+    public static class Entry {
+        final Object[] entry;
 
-		public Entry(final Object[] values) {
-			this.entry = values;
-		}
-	}
+        public Entry(final Object[] values) {
+            this.entry = values;
+        }
+    }
 
-	public StatisticalReportTableDto() {}
+    public StatisticalReportTableDto() {}
 
-	private StatisticalReportTableDto(final StatisticalReportTableDto other) {
-		super(other);
-		this.type = other.type;
-		this.entries = other.entries;
-	}
+    private StatisticalReportTableDto(final StatisticalReportTableDto other) {
+        super(other);
+        this.type = other.type;
+        this.entries = other.entries;
+    }
 
-	public StatisticalReportTableTypeDto getType() {
-		return type;
-	}
+    public StatisticalReportTableTypeDto getType() {
+        return type;
+    }
 
-	public void setType(final StatisticalReportTableTypeDto type) {
-		this.type = type;
-	}
+    public void setType(final StatisticalReportTableTypeDto type) {
+        this.type = type;
+    }
 
-	public List<Entry> getEntries() {
-		return entries;
-	}
+    public List<Entry> getEntries() {
+        return entries;
+    }
 
-	public void setEntries(final List<Entry> entries) {
-		this.entries = entries;
-	}
+    public void setEntries(final List<Entry> entries) {
+        this.entries = entries;
+    }
 
-	@Override
-	public StatisticalReportTableDto createCopy() {
-		return new StatisticalReportTableDto(this);
-	}
+    @Override
+    public StatisticalReportTableDto createCopy() {
+        return new StatisticalReportTableDto(this);
+    }
 }

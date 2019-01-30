@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,35 +25,35 @@ import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 
 public class StatisticalReportTableTypeDto extends RepositoryItemDto {
 
-	private List<String> columnHeaderLabels;
-	private List<String> columnExpressions;
+    private List<String> columnHeaderLabels;
+    private List<String> columnExpressions;
 
-	public StatisticalReportTableTypeDto() {}
+    public StatisticalReportTableTypeDto() {}
 
-	private StatisticalReportTableTypeDto(final StatisticalReportTableTypeDto other) {
-		super(other);
-		this.columnHeaderLabels = other.columnHeaderLabels;
-		this.columnExpressions = other.columnExpressions;
-	}
+    private StatisticalReportTableTypeDto(final StatisticalReportTableTypeDto other) {
+        super(other);
+        this.columnHeaderLabels = other.columnHeaderLabels;
+        this.columnExpressions = other.columnExpressions;
+    }
 
-	public List<String> getColumnHeaderLabels() {
-		return columnHeaderLabels;
-	}
+    public List<String> getColumnHeaderLabels() {
+        return columnHeaderLabels;
+    }
 
-	public void setColumnHeaderLabels(final List<String> columnHeaderLabels) {
-		this.columnHeaderLabels = columnHeaderLabels;
-	}
+    public void setColumnHeaderLabels(final List<String> columnHeaderLabels) {
+        this.columnHeaderLabels = columnHeaderLabels;
+    }
 
-	public List<String> getColumnExpressions() {
-		return columnExpressions;
-	}
+    public List<String> getColumnExpressions() {
+        return columnExpressions;
+    }
 
-	public void setColumnExpressions(final List<String> columnExpressions) {
-		this.columnExpressions = columnExpressions;
-	}
+    public void setColumnExpressions(final List<String> columnExpressions) {
+        this.columnExpressions = columnExpressions;
+    }
 
-	@Override
-	public StatisticalReportTableTypeDto createCopy() {
-		return new StatisticalReportTableTypeDto(this);
-	}
+    @Override
+    public StatisticalReportTableTypeDto createCopy() {
+        return new StatisticalReportTableTypeDto(this);
+    }
 }

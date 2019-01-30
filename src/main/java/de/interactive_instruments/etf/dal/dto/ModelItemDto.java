@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -25,33 +25,33 @@ package de.interactive_instruments.etf.dal.dto;
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public abstract class ModelItemDto<T extends ModelItemDto> extends Dto {
-	protected T parent;
+    protected T parent;
 
-	public ModelItemDto() {}
+    public ModelItemDto() {}
 
-	public ModelItemDto(final ModelItemDto<T> other) {
-		this.id = other.id;
-		this.parent = other.parent;
-	}
+    public ModelItemDto(final ModelItemDto<T> other) {
+        this.id = other.id;
+        this.parent = other.parent;
+    }
 
-	public T getParent() {
-		return parent;
-	}
+    public T getParent() {
+        return parent;
+    }
 
-	public void setParent(final T value) {
-		this.parent = value;
-	}
+    public void setParent(final T value) {
+        this.parent = value;
+    }
 
-	String getParentTypeName() {
-		return parent != null ? parent.getTypeName() : null;
-	}
+    String getParentTypeName() {
+        return parent != null ? parent.getTypeName() : null;
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("ModelItemDto{");
-		sb.append("id=").append(getId());
-		sb.append(", parent=").append(parent != null ? parent.getId() : null);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("ModelItemDto{");
+        sb.append("id=").append(getId());
+        sb.append(", parent=").append(parent != null ? parent.getId() : null);
+        sb.append('}');
+        return sb.toString();
+    }
 }

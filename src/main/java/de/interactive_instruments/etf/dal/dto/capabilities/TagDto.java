@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -26,25 +26,25 @@ import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
  */
 public class TagDto extends MetaDataItemDto {
 
-	private int priority = 64;
+    private int priority = 64;
 
-	public TagDto() {}
+    public TagDto() {}
 
-	private TagDto(final TagDto other) {
-		super(other);
-		this.priority = other.priority;
-	}
+    private TagDto(final TagDto other) {
+        super(other);
+        this.priority = other.priority;
+    }
 
-	public int getPriority() {
-		return priority;
-	}
+    public int getPriority() {
+        return priority;
+    }
 
-	public void setPriority(final int priority) {
-		this.priority = priority;
-	}
+    public void setPriority(final int priority) {
+        this.priority = priority;
+    }
 
-	@Override
-	public TagDto createCopy() {
-		return new TagDto(this);
-	}
+    @Override
+    public TagDto createCopy() {
+        return new TagDto(this);
+    }
 }

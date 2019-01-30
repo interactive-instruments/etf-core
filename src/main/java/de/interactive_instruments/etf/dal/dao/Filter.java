@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,50 +28,51 @@ package de.interactive_instruments.etf.dal.dao;
  */
 public interface Filter {
 
-	/**
-	 * The number of Dtos to skip
-	 *
-	 * @return the number of Dtos which where skipped
-	 */
-	int offset();
+    /**
+     * The number of Dtos to skip
+     *
+     * @return the number of Dtos which where skipped
+     */
+    int offset();
 
-	/**
-	 * The maximum number of Dtos that should be returned
-	 *
-	 * @return the maximum number of Dtos that should be returned
-	 */
-	int limit();
+    /**
+     * The maximum number of Dtos that should be returned
+     *
+     * @return the maximum number of Dtos that should be returned
+     */
+    int limit();
 
-	enum LevelOfDetail {
-		/**
-		 * Don't include references in result
-		 */
-		SIMPLE,
-		/**
-		 * Include historical references to older items
-		 */
-		HISTORY,
+    enum LevelOfDetail {
+        /**
+         * Don't include references in result
+         */
+        SIMPLE,
+        /**
+         * Include historical references to older items
+         */
+        HISTORY,
 
-		/**
-		 * Include references -without historical references to older items
-		 */
-		DETAILED_WITHOUT_HISTORY
-	}
+        /**
+         * Include references -without historical references to older items
+         */
+        DETAILED_WITHOUT_HISTORY
+    }
 
-	/**
-	 * Controls which references are included in a data storage result
-	 *
-	 * @return Level of Detail
-	 */
-	default LevelOfDetail levelOfDetail() {
-		return LevelOfDetail.SIMPLE;
-	}
+    /**
+     * Controls which references are included in a data storage result
+     *
+     * @return Level of Detail
+     */
+    default LevelOfDetail levelOfDetail() {
+        return LevelOfDetail.SIMPLE;
+    }
 
-	/**
-	 * List of fields that should be shown
-	 * @return List of fields as String, separated with a comma, or *
-	 */
-	default String fields() {
-		return "*";
-	}
+    /**
+     * List of fields that should be shown
+     *
+     * @return List of fields as String, separated with a comma, or *
+     */
+    default String fields() {
+        return "*";
+    }
 }
