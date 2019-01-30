@@ -27,6 +27,7 @@ import de.interactive_instruments.etf.dal.dto.MetaDataItemDto;
 import de.interactive_instruments.etf.dal.dto.ModelItemTreeNode;
 import de.interactive_instruments.etf.model.DefaultEidMap;
 import de.interactive_instruments.etf.model.EidMap;
+import de.interactive_instruments.properties.Properties;
 
 /**
  * Test Model Item Dto
@@ -37,6 +38,8 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 
 	protected EidMap<TestModelItemDto> children;
 
+	protected Properties properties;
+
 	protected TestModelItemDto() {}
 
 	protected TestModelItemDto(final TestModelItemDto other) {
@@ -44,6 +47,7 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 		if (other.children != null) {
 			this.children = other.children.createCopy();
 		}
+		this.properties = other.properties;
 	}
 
 	@Override
@@ -75,6 +79,17 @@ public abstract class TestModelItemDto extends MetaDataItemDto implements ModelI
 				addChild(c);
 			});
 		}
+	}
+
+	public Properties properties() {
+		if (properties == null) {
+			properties = new Properties();
+		}
+		return properties;
+	}
+
+	public void properties(final Properties properties) {
+		this.properties = properties;
 	}
 
 	@Override
