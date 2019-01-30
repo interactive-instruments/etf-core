@@ -24,6 +24,7 @@ import java.util.Collection;
 import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.component.ComponentInfo;
+import de.interactive_instruments.etf.component.loaders.LoadingContext;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.run.TestTaskDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
@@ -47,14 +48,14 @@ public interface TestDriver extends Configurable, Releasable {
     ComponentInfo getInfo();
 
     /**
-     * Used by the Test Driver to report Executable Test Suite life cycle changes and to observe changes in other Test Drivers that are loaded in parallel.
+     * Uused to synchronize Ets cross-Test Driver dependencies and metadata.
      *
-     * The mechanism is used to synchronize Ets cross-Test Driver dependencies. Must be called before {@link #init()}
+     * Must be called before {@link #init()}.
      *
-     * @param mediator
-     *            Mediator object
+     * @param context
+     *            LoadingContext to resolve external dependencies
      */
-    void setLifeCycleMediator(final ExecutableTestSuiteLifeCycleListenerMediator mediator);
+    void setLoadingContext(final LoadingContext context);
 
     /**
      * Returns a collection of all Executable Test Suits
@@ -69,14 +70,6 @@ public interface TestDriver extends Configurable, Releasable {
      * @return collection of Test Object Types
      */
     Collection<TestObjectTypeDto> getTestObjectTypes();
-
-    /**
-     * Requests information about unknown ETS from the Test Driver
-     *
-     * @param etsLookupRequest
-     *            ETS holding object
-     */
-    void lookupExecutableTestSuites(final EtsLookupRequest etsLookupRequest);
 
     /**
      * Creates a new Test Task

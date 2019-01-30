@@ -4,6 +4,7 @@
         +createTestRun(TestRunDto): TestRun
         {static} +getDefault(): TestDriverManager
         {abstract} +createTestRun(TestRunDto, TestResultCollectorFactory): TestRun
+        {abstract} +setLoadingContext(LoadingContext): void
         {abstract} +getTestDriverInfo(): List<ComponentInfo>
         {abstract} +loadAll(): void
         {abstract} +load(EID): void

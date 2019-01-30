@@ -17,23 +17,33 @@
  * European Public Administrations Programme (http://ec.europa.eu/isa)
  * through Action 1.17: A Reusable INSPIRE Reference Platform (ARE3NA).
  */
-package de.interactive_instruments.etf.testdriver;
+package de.interactive_instruments.etf.component.loaders;
 
-import java.util.Set;
-
-import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-import de.interactive_instruments.etf.model.EID;
-import de.interactive_instruments.etf.model.EidSet;
+import java.nio.file.Path;
+import java.util.List;
 
 /**
- * Responsible TestDrivers add known Executable Test Suites and their dependencies.
- *
- * Realizes the chain of responsibility pattern.
+ * Realizes the Null Object pattern
  *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface EtsLookupRequest {
-    Set<EID> getUnknownEtsIds();
+public final class NullItemFileObserverRegistry implements ItemFileObserverRegistry {
 
-    void addKnownEts(final EidSet<ExecutableTestSuiteDto> knownEts);
+    private static NullItemFileObserverRegistry instance = new NullItemFileObserverRegistry();
+
+    private NullItemFileObserverRegistry() {}
+
+    public static NullItemFileObserverRegistry instance() {
+        return instance;
+    }
+
+    @Override
+    public void register(final Path path, final List<? extends ItemFileLoaderFactory> factories) {
+
+    }
+
+    @Override
+    public void deregister(final List<? extends ItemFileLoaderFactory> factories) {
+
+    }
 }

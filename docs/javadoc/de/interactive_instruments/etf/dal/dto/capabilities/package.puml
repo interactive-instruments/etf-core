@@ -91,6 +91,20 @@
             +createCopy(): CredentialDto
         }
 
+        class TestRunTemplateDto [[TestRunTemplateDto.html]] {
+            +TestRunTemplateDto()
+            +getExecutableTestSuites(): List<ExecutableTestSuiteDto>
+            +setExecutableTestSuites(List<ExecutableTestSuiteDto>): void
+            +addExecutableTestSuite(ExecutableTestSuiteDto): void
+            +addTestObject(TestObjectDto): void
+            +properties(): Properties
+            +properties(Properties): void
+            +getParameters(): ParameterSet
+            +setParameters(ParameterSet): void
+            +ensureBasicValidity(): void
+            +createCopy(): Dto
+        }
+
         class ComponentDto [[ComponentDto.html]] {
             #vendor: String
             #version: String
@@ -133,6 +147,8 @@
 
         de.interactive_instruments.etf.dal.dto.RepositoryItemDto <|-- CredentialDto
 
+        de.interactive_instruments.etf.dal.dto.RepositoryItemDto <|-- TestRunTemplateDto
+
         de.interactive_instruments.etf.dal.dto.MetaDataItemDto <|-- ComponentDto
 
         TestObjectTypeDto --> "*" TestObjectTypeDto: subTypes
@@ -144,6 +160,8 @@
         TestObjectDto --> TestObjectTypeDto: testObjectType
 
         TestObjectDto --> "*" ResourceDto: resourceCollection
+
+        TestRunTemplateDto --> "*" TestObjectDto: testObjects
 
     }
 

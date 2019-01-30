@@ -21,9 +21,6 @@
             {abstract} +getParent(): T
         }
 
-        class AssertionError [[AssertionError.html]] {
-        }
-
         class DefaultEidHolderMap<V> [[DefaultEidHolderMap.html]] {
             +DefaultEidHolderMap()
             +DefaultEidHolderMap(Map<EID, V>)
