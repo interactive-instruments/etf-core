@@ -4,9 +4,9 @@
 
         interface TestDriver [[TestDriver.html]] {
             {abstract} +getInfo(): ComponentInfo
+            {abstract} +setLoadingContext(LoadingContext): void
             {abstract} +getExecutableTestSuites(): Collection<ExecutableTestSuiteDto>
             {abstract} +getTestObjectTypes(): Collection<TestObjectTypeDto>
-            {abstract} +lookupExecutableTestSuites(EtsLookupRequest): void
             {abstract} +createTestTask(TestTaskDto): TestTask
         }
 
@@ -102,27 +102,8 @@
             {abstract} +internalError(String, byte[], String): String
         }
 
-        interface EtsLookupRequest [[EtsLookupRequest.html]] {
-            {abstract} +getUnknownEtsIds(): Set<EID>
-            {abstract} +addKnownEts(EidSet<ExecutableTestSuiteDto>): void
-        }
-
         interface TestTaskEndListener [[TestTaskEndListener.html]] {
             {abstract} +testTaskFinished(TestTaskResultDto): void
-        }
-
-        interface ExecutableTestSuiteLifeCycleListener [[ExecutableTestSuiteLifeCycleListener.html]] {
-            {abstract} +lifeCycleChange(Object, ExecutableTestSuiteLifeCycleListener.EventType, EidHolderMap<ExecutableTestSuiteDto>): void
-        }
-
-        enum de.interactive_instruments.etf.testdriver.ExecutableTestSuiteLifeCycleListener.EventType [[ExecutableTestSuiteLifeCycleListener.EventType.html]] {
-            {static} +CREATED
-            {static} +REMOVED
-        }
-
-        interface ExecutableTestSuiteLifeCycleListenerMediator [[ExecutableTestSuiteLifeCycleListenerMediator.html]] {
-            {abstract} +registerListener(ExecutableTestSuiteLifeCycleListener): void
-            {abstract} +deregisterListener(ExecutableTestSuiteLifeCycleListener): void
         }
 
         class TaskPoolRegistry<R, T> [[TaskPoolRegistry.html]] {
@@ -156,6 +137,7 @@
             +createTestRun(TestRunDto): TestRun
             {static} +getDefault(): TestDriverManager
             {abstract} +createTestRun(TestRunDto, TestResultCollectorFactory): TestRun
+            {abstract} +setLoadingContext(LoadingContext): void
             {abstract} +getTestDriverInfo(): List<ComponentInfo>
             {abstract} +loadAll(): void
             {abstract} +load(EID): void
@@ -248,10 +230,6 @@
 
         BasicTestResultCollector <|.. TestResultCollector
 
-        ExecutableTestSuiteLifeCycleListener +-- de.interactive_instruments.etf.testdriver.ExecutableTestSuiteLifeCycleListener.EventType
-
-        ExecutableTestSuiteLifeCycleListener <|.. ExecutableTestSuiteLifeCycleListenerMediator
-
         de.interactive_instruments.exceptions.InitializationException <|-- ExecutableTestSuiteLoadingException
 
         de.interactive_instruments.Configurable <|.. TestDriverManager
@@ -330,8 +308,6 @@
             {abstract} +error(Marker, String, Throwable): void
         }
         org.slf4j.Logger <|.. TestRunLogger
-
-        TestDriver --> ExecutableTestSuiteLifeCycleListenerMediator: lifeCycleMediator
 
         TestTask --> TestTaskResultPersistor: resulPersistor
 

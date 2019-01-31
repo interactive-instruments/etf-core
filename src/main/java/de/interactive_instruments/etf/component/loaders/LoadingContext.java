@@ -17,29 +17,26 @@
  * European Public Administrations Programme (http://ec.europa.eu/isa)
  * through Action 1.17: A Reusable INSPIRE Reference Platform (ARE3NA).
  */
-package de.interactive_instruments.etf.testdriver;
-
-import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
-import de.interactive_instruments.etf.model.EidHolderMap;
+package de.interactive_instruments.etf.component.loaders;
 
 /**
+ * Access to objects that can be used during the Item (re-)loading process
+ *
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public interface ExecutableTestSuiteLifeCycleListener {
-
-    enum EventType {
-        CREATED, REMOVED
-    }
+public interface LoadingContext {
 
     /**
-     * Informs the listener about a life cycle change
+     * Item Registry to register framework items
      *
-     * @param caller
-     *            the calling object
-     * @param eventType
-     *            {@link EventType}
-     * @param ets
-     *            Changed {@link ExecutableTestSuiteDto}
+     * @return ItemRegistry
      */
-    void lifeCycleChange(final Object caller, final EventType eventType, final EidHolderMap<ExecutableTestSuiteDto> ets);
+    ItemRegistry getItemRegistry();
+
+    /**
+     * A registry to register a callback interface for a file observer that is triggered, when a specific file is found in the filesystem or
+     *
+     * @return ItemRegistry
+     */
+    ItemFileObserverRegistry getItemFileObserverRegistry();
 }

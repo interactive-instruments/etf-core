@@ -25,6 +25,7 @@ import de.interactive_instruments.Configurable;
 import de.interactive_instruments.Releasable;
 import de.interactive_instruments.etf.component.ComponentInfo;
 import de.interactive_instruments.etf.component.ComponentLoadingException;
+import de.interactive_instruments.etf.component.loaders.LoadingContext;
 import de.interactive_instruments.etf.dal.dto.run.TestRunDto;
 import de.interactive_instruments.etf.model.EID;
 import de.interactive_instruments.exceptions.ObjectWithIdNotFoundException;
@@ -61,6 +62,14 @@ public interface TestDriverManager extends Configurable, Releasable {
     default TestRun createTestRun(final TestRunDto testRunDto) throws TestRunInitializationException {
         return createTestRun(testRunDto, TestResultCollectorFactory.getDefault());
     }
+
+    /**
+     * Must be called before {@link #init()} is called
+     *
+     * @param context
+     *            LoadingContext to resolve external dependencies
+     */
+    void setLoadingContext(final LoadingContext context);
 
     List<ComponentInfo> getTestDriverInfo();
 
