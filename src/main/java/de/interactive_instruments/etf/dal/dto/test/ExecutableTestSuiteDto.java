@@ -33,6 +33,7 @@ import de.interactive_instruments.etf.dal.dto.capabilities.ComponentDto;
 import de.interactive_instruments.etf.dal.dto.capabilities.TestObjectTypeDto;
 import de.interactive_instruments.etf.dal.dto.translation.TranslationTemplateBundleDto;
 import de.interactive_instruments.etf.model.*;
+import de.interactive_instruments.properties.Properties;
 
 public class ExecutableTestSuiteDto extends RepositoryItemDto
         implements ModelItemTreeNode<TestModelItemDto>, NestedDependencyHolder<ExecutableTestSuiteDto> {
@@ -45,6 +46,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
     private List<TestCaseDto> parameterizedTestCases;
     private EidHolderMap<TestModelItemDto> testModules;
     private ParameterSet parameters;
+    private Properties properties;
 
     public ExecutableTestSuiteDto() {}
 
@@ -132,6 +134,17 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
 
     public void setParameters(final ParameterSet parameterSet) {
         this.parameters = parameterSet;
+    }
+
+    public Properties properties() {
+        if (properties == null) {
+            properties = new Properties();
+        }
+        return properties;
+    }
+
+    public void properties(final Properties properties) {
+        this.properties = properties;
     }
 
     public List<TestModuleDto> getTestModules() {
