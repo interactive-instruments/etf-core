@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,27 +29,29 @@ import java.util.List;
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface TestRunLogReader {
-	/**
-	 * Returns the logger that is used to log information about
-	 * the progress of the task
-	 *
-	 * @return log file
-	 */
-	File getLogFile();
+    /**
+     * Returns the logger that is used to log information about the progress of the task
+     *
+     * @return log file
+     */
+    File getLogFile();
 
-	/**
-	 * Return messages
-	 *
-	 * @param knownPosition last known position
-	 * @return log messages as list
-	 */
-	List<String> getLogMessages(final long knownPosition);
+    /**
+     * Return messages
+     *
+     * @param knownPosition
+     *            last known position
+     * @return log messages as list
+     */
+    List<String> getLogMessages(final long knownPosition);
 
-	/**
-	 * Stream messages to an OutputStream
-	 *
-	 * @param knownPosition last known position
-	 * @param outputStream target output stream
-	 */
-	void streamLogMessagesTo(final long knownPosition, final OutputStream outputStream);
+    /**
+     * Stream messages to an OutputStream
+     *
+     * @param knownPosition
+     *            last known position
+     * @param outputStream
+     *            target output stream
+     */
+    void streamLogMessagesTo(final long knownPosition, final OutputStream outputStream);
 }

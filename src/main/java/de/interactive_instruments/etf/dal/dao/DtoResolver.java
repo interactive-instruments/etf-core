@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -33,23 +33,29 @@ import de.interactive_instruments.exceptions.StorageException;
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
 public interface DtoResolver<T extends Dto> {
-	/**
-	 * Return a Dto
-	 *
-	 * @param id Dto ID
-	 * @return resolved type
-	 * @throws StorageException if an internal error occurs
-	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
-	 */
-	T getById(final EID id) throws StorageException, ObjectWithIdNotFoundException;
+    /**
+     * Return a Dto
+     *
+     * @param id
+     *            Dto ID
+     * @return resolved type
+     * @throws StorageException
+     *             if an internal error occurs
+     * @throws ObjectWithIdNotFoundException
+     *             if a an item with the ID was not found
+     */
+    T getById(final EID id) throws StorageException, ObjectWithIdNotFoundException;
 
-	/**
-	 * Return a collection of DTOs
-	 *
-	 * @param id Dto ID
-	 * @return collection of resolved types
-	 * @throws StorageException if an internal error occurs
-	 * @throws ObjectWithIdNotFoundException if a an item with the ID was not found
-	 */
-	Collection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException;
+    /**
+     * Return a collection of DTOs
+     *
+     * @param id
+     *            Dto ID
+     * @return collection of resolved types
+     * @throws StorageException
+     *             if an internal error occurs
+     * @throws ObjectWithIdNotFoundException
+     *             if a an item with the ID was not found
+     */
+    Collection<T> getByIds(final Set<EID> id) throws StorageException, ObjectWithIdNotFoundException;
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -23,26 +23,26 @@ import java.util.List;
 
 public class TestModuleResultDto extends ResultModelItemDto {
 
-	public TestModuleResultDto() {}
+    public TestModuleResultDto() {}
 
-	private TestModuleResultDto(final TestModuleResultDto other) {
-		super(other);
-	}
+    private TestModuleResultDto(final TestModuleResultDto other) {
+        super(other);
+    }
 
-	public List<TestCaseResultDto> getTestCaseResults() {
-		return (List<TestCaseResultDto>) getChildren();
-	}
+    public List<TestCaseResultDto> getTestCaseResults() {
+        return (List<TestCaseResultDto>) getChildren();
+    }
 
-	public void setTestCaseResults(final List<TestCaseResultDto> testCaseResults) {
-		setChildren(testCaseResults);
-	}
+    public void setTestCaseResults(final List<TestCaseResultDto> testCaseResults) {
+        setChildren(testCaseResults);
+    }
 
-	public void addTestCaseResult(final TestCaseResultDto testCaseResult) {
-		addChild(testCaseResult);
-	}
+    public void addTestCaseResult(final TestCaseResultDto testCaseResult) {
+        addChild(testCaseResult);
+    }
 
-	@Override
-	public TestModuleResultDto createCopy() {
-		return new TestModuleResultDto(this);
-	}
+    @Override
+    public TestModuleResultDto createCopy() {
+        return new TestModuleResultDto(this);
+    }
 }

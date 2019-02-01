@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -30,71 +30,73 @@ import de.interactive_instruments.Copyable;
  */
 public class DefaultEidHolderMap<V extends EidHolder> extends DefaultEidMap<V> implements EidHolderMap<V> {
 
-	public DefaultEidHolderMap() {
-		super();
-	}
+    public DefaultEidHolderMap() {
+        super();
+    }
 
-	public DefaultEidHolderMap(final Map<EID, V> map) {
-		super(map);
-	}
+    public DefaultEidHolderMap(final Map<EID, V> map) {
+        super(map);
+    }
 
-	public DefaultEidHolderMap(final Collection<V> collection) {
-		super(collection.stream().collect(
-				Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
+    public DefaultEidHolderMap(final Collection<V> collection) {
+        super(collection.stream().collect(
+                Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
 
-	}
+    }
 
-	public DefaultEidHolderMap(final V[] array) {
-		super(Arrays.stream(array).collect(
-				Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
-	}
+    public DefaultEidHolderMap(final V[] array) {
+        super(Arrays.stream(array).collect(
+                Collectors.toMap(i -> i.getId(), i -> i, (i1, i2) -> i1, LinkedHashMap::new)));
+    }
 
-	public DefaultEidHolderMap(final V singleItem) {
-		super(Collections.singletonMap(singleItem.getId(), singleItem));
-	}
+    public DefaultEidHolderMap(final V singleItem) {
+        super(Collections.singletonMap(singleItem.getId(), singleItem));
+    }
 
-	public EidHolderMap<V> unmodifiable() {
-		return new DefaultEidHolderMap<>(Collections.unmodifiableMap(this));
-	}
+    public EidHolderMap<V> unmodifiable() {
+        return new DefaultEidHolderMap<>(Collections.unmodifiableMap(this));
+    }
 
-	public EidHolderMap<V> createCopy() {
-		return new DefaultEidHolderMap<>(Copyable.createCopy(this));
-	}
+    public EidHolderMap<V> createCopy() {
+        return new DefaultEidHolderMap<>(Copyable.createCopy(this));
+    }
 
-	public EidSet<V> toSet() {
-		return new DefaultEidSet<>(values());
-	}
+    public EidSet<V> toSet() {
+        return new DefaultEidSet<>(values());
+    }
 
-	@Override
-	public EidHolderMap<V> getAll(final Collection<?> keys) {
-		final EidHolderMap map = new DefaultEidHolderMap();
-		for (final Object key : keys) {
-			final V v = get(key);
-			if (v != null) {
-				map.put(key, v);
-			}
-		}
-		return map.isEmpty() ? null : map;
-	}
+    @Override
+    public EidHolderMap<V> getAll(final Collection<?> keys) {
+        final EidHolderMap map = new DefaultEidHolderMap();
+        for (final Object key : keys) {
+            final V v = get(key);
+            if (v != null) {
+                map.put(key, v);
+            }
+        }
+        return map.isEmpty() ? null : map;
+    }
 
-	public V add(V v) {
-		return put(v.getId(), v);
-	}
+    public V add(V v) {
+        return put(v.getId(), v);
+    }
 
-	public void addAll(Collection<V> values) {
-		for (final V value : values) {
-			put(value.getId(), value);
-		}
-	}
+    public void addAll(Collection<V> values) {
+        for (final V value : values) {
+            put(value.getId(), value);
+        }
+    }
 
-	/**
-	 * Unmodifiable
-	 *
-	 * @param singleItem single item
-	 * @param <V> type
-	 * @return an EID holding object
-	 */
-	public static <V extends EidHolder> EidHolderMap<V> singleton(final V singleItem) {
-		return new DefaultEidHolderMap<>(Collections.singleton(singleItem));
-	}
+    /**
+     * Unmodifiable
+     *
+     * @param singleItem
+     *            single item
+     * @param <V>
+     *            type
+     * @return an EID holding object
+     */
+    public static <V extends EidHolder> EidHolderMap<V> singleton(final V singleItem) {
+        return new DefaultEidHolderMap<>(Collections.singleton(singleItem));
+    }
 }

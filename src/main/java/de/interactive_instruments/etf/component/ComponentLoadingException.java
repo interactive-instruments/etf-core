@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -28,15 +28,15 @@ import de.interactive_instruments.exceptions.InitializationException;
  */
 public class ComponentLoadingException extends InitializationException {
 
-	public ComponentLoadingException(final Path jar, final Exception e) {
-		super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
-	}
+    public ComponentLoadingException(final Path jar, final Exception e) {
+        super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
+    }
 
-	public ComponentLoadingException(final Path jar, final Throwable e) {
-		super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
-	}
+    public ComponentLoadingException(final Path jar, final Throwable e) {
+        super("Loading of component JAR \"" + jar.getFileName() + "\" failed ", e);
+    }
 
-	public ComponentLoadingException(String msg) {
-		super(msg);
-	}
+    public ComponentLoadingException(String msg) {
+        super(msg);
+    }
 }

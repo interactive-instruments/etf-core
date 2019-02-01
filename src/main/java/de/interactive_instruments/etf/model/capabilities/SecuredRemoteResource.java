@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -34,99 +34,99 @@ import de.interactive_instruments.UriUtils;
  */
 public class SecuredRemoteResource implements RemoteResource {
 
-	private final String name;
-	// Not exposed
-	private final Credentials credentials;
-	// Deny changing the domain name
-	protected URI uri;
-	private UriModificationCheck check;
+    private final String name;
+    // Not exposed
+    private final Credentials credentials;
+    // Deny changing the domain name
+    protected URI uri;
+    private UriModificationCheck check;
 
-	public SecuredRemoteResource(final String name, final Credentials credentials, final URI uri) {
-		this.name = name;
-		this.credentials = credentials;
-		this.uri = UriUtils.sortQueryParameters(uri);
-	}
+    public SecuredRemoteResource(final String name, final Credentials credentials, final URI uri) {
+        this.name = name;
+        this.credentials = credentials;
+        this.uri = UriUtils.sortQueryParameters(uri);
+    }
 
-	public SecuredRemoteResource(final Resource other) {
-		this.name = other.getName();
-		this.uri = UriUtils.sortQueryParameters(other.getUri());
-		if (other instanceof SecuredRemoteResource) {
-			credentials = ((SecuredRemoteResource) other).credentials;
-		} else if (other instanceof CachedRemoteResource
-				&& ((CachedRemoteResource) other).wrapped instanceof SecuredRemoteResource) {
-			credentials = ((SecuredRemoteResource) ((CachedRemoteResource) other).wrapped).credentials;
-		} else {
-			credentials = null;
-		}
-		// do not copy check
-	}
+    public SecuredRemoteResource(final Resource other) {
+        this.name = other.getName();
+        this.uri = UriUtils.sortQueryParameters(other.getUri());
+        if (other instanceof SecuredRemoteResource) {
+            credentials = ((SecuredRemoteResource) other).credentials;
+        } else if (other instanceof CachedRemoteResource
+                && ((CachedRemoteResource) other).wrapped instanceof SecuredRemoteResource) {
+            credentials = ((SecuredRemoteResource) ((CachedRemoteResource) other).wrapped).credentials;
+        } else {
+            credentials = null;
+        }
+        // do not copy check
+    }
 
-	private SecuredRemoteResource(final SecuredRemoteResource other) {
-		this.name = other.name;
-		this.credentials = other.credentials;
-		this.uri = other.uri;
-		// do not copy check
-	}
+    private SecuredRemoteResource(final SecuredRemoteResource other) {
+        this.name = other.name;
+        this.credentials = other.credentials;
+        this.uri = other.uri;
+        // do not copy check
+    }
 
-	public boolean isModificationCheckInitialized() {
-		return check != null;
-	}
+    public boolean isModificationCheckInitialized() {
+        return check != null;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public URI getUri() {
-		return uri;
-	}
+    @Override
+    public URI getUri() {
+        return uri;
+    }
 
-	@Override
-	public long getContentLength() throws IOException {
-		return UriUtils.getContentLength(uri, credentials);
-	}
+    @Override
+    public long getContentLength() throws IOException {
+        return UriUtils.getContentLength(uri, credentials);
+    }
 
-	@Override
-	public InputStream openStream() throws IOException {
-		return UriUtils.openStream(uri, credentials);
-	}
+    @Override
+    public InputStream openStream() throws IOException {
+        return UriUtils.openStream(uri, credentials);
+    }
 
-	@Override
-	public InputStream openStream(final int timeout) throws IOException {
-		return UriUtils.openStream(uri, credentials, timeout);
-	}
+    @Override
+    public InputStream openStream(final int timeout) throws IOException {
+        return UriUtils.openStream(uri, credentials, timeout);
+    }
 
-	@Override
-	public byte[] getBytes() throws IOException {
-		return UriUtils.toByteArray(uri, credentials);
-	}
+    @Override
+    public byte[] getBytes() throws IOException {
+        return UriUtils.toByteArray(uri, credentials);
+    }
 
-	@Override
-	public byte[] getBytes(final int timeout) throws IOException {
-		return UriUtils.toByteArray(uri, credentials, timeout);
-	}
+    @Override
+    public byte[] getBytes(final int timeout) throws IOException {
+        return UriUtils.toByteArray(uri, credentials, timeout);
+    }
 
-	@Override
-	public boolean exists() {
-		return UriUtils.exists(uri, credentials);
-	}
+    @Override
+    public boolean exists() {
+        return UriUtils.exists(uri, credentials);
+    }
 
-	@Override
-	public UriModificationCheck getModificationCheck() throws IOException {
-		if (check == null) {
-			check = new UriModificationCheck(uri, credentials);
-		}
-		return check;
-	}
+    @Override
+    public UriModificationCheck getModificationCheck() throws IOException {
+        if (check == null) {
+            check = new UriModificationCheck(uri, credentials);
+        }
+        return check;
+    }
 
-	@Override
-	public void release() {
-		check = null;
-	}
+    @Override
+    public void release() {
+        check = null;
+    }
 
-	@Override
-	public SecuredRemoteResource createCopy() {
-		return new SecuredRemoteResource(this);
-	}
+    @Override
+    public SecuredRemoteResource createCopy() {
+        return new SecuredRemoteResource(this);
+    }
 }

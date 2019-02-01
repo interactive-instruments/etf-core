@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -32,14 +32,18 @@ import de.interactive_instruments.properties.PropertyHolder;
  */
 public interface OutputFormatStreamable {
 
-	/**
-	 * Write data to a stream in a specific {@link OutputFormat}
-	 *
-	 * @param outputFormat Output Format
-	 * @param arguments transformation arguments
-	 * @param outputStream target output stream
-	 * @throws IOException if the streaming failed
-	 */
-	void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream)
-			throws IOException;
+    /**
+     * Write data to a stream in a specific {@link OutputFormat}
+     *
+     * @param outputFormat
+     *            Output Format
+     * @param arguments
+     *            transformation arguments
+     * @param outputStream
+     *            target output stream
+     * @throws IOException
+     *             if the streaming failed
+     */
+    void streamTo(final OutputFormat outputFormat, final PropertyHolder arguments, final OutputStream outputStream)
+            throws IOException;
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,28 +29,29 @@ import de.interactive_instruments.UriUtils;
  */
 public class MutableSecuredRemoteResource extends SecuredRemoteResource implements MutableRemoteResource {
 
-	MutableSecuredRemoteResource(final Resource other) {
-		super(other);
-	}
+    MutableSecuredRemoteResource(final Resource other) {
+        super(other);
+    }
 
-	/**
-	 * Returns true if the parameter changed
-	 *
-	 * @param kvp Key value pair map
-	 * @return true if URI changed, false otherwise
-	 */
-	public boolean setQueyParameters(final Map<String, String> kvp) {
-		final URI newUri = URI.create(UriUtils.setQueryParameters(uri.toString(),
-				kvp, false));
-		if (!newUri.equals(this.uri)) {
-			uri = newUri;
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Returns true if the parameter changed
+     *
+     * @param kvp
+     *            Key value pair map
+     * @return true if URI changed, false otherwise
+     */
+    public boolean setQueyParameters(final Map<String, String> kvp) {
+        final URI newUri = URI.create(UriUtils.setQueryParameters(uri.toString(),
+                kvp, false));
+        if (!newUri.equals(this.uri)) {
+            uri = newUri;
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public MutableSecuredRemoteResource createCopy() {
-		return new MutableSecuredRemoteResource(this);
-	}
+    @Override
+    public MutableSecuredRemoteResource createCopy() {
+        return new MutableSecuredRemoteResource(this);
+    }
 }

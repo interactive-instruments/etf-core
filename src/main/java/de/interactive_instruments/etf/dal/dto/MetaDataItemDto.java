@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,136 +29,120 @@ import de.interactive_instruments.etf.dal.dto.translation.LangTranslationTemplat
  */
 public abstract class MetaDataItemDto<T extends ModelItemDto> extends ModelItemDto<T> {
 
-	protected String label;
-	protected LangTranslationTemplateCollectionDto labelTranslationTemplate;
+    protected String label;
+    protected LangTranslationTemplateCollectionDto labelTranslationTemplate;
 
-	protected String description;
-	protected LangTranslationTemplateCollectionDto descriptionTranslationTemplate;
+    protected String description;
+    protected LangTranslationTemplateCollectionDto descriptionTranslationTemplate;
 
-	// protected Properties properties;
+    // protected Properties properties;
 
-	protected String reference;
+    protected String reference;
 
-	public MetaDataItemDto() {}
+    public MetaDataItemDto() {}
 
-	public MetaDataItemDto(final MetaDataItemDto other) {
-		super(other);
-		this.label = other.label;
-		this.labelTranslationTemplate = other.labelTranslationTemplate;
-		this.description = other.description;
-		this.descriptionTranslationTemplate = other.descriptionTranslationTemplate;
-		// this.properties = other.properties;
-		this.reference = other.reference;
-	}
+    public MetaDataItemDto(final MetaDataItemDto other) {
+        super(other);
+        this.label = other.label;
+        this.labelTranslationTemplate = other.labelTranslationTemplate;
+        this.description = other.description;
+        this.descriptionTranslationTemplate = other.descriptionTranslationTemplate;
+        // this.properties = other.properties;
+        this.reference = other.reference;
+    }
 
-	/**
-	 * Gets the value of the label property.
-	 *
-	 * @return
-	 *     possible object is
-	 *     {@link String }
-	 *
-	 */
-	public String getLabel() {
-		return label;
-	}
+    /**
+     * Gets the value of the label property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getLabel() {
+        return label;
+    }
 
-	/**
-	 * Sets the value of the label property.
-	 *
-	 * @param value
-	 *     allowed object is
-	 *     {@link String }
-	 *
-	 */
-	public void setLabel(String value) {
-		this.label = value;
-	}
+    /**
+     * Sets the value of the label property.
+     *
+     * @param value
+     *            allowed object is {@link String }
+     *
+     */
+    public void setLabel(String value) {
+        this.label = value;
+    }
 
-	/**
-	 * Gets the value of the description property.
-	 *
-	 * @return
-	 *     possible object is
-	 *     {@link String }
-	 *
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Gets the value of the description property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * Sets the value of the description property.
-	 *
-	 * @param value
-	 *     allowed object is
-	 *     {@link String }
-	 *
-	 */
-	public void setDescription(String value) {
-		this.description = value;
-	}
+    /**
+     * Sets the value of the description property.
+     *
+     * @param value
+     *            allowed object is {@link String }
+     *
+     */
+    public void setDescription(String value) {
+        this.description = value;
+    }
 
-	/**
-	 * Gets the value of the reference property.
-	 *
-	 * @return
-	 *     possible object is
-	 *     {@link String }
-	 *
-	 */
-	public String getReference() {
-		return reference;
-	}
+    /**
+     * Gets the value of the reference property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getReference() {
+        return reference;
+    }
 
-	/**
-	 * Sets the value of the reference property.
-	 *
-	 * @param value
-	 *     allowed object is
-	 *     {@link String }
-	 *
-	 */
-	public void setReference(String value) {
-		this.reference = value;
-	}
+    /**
+     * Sets the value of the reference property.
+     *
+     * @param value
+     *            allowed object is {@link String }
+     *
+     */
+    public void setReference(String value) {
+        this.reference = value;
+    }
 
-	/*
-	public Properties properties() {
-		if (properties == null) {
-			properties = new Properties();
-		}
-		return properties;
-	}
-	*/
+    /* public Properties properties() { if (properties == null) { properties = new Properties(); } return properties; } */
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("MetaDataItem{");
-		sb.append("id=").append(getId());
-		sb.append(", parent=").append(parent != null ? parent.getId() : null);
-		sb.append(", label=").append(label);
-		sb.append(", description=").append(description);
-		sb.append(", reference=").append(reference);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("MetaDataItem{");
+        sb.append("id=").append(getId());
+        sb.append(", parent=").append(parent != null ? parent.getId() : null);
+        sb.append(", label=").append(label);
+        sb.append(", description=").append(description);
+        sb.append(", reference=").append(reference);
+        sb.append('}');
+        return sb.toString();
+    }
 
-	@Override
-	public String getDescriptiveLabel() {
-		if (!SUtils.isNullOrEmpty(label)) {
-			final StringBuilder labelBuilder = new StringBuilder(128);
-			labelBuilder.append("'").append(label).append(" (EID: ").append(id).append(" )'");
-			return labelBuilder.toString();
-		} else {
-			return super.getDescriptiveLabel();
-		}
-	}
+    @Override
+    public String getDescriptiveLabel() {
+        if (!SUtils.isNullOrEmpty(label)) {
+            final StringBuilder labelBuilder = new StringBuilder(128);
+            labelBuilder.append("'").append(label).append(" (EID: ").append(id).append(" )'");
+            return labelBuilder.toString();
+        } else {
+            return super.getDescriptiveLabel();
+        }
+    }
 
-	public void ensureBasicValidity() throws IncompleteDtoException {
-		super.ensureBasicValidity();
-		if (SUtils.isNullOrEmpty(label) && labelTranslationTemplate == null) {
-			throw new IncompleteDtoException("Either property 'label' or 'labelTranslationTemplate' must be set!");
-		}
-	}
+    public void ensureBasicValidity() throws IncompleteDtoException {
+        super.ensureBasicValidity();
+        if (SUtils.isNullOrEmpty(label) && labelTranslationTemplate == null) {
+            throw new IncompleteDtoException("Either property 'label' or 'labelTranslationTemplate' must be set!");
+        }
+    }
 }

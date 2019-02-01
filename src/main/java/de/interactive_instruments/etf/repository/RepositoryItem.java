@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -32,56 +32,53 @@ import de.interactive_instruments.model.std.RetrievableItem;
  */
 public interface RepositoryItem extends RetrievableItem, Comparable, Versionable {
 
-	/**
-	 * The items last modified data.
-	 *
-	 * @return last modification as date
-	 */
-	Date getLastModifiedDate();
+    /**
+     * The items last modified data.
+     *
+     * @return last modification as date
+     */
+    Date getLastModifiedDate();
 
-	/**
-	 * Hash of the item in the repository.
-	 *
-	 * NOTE: if the hash is unknown, the implementor should generate the
-	 * hash on demand (and cache it).
-	 *
-	 * @return item hash as byte array
-	 */
-	byte[] getItemHash();
+    /**
+     * Hash of the item in the repository.
+     *
+     * NOTE: if the hash is unknown, the implementor should generate the hash on demand (and cache it).
+     *
+     * @return item hash as byte array
+     */
+    byte[] getItemHash();
 
-	/**
-	 * The URI of the item in the repository.
-	 *
-	 * @return item URI
-	 */
-	URI getUri();
+    /**
+     * The URI of the item in the repository.
+     *
+     * @return item URI
+     */
+    URI getUri();
 
-	/**
-	 * Compares this object with the specified RepositoryItem object for order by
-	 * comparing the Id, the version and the label.
-	 *
-	 * Returns a negative integer, zero, or a positive integer as this object is less
-	 * than, equal to, or greater than the specified object.
-	 *
-	 * @param item repository item to compare with.
-	 * @return  a negative integer, zero, or a positive integer as this object
-	 *          is less than, equal to, or greater than the specified object.
-	 */
-	@Override
-	default int compareTo(final Object item) {
-		final RepositoryItem rItem = (RepositoryItem) item;
-		final int rItemId = getId().compareTo(rItem.getId());
-		if (rItemId != 0) {
-			return rItemId;
-		}
-		final int rItemVersion = getVersion().compareTo(rItem.getVersion());
-		if (rItemVersion != 0) {
-			return rItemVersion;
-		}
-		final int rItemLabel = getLabel().compareTo(rItem.getLabel());
-		if (rItemLabel != 0) {
-			return rItemLabel;
-		}
-		return 0;
-	}
+    /**
+     * Compares this object with the specified RepositoryItem object for order by comparing the Id, the version and the label.
+     *
+     * Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     *
+     * @param item
+     *            repository item to compare with.
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     */
+    @Override
+    default int compareTo(final Object item) {
+        final RepositoryItem rItem = (RepositoryItem) item;
+        final int rItemId = getId().compareTo(rItem.getId());
+        if (rItemId != 0) {
+            return rItemId;
+        }
+        final int rItemVersion = getVersion().compareTo(rItem.getVersion());
+        if (rItemVersion != 0) {
+            return rItemVersion;
+        }
+        final int rItemLabel = getLabel().compareTo(rItem.getLabel());
+        if (rItemLabel != 0) {
+            return rItemLabel;
+        }
+        return 0;
+    }
 }

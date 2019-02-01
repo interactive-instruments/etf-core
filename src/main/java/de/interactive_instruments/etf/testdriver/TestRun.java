@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,8 +29,7 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
 /**
  * Test Run
  *
- * A Test Run bundles multiple Test Tasks (@see TestTask). A Test Run object can be started by
- * submitting it to the TaskPoolRegistry (see {@link TaskPoolRegistry#submitTask(Task)}).
+ * A Test Run bundles multiple Test Tasks (@see TestTask). A Test Run object can be started by submitting it to the TaskPoolRegistry (see {@link TaskPoolRegistry#submitTask(Task)}).
  *
  * <img src="TestRun.svg" alt="Class UML">
  *
@@ -38,13 +37,13 @@ import de.interactive_instruments.exceptions.config.ConfigurationException;
  */
 public interface TestRun extends Task<TestRunDto> {
 
-	String getLabel();
+    String getLabel();
 
-	List<TestTask> getTestTasks();
+    List<TestTask> getTestTasks();
 
-	void start() throws ConfigurationException, InvalidStateTransitionException, InitializationException, Exception;
+    void start() throws ConfigurationException, InvalidStateTransitionException, InitializationException, Exception;
 
-	void addTestRunEventListener(final TestRunEventListener testRunEventListener);
+    void addTestRunEventListener(final TestRunEventListener testRunEventListener);
 
-	TaskProgress getProgress();
+    TaskProgress getProgress();
 }

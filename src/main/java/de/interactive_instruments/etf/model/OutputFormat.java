@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -33,40 +33,44 @@ import de.interactive_instruments.properties.PropertyHolder;
  */
 public interface OutputFormat extends Comparable<OutputFormat>, Parameterizable {
 
-	/**
-	 * Identifier for the OutputFormat
-	 *
-	 * @return id of the output format
-	 */
-	EID getId();
+    /**
+     * Identifier for the OutputFormat
+     *
+     * @return id of the output format
+     */
+    EID getId();
 
-	/**
-	 * Name of the OutputFormat
-	 *
-	 * @return a label for the output format
-	 */
-	String getLabel();
+    /**
+     * Name of the OutputFormat
+     *
+     * @return a label for the output format
+     */
+    String getLabel();
 
-	/**
-	 * The media type that will be produced
-	 *
-	 * @return Media type
-	 */
-	MediaType getMediaTypeType();
+    /**
+     * The media type that will be produced
+     *
+     * @return Media type
+     */
+    MediaType getMediaTypeType();
 
-	/**
-	 *
-	 * @param arguments transformation arguments
-	 * @param inputStream the input stream to transform
-	 * @param outputStreamStream the target output stream
-	 * @throws IOException streaming failed
-	 */
-	void streamTo(final PropertyHolder arguments,
-			final InputStream inputStream,
-			final OutputStream outputStreamStream) throws IOException;
+    /**
+     *
+     * @param arguments
+     *            transformation arguments
+     * @param inputStream
+     *            the input stream to transform
+     * @param outputStreamStream
+     *            the target output stream
+     * @throws IOException
+     *             streaming failed
+     */
+    void streamTo(final PropertyHolder arguments,
+            final InputStream inputStream,
+            final OutputStream outputStreamStream) throws IOException;
 
-	@Override
-	default int compareTo(final OutputFormat o) {
-		return getId().compareTo(o.getId());
-	}
+    @Override
+    default int compareTo(final OutputFormat o) {
+        return getId().compareTo(o.getId());
+    }
 }

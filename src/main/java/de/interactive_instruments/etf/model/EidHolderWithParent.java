@@ -1,5 +1,5 @@
 /**
- * Copyright 2017-2018 European Union, interactive instruments GmbH
+ * Copyright 2017-2019 European Union, interactive instruments GmbH
  * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -29,25 +29,25 @@ import java.util.TreeSet;
  */
 public interface EidHolderWithParent<T extends EidHolderWithParent> extends ModelItemWithParent<T>, EidHolder {
 
-	/**
-	 * Return the ID of this tree node item and the IDs of all parent nodes
-	 *
-	 * @return set of EIDs
-	 */
-	default Set<EID> getIdAndParentIds() {
-		final Set<EID> ids = new TreeSet<>();
-		ids.add(Objects.requireNonNull(getId(), "EID is null"));
-		EidHolderWithParent<T> parent = getParent();
-		while (parent != null) {
-			ids.add(getId());
-			parent = parent.getParent();
-		}
-		return ids;
-	}
+    /**
+     * Return the ID of this tree node item and the IDs of all parent nodes
+     *
+     * @return set of EIDs
+     */
+    default Set<EID> getIdAndParentIds() {
+        final Set<EID> ids = new TreeSet<>();
+        ids.add(Objects.requireNonNull(getId(), "EID is null"));
+        EidHolderWithParent<T> parent = getParent();
+        while (parent != null) {
+            ids.add(getId());
+            parent = parent.getParent();
+        }
+        return ids;
+    }
 
-	static <T extends EidHolderWithParent> Set<EID> getAllIdsAndParentIds(final Collection<T> eidHolderTreeNodes) {
-		final Set<EID> ids = new TreeSet<>();
-		eidHolderTreeNodes.forEach(holder -> ids.addAll(holder.getIdAndParentIds()));
-		return ids;
-	}
+    static <T extends EidHolderWithParent> Set<EID> getAllIdsAndParentIds(final Collection<T> eidHolderTreeNodes) {
+        final Set<EID> ids = new TreeSet<>();
+        eidHolderTreeNodes.forEach(holder -> ids.addAll(holder.getIdAndParentIds()));
+        return ids;
+    }
 }
