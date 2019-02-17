@@ -19,8 +19,7 @@
  */
 package de.interactive_instruments.etf.dal.dto.capabilities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import de.interactive_instruments.etf.dal.dto.Dto;
 import de.interactive_instruments.etf.dal.dto.DtoValidityCheckUtils;
@@ -28,6 +27,7 @@ import de.interactive_instruments.etf.dal.dto.IncompleteDtoException;
 import de.interactive_instruments.etf.dal.dto.RepositoryItemDto;
 import de.interactive_instruments.etf.dal.dto.test.ExecutableTestSuiteDto;
 import de.interactive_instruments.etf.model.ParameterSet;
+import de.interactive_instruments.etf.model.capabilities.TestObjectType;
 import de.interactive_instruments.properties.Properties;
 
 /**
@@ -41,6 +41,7 @@ public class TestRunTemplateDto extends RepositoryItemDto {
     private List<TestObjectDto> testObjects;
     private ParameterSet parameters;
     private Properties properties;
+    private Set<TestObjectType> supportedTestObjectTypes;
 
     public TestRunTemplateDto() {}
 
@@ -79,9 +80,6 @@ public class TestRunTemplateDto extends RepositoryItemDto {
         if (this.testObjects == null) {
             this.testObjects = new ArrayList<>(1);
         }
-        if (this.testObjects.size() >= 1) {
-            throw new IllegalArgumentException("Not implemented yet");
-        }
         this.testObjects.add(testObjectDto);
     }
 
@@ -104,9 +102,77 @@ public class TestRunTemplateDto extends RepositoryItemDto {
         this.parameters = parameters;
     }
 
+    /**
+     * Get all supported Test Object Types that can be used with this template.
+     *
+     * If the
+     *
+     * @return
+     */
+    public Collection<TestObjectType> getSupportedTestObjectTypes() {
+        if (this.supportedTestObjectTypes == null) {
+            if (this.executableTestSuites != null) {
+                this.supportedTestObjectTypes = new LinkedHashSet<>();
+                for (final ExecutableTestSuiteDto ets : this.executableTestSuites) {
+                    if (ets.getSupportedTestObjectTypes() != null) {
+                        this.supportedTestObjectTypes.addAll(ets.getSupportedTestObjectTypes());
+                    }
+                }
+            }
+        }
+        return this.supportedTestObjectTypes;
+    }
+
+    /**
+     * Restrict the Test Object Types that can be used with this template.
+     *
+     * Note: The passed Test Object Types must be compatible with the Executable Test Suites and the Test Object
+     *
+     * @param supportedTestObjectTypes
+     *            collection of Test Object Types
+     * @throws IllegalArgumentException
+     *             if incompatible Test Object Types are used
+     */
+    public void setSupportedTestObjectTypes(final Collection<? extends TestObjectType> supportedTestObjectTypes) {
+        if (this.executableTestSuites != null) {
+            for (final TestObjectType to : supportedTestObjectTypes) {
+                for (final ExecutableTestSuiteDto ets : this.executableTestSuites) {
+                    if (!to.isInstanceOf(ets.getSupportedTestObjectTypes())) {
+                        throw new IllegalArgumentException("Test Object Type '"
+                                + to.getLabel() +
+                                "'  not supported by the Executable Test Suite '"
+                                + ets.getLabel() + "'");
+                    }
+                }
+            }
+        }
+        this.supportedTestObjectTypes = new LinkedHashSet<>(supportedTestObjectTypes);
+    }
+
     public void ensureBasicValidity() throws IncompleteDtoException {
         super.ensureBasicValidity();
-        DtoValidityCheckUtils.ensureNotNullOrEmpty("supportedTestObjectTypes", executableTestSuites);
+        DtoValidityCheckUtils.ensureNotNullOrEmpty("executableTestSuites", executableTestSuites);
+        DtoValidityCheckUtils.ensureNotNullOrEmpty("supportedTestObjectTypes", getSupportedTestObjectTypes());
+        for (final TestObjectType to : this.supportedTestObjectTypes) {
+            for (final ExecutableTestSuiteDto ets : this.executableTestSuites) {
+                if (!to.isInstanceOf(ets.getSupportedTestObjectTypes())) {
+                    throw new IllegalArgumentException("Test Object Type '"
+                            + to.getLabel() +
+                            "'  not supported by the Executable Test Suite '"
+                            + ets.getLabel() + "'");
+                }
+            }
+            if (this.testObjects != null) {
+                for (final TestObjectDto testObject : this.testObjects) {
+                    if (!to.isInstanceOf(testObject.getTestObjectTypes())) {
+                        throw new IllegalArgumentException("Test Object Type '"
+                                + to.getLabel() +
+                                "'  not supported by the specified Test Object '"
+                                + testObject.getLabel() + "'");
+                    }
+                }
+            }
+        }
     }
 
     @Override

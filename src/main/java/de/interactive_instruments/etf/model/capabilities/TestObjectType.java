@@ -85,7 +85,7 @@ public interface TestObjectType extends EidHolder, EidHolderWithParent<TestObjec
      *            list of Test Object Types
      * @return true if list contains the Test Object Type or the Test Object Type is a subtype of one of the types, false otherwise
      */
-    default boolean isInstanceOf(final Collection<TestObjectType> testObjectTypes) {
+    default boolean isInstanceOf(final Collection<? extends TestObjectType> testObjectTypes) {
         for (final TestObjectType testObjectType : testObjectTypes) {
             if (testObjectType.isInstanceOf(this)) {
                 return true;

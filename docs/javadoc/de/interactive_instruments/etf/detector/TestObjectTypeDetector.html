@@ -152,7 +152,7 @@ extends de.interactive_instruments.Initializable, de.interactive_instruments.Rel
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../de/interactive_instruments/etf/model/EidMap.html" title="interface in de.interactive_instruments.etf.model">EidMap</a>&lt;<a href="../../../../de/interactive_instruments/etf/dal/dto/capabilities/TestObjectTypeDto.html" title="class in de.interactive_instruments.etf.dal.dto.capabilities">TestObjectTypeDto</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../de/interactive_instruments/etf/detector/TestObjectTypeDetector.html#supportedTypes--">supportedTypes</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../de/interactive_instruments/etf/detector/TestObjectTypeDetector.html#supportedTestObjectTypes--">supportedTestObjectTypes</a></span>()</code>
 <div class="block">Get all types the TestObjectType detector can detect.</div>
 </td>
 </tr>
@@ -230,20 +230,20 @@ extends de.interactive_instruments.Initializable, de.interactive_instruments.Rel
 <li class="blockList">
 <h4>getPriority</h4>
 <pre>default&nbsp;int&nbsp;getPriority()</pre>
-<div class="block">If multiple TestObjectTypeDetectors are registered, detectors with a higher priority are used first for detection. If two TestObjectTypeDetectors are attempting to register Test Object Types with the same EID (means it returns the types via <a href="../../../../de/interactive_instruments/etf/detector/TestObjectTypeDetector.html#supportedTypes--"><code>supportedTypes()</code></a>), the TestObjectTypeDetector with the higher priority will win.</div>
+<div class="block">If multiple TestObjectTypeDetectors are registered, detectors with a higher priority are used first for detection. If two TestObjectTypeDetectors are attempting to register Test Object Types with the same EID (means it returns the types via <a href="../../../../de/interactive_instruments/etf/detector/TestObjectTypeDetector.html#supportedTestObjectTypes--"><code>supportedTestObjectTypes()</code></a>), the TestObjectTypeDetector with the higher priority will win.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>priority</dd>
 </dl>
 </li>
 </ul>
-<a name="supportedTypes--">
+<a name="supportedTestObjectTypes--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>supportedTypes</h4>
-<pre><a href="../../../../de/interactive_instruments/etf/model/EidMap.html" title="interface in de.interactive_instruments.etf.model">EidMap</a>&lt;<a href="../../../../de/interactive_instruments/etf/dal/dto/capabilities/TestObjectTypeDto.html" title="class in de.interactive_instruments.etf.dal.dto.capabilities">TestObjectTypeDto</a>&gt;&nbsp;supportedTypes()</pre>
+<h4>supportedTestObjectTypes</h4>
+<pre><a href="../../../../de/interactive_instruments/etf/model/EidMap.html" title="interface in de.interactive_instruments.etf.model">EidMap</a>&lt;<a href="../../../../de/interactive_instruments/etf/dal/dto/capabilities/TestObjectTypeDto.html" title="class in de.interactive_instruments.etf.dal.dto.capabilities">TestObjectTypeDto</a>&gt;&nbsp;supportedTestObjectTypes()</pre>
 <div class="block">Get all types the TestObjectType detector can detect. This will register all supported types in the TestObjectTypeDetectorManager.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>

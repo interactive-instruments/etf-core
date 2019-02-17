@@ -23,7 +23,7 @@
             +getPriority(): int
             +compareTo(TestObjectTypeDetector): int
             {abstract} +detectType(Resource, Set<EID>): DetectedTestObjectType
-            {abstract} +supportedTypes(): EidMap<TestObjectTypeDto>
+            {abstract} +supportedTestObjectTypes(): EidMap<TestObjectTypeDto>
         }
 
         interface DetectedTestObjectType [[DetectedTestObjectType.html]] {
