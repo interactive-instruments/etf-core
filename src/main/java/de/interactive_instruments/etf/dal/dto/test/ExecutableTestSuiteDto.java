@@ -59,7 +59,7 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
         this.consumableResultTestObjectTypes = other.consumableResultTestObjectTypes;
         this.parameterizedTestCases = other.parameterizedTestCases;
         this.testModules = other.testModules.createCopy();
-        this.parameters = other.parameters;
+        this.parameters = other.getParameters();
     }
 
     public ComponentDto getTestDriver() {
@@ -129,6 +129,34 @@ public class ExecutableTestSuiteDto extends RepositoryItemDto
     }
 
     public ParameterSet getParameters() {
+        if (parameters.getParameter("TestsToExecute") == null) {
+            parameters.addParameter(new ParameterSet.MutableParameter()
+                    .setName("TestCasesToExecute")
+                    .setType("choice")
+                    .setDefaultValue("*")
+                    .setRequired(false));
+            parameters.addParameter(new ParameterSet.MutableParameter()
+                    .setName("TestCasesToIgnore")
+                    .setType("choice")
+                    .setDefaultValue("$^")
+                    .setRequired(false));
+            parameters.addParameter(new ParameterSet.MutableParameter()
+                    .setName("AssertionsToExecute")
+                    .setType("choice")
+                    .setDefaultValue("*")
+                    .setRequired(false));
+            parameters.addParameter(new ParameterSet.MutableParameter()
+                    .setName("AssertionsToIgnore")
+                    .setType("choice")
+                    .setDefaultValue("$^")
+                    .setRequired(false));
+            parameters.addParameter(new ParameterSet.MutableParameter()
+                    .setName("maxErrors")
+                    .setType("int")
+                    .setDefaultValue("-1")
+                    .setAllowedValues("(-1|[1-9]\\d*)$")
+                    .setRequired(false));
+        }
         return parameters;
     }
 

@@ -21,75 +21,33 @@ package de.interactive_instruments.etf.model;
 
 import java.util.*;
 
+import de.interactive_instruments.SUtils;
+
 /**
  * @author Jon Herrmann ( herrmann aT interactive-instruments doT de )
  */
-public class ParameterSet implements Parameterizable {
+public final class ParameterSet implements Parameterizable {
 
     private String typeName;
-    private Map<String, Parameter> parameters = new LinkedHashMap<>();
+    private Map<String, Parameter> parameters;
 
-    public ParameterSet() {}
+    public static class ImmutableParameter implements Parameterizable.Parameter {
+        private final String name;
+        private final String defaultValue;
+        private final String description;
+        private final String allowedValues;
+        private final String type;
+        private final boolean required;
+        private final Set<String> excludingParameters;
 
-    public ParameterSet(final ParameterSet other) {
-        this.typeName = other.typeName;
-        this.parameters = other.parameters;
-    }
-
-    public static class MutableParameter implements Parameterizable.Parameter {
-        private String name;
-        private String defaultValue;
-        private String description;
-        private String allowedValues;
-        private String type;
-        private boolean required;
-        private Set<String> excludingParameter;
-
-        public MutableParameter() {
-
-        }
-
-        public MutableParameter(final Parameter other) {
+        private ImmutableParameter(final MutableParameter other) {
             this.name = other.getName();
             this.defaultValue = other.getDefaultValue();
             this.description = other.getDescription();
             this.allowedValues = other.getAllowedValues();
             this.type = other.getType();
             this.required = other.isRequired();
-            this.excludingParameter = other.getExcludingParameter();
-        }
-
-        public MutableParameter(final String name, final String defaultValue) {
-            this.name = name;
-            this.defaultValue = defaultValue;
-        }
-
-        public void setName(final String name) {
-            this.name = name;
-        }
-
-        public void setDefaultValue(final String defaultValue) {
-            this.defaultValue = defaultValue;
-        }
-
-        public void setDescription(final String description) {
-            this.description = description;
-        }
-
-        public void setAllowedValues(final String allowedValues) {
-            this.allowedValues = allowedValues;
-        }
-
-        public void setType(final String type) {
-            this.type = type;
-        }
-
-        public void setRequired(final boolean required) {
-            this.required = required;
-        }
-
-        public void setExcludingParameter(final Set<String> excludingParameter) {
-            this.excludingParameter = excludingParameter;
+            this.excludingParameters = other.getExcludingParameters();
         }
 
         @Override
@@ -123,9 +81,142 @@ public class ParameterSet implements Parameterizable {
         }
 
         @Override
-        public Set<String> getExcludingParameter() {
-            return excludingParameter;
+        public boolean isStatic() {
+            return true;
         }
+
+        @Override
+        public Set<String> getExcludingParameters() {
+            return excludingParameters;
+        }
+    }
+
+    public static class MutableParameter implements Parameterizable.Parameter {
+        private String name;
+        private String defaultValue;
+        private String description;
+        private String allowedValues;
+        private String type;
+        private boolean required;
+        private boolean immutable;
+        private String excludingParameters;
+
+        public MutableParameter() {}
+
+        public MutableParameter(final MutableParameter other) {
+            this.name = other.name;
+            this.defaultValue = other.defaultValue;
+            this.description = other.description;
+            this.allowedValues = other.allowedValues;
+            this.type = other.type;
+            this.required = other.required;
+            this.excludingParameters = other.excludingParameters;
+        }
+
+        public MutableParameter(final String name, final String defaultValue) {
+            this.name = name;
+            this.defaultValue = defaultValue;
+        }
+
+        public MutableParameter setName(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public MutableParameter setDefaultValue(final String defaultValue) {
+            this.defaultValue = defaultValue;
+            return this;
+        }
+
+        public MutableParameter setDescription(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MutableParameter setAllowedValues(final String allowedValues) {
+            this.allowedValues = allowedValues;
+            return this;
+        }
+
+        public MutableParameter setType(final String type) {
+            this.type = type;
+            return this;
+        }
+
+        public MutableParameter setRequired(final boolean required) {
+            this.required = required;
+            return this;
+        }
+
+        public Parameterizable.Parameter setStatic(final boolean immutable) {
+            this.immutable = immutable;
+            return immutable ? this.toImmutable() : this;
+        }
+
+        public MutableParameter setExcludingParameters(final String excludingParameters) {
+            this.excludingParameters = excludingParameters;
+            return this;
+        }
+
+        public MutableParameter setExcludingParameters(final Collection<String> excludingParameters) {
+            this.excludingParameters = excludingParameters != null ? SUtils.concatStr(",", excludingParameters) : null;
+            return this;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String getDefaultValue() {
+            return defaultValue;
+        }
+
+        @Override
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public String getAllowedValues() {
+            return allowedValues;
+        }
+
+        @Override
+        public String getType() {
+            return type;
+        }
+
+        @Override
+        public boolean isRequired() {
+            return required;
+        }
+
+        @Override
+        public boolean isStatic() {
+            return immutable;
+        }
+
+        @Override
+        public Set<String> getExcludingParameters() {
+            return excludingParameters!=null ? new HashSet<>(Arrays.asList(excludingParameters.split(","))) : null;
+        }
+
+        public String getExcludingParametersAsStr() {
+            return excludingParameters;
+        }
+
+        public ImmutableParameter toImmutable() {
+            return new ImmutableParameter(this);
+        }
+    }
+
+    public ParameterSet() {}
+
+    public ParameterSet(final ParameterSet other) {
+        this.typeName = other.typeName;
+        this.parameters = other.parameters;
     }
 
     public Collection<String[]> asNameDefaultValuePairs() {
@@ -154,7 +245,7 @@ public class ParameterSet implements Parameterizable {
 
     public void addParameter(final Parameter parameter) {
         if (parameters == null) {
-            parameters = new HashMap<>();
+            parameters = new LinkedHashMap<>();
         }
         parameters.put(parameter.getName(), parameter);
     }
