@@ -41,7 +41,9 @@ public interface Parameterizable {
 
         boolean isRequired();
 
-        Set<String> getExcludingParameter();
+        boolean isStatic();
+
+        Set<String> getExcludingParameters();
     }
 
     String getParamTypeName();
