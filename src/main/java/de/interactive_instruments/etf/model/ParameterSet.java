@@ -113,6 +113,16 @@ public final class ParameterSet implements Parameterizable {
             this.excludingParameters = other.excludingParameters;
         }
 
+        public MutableParameter(final Parameter other) {
+            this.name = other.getName();
+            this.defaultValue = other.getDefaultValue();
+            this.description = other.getDescription();
+            this.allowedValues = other.getAllowedValues();
+            this.type = other.getType();
+            this.required = other.isRequired();
+            setExcludingParameters(other.getExcludingParameters());
+        }
+
         public MutableParameter(final String name, final String defaultValue) {
             this.name = name;
             this.defaultValue = defaultValue;
@@ -200,7 +210,7 @@ public final class ParameterSet implements Parameterizable {
 
         @Override
         public Set<String> getExcludingParameters() {
-            return excludingParameters!=null ? new HashSet<>(Arrays.asList(excludingParameters.split(","))) : null;
+            return excludingParameters != null ? new HashSet<>(Arrays.asList(excludingParameters.split(","))) : null;
         }
 
         public String getExcludingParametersAsStr() {
