@@ -222,7 +222,9 @@ public final class ParameterSet implements Parameterizable {
         }
     }
 
-    public ParameterSet() {}
+    public ParameterSet() {
+        this.parameters = new LinkedHashMap<>();
+    }
 
     public ParameterSet(final ParameterSet other) {
         this.typeName = other.typeName;
@@ -254,9 +256,6 @@ public final class ParameterSet implements Parameterizable {
     }
 
     public void addParameter(final Parameter parameter) {
-        if (parameters == null) {
-            parameters = new LinkedHashMap<>();
-        }
         parameters.put(parameter.getName(), parameter);
     }
 
