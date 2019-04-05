@@ -64,7 +64,7 @@ public interface TestObjectTypeDetector extends Initializable, Releasable, Compa
     }
 
     /**
-     * If multiple TestObjectTypeDetectors are registered, detectors with a higher priority are used first for detection. If two TestObjectTypeDetectors are attempting to register Test Object Types with the same EID (means it returns the types via {@link #supportedTypes()}), the TestObjectTypeDetector with the higher priority will win.
+     * If multiple TestObjectTypeDetectors are registered, detectors with a higher priority (lower value) are used first for detection. If two TestObjectTypeDetectors are attempting to register Test Object Types with the same EID (means it returns the types via {@link #supportedTypes()}), the TestObjectTypeDetector with the higher priority will win.
      *
      * @return priority
      */
