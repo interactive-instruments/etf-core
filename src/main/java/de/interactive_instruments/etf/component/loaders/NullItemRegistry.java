@@ -44,16 +44,24 @@ public final class NullItemRegistry implements ItemRegistry {
     }
 
     @Override
-    public void register(final Collection<? extends Dto> items) {}
+    public void register(final Collection<? extends Dto> items) {
+        // null object pattern
+    }
 
     @Override
-    public void deregister(final Collection<? extends EidHolder> items) {}
+    public void deregister(final Collection<? extends EidHolder> items) {
+        // null object pattern
+    }
 
     @Override
-    public void deregisterCallback(final DependencyChangeListener listener) {}
+    public void deregisterCallback(final DependencyChangeListener listener) {
+        // null object pattern
+    }
 
     @Override
-    public void update(final Collection<? extends Dto> items) {}
+    public void update(final Collection<? extends Dto> items) {
+        // null object pattern
+    }
 
     @Override
     public EidHolderMap<? extends Dto> lookupDependency(final Collection<EID> dependencies,

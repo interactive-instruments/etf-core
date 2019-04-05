@@ -39,11 +39,11 @@ public final class NullItemFileObserverRegistry implements ItemFileObserverRegis
 
     @Override
     public void register(final Path path, final List<? extends ItemFileLoaderFactory> factories) {
-
+        // null object pattern
     }
 
     @Override
     public void deregister(final List<? extends ItemFileLoaderFactory> factories) {
-
+        // null object pattern
     }
 }
