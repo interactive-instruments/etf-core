@@ -110,13 +110,11 @@ public class TestRunTemplateDto extends RepositoryItemDto {
      * @return
      */
     public Collection<TestObjectType> getSupportedTestObjectTypes() {
-        if (this.supportedTestObjectTypes == null) {
-            if (this.executableTestSuites != null) {
-                this.supportedTestObjectTypes = new LinkedHashSet<>();
-                for (final ExecutableTestSuiteDto ets : this.executableTestSuites) {
-                    if (ets.getSupportedTestObjectTypes() != null) {
-                        this.supportedTestObjectTypes.addAll(ets.getSupportedTestObjectTypes());
-                    }
+        if (this.supportedTestObjectTypes == null && this.executableTestSuites != null) {
+            this.supportedTestObjectTypes = new LinkedHashSet<>();
+            for (final ExecutableTestSuiteDto ets : this.executableTestSuites) {
+                if (ets.getSupportedTestObjectTypes() != null) {
+                    this.supportedTestObjectTypes.addAll(ets.getSupportedTestObjectTypes());
                 }
             }
         }
